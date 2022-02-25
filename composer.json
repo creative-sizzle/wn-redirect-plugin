@@ -31,8 +31,14 @@
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.23",
+        "friendsofphp/php-cs-fixer": "^3.4",
         "symfony/stopwatch": "^5.4 || ^6.0"
     },
+    "replace": {
+        "vdlp/oc-redirect-plugin": "<4.0.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "archive": {
         "exclude": [
             ".gitattributes",
@@ -48,5 +54,11 @@
             "ergebnis/composer-normalize": true
         },
         "sort-packages": true
+    },
+    "extra": {
+        "installer-name": "redirect"
+    },
+    "scripts": {
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     }
 }

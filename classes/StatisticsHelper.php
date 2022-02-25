@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Classes;
 
 use Carbon\Carbon;
+use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
+use CreativeSizzle\Redirect\Models;
 use Illuminate\Support\Facades\DB;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Winter\Storm\Database\Collection;
-use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
-use CreativeSizzle\Redirect\Models;
 
 final class StatisticsHelper
 {

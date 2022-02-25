@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes\Testers;
 
-use InvalidArgumentException;
 use CreativeSizzle\Redirect\Classes\TesterBase;
 use CreativeSizzle\Redirect\Classes\TesterResult;
+use InvalidArgumentException;
 
 final class RedirectLoop extends TesterBase
 {

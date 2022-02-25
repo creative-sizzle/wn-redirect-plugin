@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 use Backend\Facades\BackendAuth;
 use Backend\Models\BrandSetting;
+use CreativeSizzle\Redirect\Classes\Sparkline;
+use CreativeSizzle\Redirect\Classes\StatisticsHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use CreativeSizzle\Redirect\Classes\Sparkline;
-use CreativeSizzle\Redirect\Classes\StatisticsHelper;
 
 Route::group(['middleware' => ['web']], static function () {
     Route::get('creativesizzle/redirect/sparkline/{redirectId}', static function ($redirectId) {
-        if (!BackendAuth::check()) {
+        if (! BackendAuth::check()) {
             return response('Forbidden', 403);
         }
 

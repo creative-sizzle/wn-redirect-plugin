@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'plugin' => [
         'name' => 'Redirects',
         'description' => 'Eenvoudig beheren van redirects',

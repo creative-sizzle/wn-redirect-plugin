@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Classes;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Cache\Repository;
-use Psr\Log\LoggerInterface;
-use Throwable;
 use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
 use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
 use CreativeSizzle\Redirect\Models\Settings;
+use Illuminate\Contracts\Cache\Repository;
+use Psr\Log\LoggerInterface;
+use Throwable;
 
 final class CacheManager implements CacheManagerInterface
 {
@@ -70,7 +70,7 @@ final class CacheManager implements CacheManagerInterface
 
     public function getRedirectRules(): array
     {
-        if (!$this->cache->tags(self::CACHE_TAG_RULES)->has('rules')) {
+        if (! $this->cache->tags(self::CACHE_TAG_RULES)->has('rules')) {
             $publishManager = resolve(PublishManagerInterface::class);
             $publishManager->publish();
         }
@@ -111,7 +111,7 @@ final class CacheManager implements CacheManagerInterface
 
     public function cachingEnabledAndSupported(): bool
     {
-        if (!Settings::isCachingEnabled()) {
+        if (! Settings::isCachingEnabled()) {
             return false;
         }
 
@@ -126,7 +126,7 @@ final class CacheManager implements CacheManagerInterface
 
     public function cachingEnabledButNotSupported(): bool
     {
-        if (!Settings::isCachingEnabled()) {
+        if (! Settings::isCachingEnabled()) {
             return false;
         }
 

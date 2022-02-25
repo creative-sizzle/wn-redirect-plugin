@@ -9,9 +9,9 @@ use Backend\Models\BrandSetting;
 use BackendMenu;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
+use CreativeSizzle\Redirect\Classes\StatisticsHelper;
 use JsonException;
 use SystemException;
-use CreativeSizzle\Redirect\Classes\StatisticsHelper;
 
 /**
  * @property string $pageTitle
@@ -146,7 +146,7 @@ final class Statistics extends Controller
         $data = $this->helper->getRedirectHitsPerDay($month, $year, $crawler);
 
         for ($i = $today->firstOfMonth()->day; $i <= $today->lastOfMonth()->day; $i++) {
-            if (!array_key_exists($i, $data)) {
+            if (! array_key_exists($i, $data)) {
                 $data[$i] = ['hits' => 0];
             }
         }

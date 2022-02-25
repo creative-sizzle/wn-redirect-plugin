@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Models;
 
 use Backend\Models\ImportModel;
-use Throwable;
 use CreativeSizzle\Redirect\Classes\PublishManager;
+use Throwable;
 
 final class RedirectImport extends ImportModel
 {

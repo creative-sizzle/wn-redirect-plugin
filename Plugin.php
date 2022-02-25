@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect;
 
 use Backend\Facades\Backend;
+use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
+use CreativeSizzle\Redirect\Classes\Observers;
+use CreativeSizzle\Redirect\Classes\RedirectMiddleware;
+use CreativeSizzle\Redirect\Console\PublishRedirectsCommand;
 use Event;
 use Exception;
 use Illuminate\Contracts\Translation\Translator;
 use System\Classes\PluginBase;
 use Throwable;
 use Validator;
-use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
-use CreativeSizzle\Redirect\Classes\Observers;
-use CreativeSizzle\Redirect\Classes\RedirectMiddleware;
-use CreativeSizzle\Redirect\Console\PublishRedirectsCommand;
-use CreativeSizzle\Redirect\Models;
-use CreativeSizzle\Redirect\ReportWidgets;
 
 final class Plugin extends PluginBase
 {
@@ -32,7 +30,7 @@ final class Plugin extends PluginBase
         $this->registerCustomValidators();
         $this->registerObservers();
 
-        if (!$this->app->runningInBackend()) {
+        if (! $this->app->runningInBackend()) {
             $this->app['Illuminate\Contracts\Http\Kernel']
                 ->prependMiddleware(RedirectMiddleware::class);
         }

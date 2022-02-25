@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Models;
 
 use Carbon\Carbon;
+use CreativeSizzle\Redirect\Classes\OptionHelper;
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
 use Illuminate\Validation\Validator;
+use System\Models\RequestLog;
 use Winter\Storm\Database\Builder;
 use Winter\Storm\Database\Model;
 use Winter\Storm\Database\Relations\HasMany;
 use Winter\Storm\Database\Traits\Sortable;
 use Winter\Storm\Database\Traits\Validation;
-use System\Models\RequestLog;
-use CreativeSizzle\Redirect\Classes\OptionHelper;
 
 /**
  * @method static Redirect|Builder enabled()
@@ -334,21 +334,25 @@ final class Redirect extends Model
                 $this->setAttribute('cms_page', null);
                 $this->setAttribute('static_page', null);
                 $this->setAttribute('to_scheme', self::SCHEME_AUTO);
+
                 break;
 
             case self::TARGET_TYPE_PATH_URL:
                 $this->setAttribute('cms_page', null);
                 $this->setAttribute('static_page', null);
+
                 break;
 
             case self::TARGET_TYPE_CMS_PAGE:
                 $this->setAttribute('to_url', null);
                 $this->setAttribute('static_page', null);
+
                 break;
 
             case self::TARGET_TYPE_STATIC_PAGE:
                 $this->setAttribute('to_url', null);
                 $this->setAttribute('cms_page', null);
+
                 break;
 
         }

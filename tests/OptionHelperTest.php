@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Tests;
 
-use PHPUnit_Framework_Exception;
-use PluginTestCase;
 use CreativeSizzle\Redirect\Classes\OptionHelper;
 use CreativeSizzle\Redirect\Models\Redirect;
+use PHPUnit_Framework_Exception;
+use PluginTestCase;
 
 class OptionHelperTest extends PluginTestCase
 {

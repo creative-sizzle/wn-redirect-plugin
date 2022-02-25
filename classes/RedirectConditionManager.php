@@ -20,7 +20,7 @@ final class RedirectConditionManager
     {
         $enabledConditions = [];
 
-        if (!class_exists(\CreativeSizzle\RedirectConditions\Models\ConditionParameter::class)) {
+        if (! class_exists(\CreativeSizzle\RedirectConditions\Models\ConditionParameter::class)) {
             return $enabledConditions;
         }
 
@@ -45,7 +45,7 @@ final class RedirectConditionManager
             /** @var RedirectConditionInterface $condition */
             $condition = resolve($condition);
 
-            if (!in_array($condition->getCode(), $conditionCodes, true)) {
+            if (! in_array($condition->getCode(), $conditionCodes, true)) {
                 continue;
             }
 

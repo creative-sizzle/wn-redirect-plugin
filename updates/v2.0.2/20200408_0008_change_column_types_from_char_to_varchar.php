@@ -31,7 +31,7 @@ class ChangeColumnTypesFromCharToVarChar extends Migration
                 'ALTER TABLE vdlp_redirect_redirects',
                 "ALTER COLUMN target_type SET DEFAULT 'path_or_url',",
                 "ALTER COLUMN from_scheme SET DEFAULT 'auto',",
-                "ALTER COLUMN to_scheme SET DEFAULT 'auto';"
+                "ALTER COLUMN to_scheme SET DEFAULT 'auto';",
             ]));
 
             $database->statement(implode(' ', [

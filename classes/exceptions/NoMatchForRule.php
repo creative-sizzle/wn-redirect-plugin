@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes\Exceptions;
 
-use RuntimeException;
 use CreativeSizzle\Redirect\Classes\RedirectRule;
+use RuntimeException;
 
 final class NoMatchForRule extends RuntimeException
 {

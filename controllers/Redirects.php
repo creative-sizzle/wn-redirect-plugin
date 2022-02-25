@@ -11,19 +11,6 @@ use Backend\Facades\Backend;
 use Backend\Facades\BackendMenu;
 use Backend\Widgets\Form;
 use Carbon\Carbon;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Winter\Storm\Database\Builder;
-use Winter\Storm\Database\Model;
-use Winter\Storm\Exception\ApplicationException;
-use Winter\Storm\Exception\SystemException;
-use Winter\Storm\Flash\FlashBag;
-use System\Models\RequestLog;
-use Throwable;
 use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
 use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
 use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
@@ -33,6 +20,19 @@ use CreativeSizzle\Redirect\Classes\RedirectManager;
 use CreativeSizzle\Redirect\Classes\RedirectRule;
 use CreativeSizzle\Redirect\Classes\StatisticsHelper;
 use CreativeSizzle\Redirect\Models;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use System\Models\RequestLog;
+use Throwable;
+use Winter\Storm\Database\Builder;
+use Winter\Storm\Database\Model;
+use Winter\Storm\Exception\ApplicationException;
+use Winter\Storm\Exception\SystemException;
+use Winter\Storm\Flash\FlashBag;
 
 /**
  * @mixin Behaviors\FormController
@@ -119,7 +119,7 @@ final class Redirects extends Controller
 
         /** @noinspection ClassConstantCanBeUsedInspection */
         if ($redirect->getAttribute('target_type') === Models\Redirect::TARGET_TYPE_STATIC_PAGE
-            && !class_exists('\RainLab\Pages\Classes\Page')
+            && ! class_exists('\RainLab\Pages\Classes\Page')
         ) {
             $this->flash->error(
                 $this->translator->trans('creativesizzle.redirect::lang.flash.static_page_redirect_not_supported')
@@ -128,7 +128,7 @@ final class Redirects extends Controller
             return redirect()->back();
         }
 
-        if (!$redirect->isActiveOnDate(Carbon::now())) {
+        if (! $redirect->isActiveOnDate(Carbon::now())) {
             $this->vars['warningMessage'] = $this->translator->trans(
                 'creativesizzle.redirect::lang.scheduling.not_active_warning'
             );
@@ -164,7 +164,7 @@ final class Redirects extends Controller
         Models\Redirect::destroy($redirectIds);
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -179,7 +179,7 @@ final class Redirects extends Controller
             ->update(['is_enabled' => 1]);
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -194,7 +194,7 @@ final class Redirects extends Controller
             ->update(['is_enabled' => 0]);
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -214,7 +214,7 @@ final class Redirects extends Controller
             ->delete();
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -249,7 +249,7 @@ final class Redirects extends Controller
         $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.statistics_reset_success'));
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -275,7 +275,7 @@ final class Redirects extends Controller
         $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.disabled_all_redirects_success'));
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -291,7 +291,7 @@ final class Redirects extends Controller
         $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.deleted_all_redirects_success'));
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($redirectIds)
+            'redirectIds' => Arr::wrap($redirectIds),
         ]);
 
         return $this->listRefresh();
@@ -330,7 +330,7 @@ final class Redirects extends Controller
             $field->disabled = $host->model->getAttribute('system');
         }
 
-        if (!Models\Settings::isTestLabEnabled()) {
+        if (! Models\Settings::isTestLabEnabled()) {
             $host->removeTab('creativesizzle.redirect::lang.tab.tab_test_lab');
         }
 
@@ -348,6 +348,7 @@ final class Redirects extends Controller
             $host->getField('static_page')->hidden = true;
             $host->getField('cms_page')->hidden = true;
             $host->getField('to_scheme')->hidden = true;
+
             return;
         }
 
@@ -356,16 +357,19 @@ final class Redirects extends Controller
                 $host->getField('to_url')->hidden = true;
                 $host->getField('static_page')->hidden = true;
                 $host->getField('cms_page')->hidden = false;
+
                 break;
             case Models\Redirect::TARGET_TYPE_STATIC_PAGE:
                 $host->getField('to_url')->hidden = true;
                 $host->getField('static_page')->hidden = false;
                 $host->getField('cms_page')->hidden = true;
+
                 break;
             default:
                 $host->getField('to_url')->hidden = false;
                 $host->getField('static_page')->hidden = true;
                 $host->getField('cms_page')->hidden = true;
+
                 break;
         }
     }
@@ -373,7 +377,7 @@ final class Redirects extends Controller
     public function listInjectRowClass(Model $record): string
     {
         if ($record instanceof Models\Redirect
-            && !$record->isActiveOnDate(Carbon::now())
+            && ! $record->isActiveOnDate(Carbon::now())
         ) {
             return 'special';
         }
@@ -449,7 +453,7 @@ final class Redirects extends Controller
             ]);
 
             $requestLog->update([
-                'vdlp_redirect_redirect_id' => $redirect->getKey()
+                'vdlp_redirect_redirect_id' => $redirect->getKey(),
             ]);
 
             $redirectsCreated++;

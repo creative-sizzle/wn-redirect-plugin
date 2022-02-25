@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes;
 
-use InvalidArgumentException;
-use Symfony\Component\Stopwatch\Stopwatch;
 use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
 use CreativeSizzle\Redirect\Classes\Contracts\TesterInterface;
 use CreativeSizzle\Redirect\Models\Settings;
+use InvalidArgumentException;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 abstract class TesterBase implements TesterInterface
 {
@@ -63,7 +63,7 @@ abstract class TesterBase implements TesterInterface
      */
     protected function setDefaultCurlOptions($curlHandle): void
     {
-        if (!is_resource($curlHandle)) {
+        if (! is_resource($curlHandle)) {
             throw new InvalidArgumentException('Argument must be a valid resource type.');
         }
 
@@ -94,6 +94,7 @@ abstract class TesterBase implements TesterInterface
     {
         /** @var RedirectManagerInterface $manager */
         $manager = resolve(RedirectManagerInterface::class);
+
         return $manager->setSettings(new RedirectManagerSettings(
             false,
             false,

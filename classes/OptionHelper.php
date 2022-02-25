@@ -6,9 +6,9 @@ namespace CreativeSizzle\Redirect\Classes;
 
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
-use System\Classes\PluginManager;
 use CreativeSizzle\Redirect\Models\Category;
 use CreativeSizzle\Redirect\Models\Redirect;
+use System\Classes\PluginManager;
 
 final class OptionHelper
 {
@@ -38,7 +38,7 @@ final class OptionHelper
 
         $hasPagesPlugin = PluginManager::instance()->hasPlugin('RainLab.Pages');
 
-        if (!$hasPagesPlugin) {
+        if (! $hasPagesPlugin) {
             return $options;
         }
 

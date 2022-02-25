@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes\Testers;
 
-use InvalidArgumentException;
-use Request;
 use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
 use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
 use CreativeSizzle\Redirect\Classes\TesterBase;
 use CreativeSizzle\Redirect\Classes\TesterResult;
 use CreativeSizzle\Redirect\Models\Redirect;
+use InvalidArgumentException;
+use Request;
 
 /**
  * Tester for checking if the response HTTP code is equal to the matched redirect.
@@ -59,7 +59,7 @@ final class ResponseCode extends TesterBase
         if ($match && $match->getStatusCode() !== $statusCode) {
             $message = e(trans('creativesizzle.redirect::lang.test_lab.matched_not_http_code', [
                 'expected' => $match->getStatusCode(),
-                'received' => $statusCode
+                'received' => $statusCode,
             ]));
 
             return new TesterResult(false, $message);
@@ -74,7 +74,7 @@ final class ResponseCode extends TesterBase
         }
 
         // Should be a 301, 302, 303, 404, 410, ...
-        if (!array_key_exists($statusCode, Redirect::$statusCodes)) {
+        if (! array_key_exists($statusCode, Redirect::$statusCodes)) {
             return new TesterResult(
                 false,
                 e(trans('creativesizzle.redirect::lang.test_lab.response_http_code_should_be'))

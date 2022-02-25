@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes\Observers;
 
+use CreativeSizzle\Redirect\Classes\Observers\Traits\CanBeDisabled;
+use CreativeSizzle\Redirect\Models;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
-use CreativeSizzle\Redirect\Classes\Observers\Traits\CanBeDisabled;
-use CreativeSizzle\Redirect\Models;
 
 final class RedirectObserver
 {
@@ -38,14 +38,14 @@ final class RedirectObserver
      */
     public function created(Models\Redirect $model): void
     {
-        if (!self::canHandleChanges()) {
+        if (! self::canHandleChanges()) {
             return;
         }
 
         $this->logChange($model, 'created');
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($model->getKey())
+            'redirectIds' => Arr::wrap($model->getKey()),
         ]);
     }
 
@@ -55,14 +55,14 @@ final class RedirectObserver
      */
     public function updated(Models\Redirect $model): void
     {
-        if (!self::canHandleChanges()) {
+        if (! self::canHandleChanges()) {
             return;
         }
 
         $this->logChange($model, 'updated');
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($model->getKey())
+            'redirectIds' => Arr::wrap($model->getKey()),
         ]);
     }
 
@@ -72,14 +72,14 @@ final class RedirectObserver
      */
     public function deleted(Models\Redirect $model): void
     {
-        if (!self::canHandleChanges()) {
+        if (! self::canHandleChanges()) {
             return;
         }
 
         $this->logChange($model, 'deleted');
 
         $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
-            'redirectIds' => Arr::wrap($model->getKey())
+            'redirectIds' => Arr::wrap($model->getKey()),
         ]);
     }
 

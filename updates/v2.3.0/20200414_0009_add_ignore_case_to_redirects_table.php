@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
+use Psr\Log\LoggerInterface;
 use Winter\Storm\Database\Schema\Blueprint;
 use Winter\Storm\Database\Updates\Migration;
-use Psr\Log\LoggerInterface;
 
-class AddIgnoreTrailingSlashToRedirectsTable extends Migration
+class AddIgnoreCaseToRedirectsTable extends Migration
 {
     public function up(): void
     {
         Schema::table('vdlp_redirect_redirects', static function (Blueprint $table) {
-            $table->boolean('ignore_trailing_slash')
+            $table->boolean('ignore_case')
                 ->default(false)
-                ->after('ignore_case');
+                ->after('ignore_query_parameters');
         });
     }
 
@@ -21,12 +21,12 @@ class AddIgnoreTrailingSlashToRedirectsTable extends Migration
     {
         try {
             Schema::table('vdlp_redirect_redirects', static function (Blueprint $table) {
-                $table->dropColumn('ignore_trailing_slash');
+                $table->dropColumn('ignore_case');
             });
         } catch (Throwable $e) {
             resolve(LoggerInterface::class)->error(sprintf(
                 'Vdlp.Redirect: Unable to drop column `%s` from table `%s`: %s',
-                'ignore_trailing_slash',
+                'ignore_case',
                 'vdlp_redirect_redirects',
                 $e->getMessage()
             ));

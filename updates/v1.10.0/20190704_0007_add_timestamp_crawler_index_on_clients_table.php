@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Updates;
 
-use Winter\Storm\Database\Schema\Blueprint;
-use Winter\Storm\Database\Updates\Migration;
 use Psr\Log\LoggerInterface;
 use Schema;
 use Throwable;
+use Winter\Storm\Database\Schema\Blueprint;
+use Winter\Storm\Database\Updates\Migration;
 
 class AddTimestampCrawlerIndexOnClientsTable extends Migration
 {
@@ -21,7 +21,7 @@ class AddTimestampCrawlerIndexOnClientsTable extends Migration
             $table->index(
                 [
                     'timestamp',
-                    'crawler'
+                    'crawler',
                 ],
                 'timestamp_crawler'
             );

@@ -9,9 +9,9 @@ namespace CreativeSizzle\Redirect\Updates;
 
 use Exception;
 use Illuminate\Database\DatabaseManager;
-use Winter\Storm\Database\Updates\Migration;
 use Psr\Log\LoggerInterface;
 use Throwable;
+use Winter\Storm\Database\Updates\Migration;
 
 class UpgradeFromAdrenthRedirect extends Migration
 {
@@ -28,9 +28,10 @@ class UpgradeFromAdrenthRedirect extends Migration
 
         $schema = $database->getSchemaBuilder();
 
-        if (!$schema->hasTable('adrenth_redirect_redirects')) {
+        if (! $schema->hasTable('adrenth_redirect_redirects')) {
             // Skip upgrade migration.
             $log->info('No upgrade of Vdlp.Redirect needed. Fresh installation.');
+
             return;
         }
 

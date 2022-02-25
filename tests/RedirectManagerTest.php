@@ -10,16 +10,16 @@ use Carbon\Carbon;
 use Cms;
 use Cms\Classes\Page;
 use Cms\Classes\Theme;
-use Exception;
-use PHPUnit_Framework_AssertionFailedError;
-use PHPUnit_Framework_Exception;
-use PluginTestCase;
 use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
 use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
 use CreativeSizzle\Redirect\Classes\RedirectManager;
 use CreativeSizzle\Redirect\Classes\RedirectRule;
 use CreativeSizzle\Redirect\Models\Redirect;
 use CreativeSizzle\Redirect\ServiceProvider;
+use Exception;
+use PHPUnit_Framework_AssertionFailedError;
+use PHPUnit_Framework_Exception;
+use PluginTestCase;
 
 class RedirectManagerTest extends PluginTestCase
 {

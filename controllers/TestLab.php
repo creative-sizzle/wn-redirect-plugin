@@ -7,14 +7,14 @@ namespace CreativeSizzle\Redirect\Controllers;
 use Backend\Classes\Controller;
 use Backend\Facades\BackendMenu;
 use Carbon\Carbon;
+use CreativeSizzle\Redirect\Classes\Testers;
+use CreativeSizzle\Redirect\Models\Redirect;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Throwable;
 use Winter\Storm\Database\Collection;
 use Winter\Storm\Flash\FlashBag;
-use Throwable;
-use CreativeSizzle\Redirect\Classes\Testers;
-use CreativeSizzle\Redirect\Models\Redirect;
 
 /**
  * @property string $bodyClass

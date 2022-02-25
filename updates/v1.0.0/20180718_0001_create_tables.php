@@ -7,15 +7,15 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Updates;
 
-use Illuminate\Database\DatabaseManager;
-use Illuminate\Database\Schema\Blueprint;
-use Winter\Storm\Database\Updates\Migration;
-use Psr\Log\LoggerInterface;
-use Schema;
-use Throwable;
 use CreativeSizzle\Redirect\Models\Category;
 use CreativeSizzle\Redirect\Models\Redirect;
 use CreativeSizzle\Redirect\Models\Settings;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\Schema\Blueprint;
+use Psr\Log\LoggerInterface;
+use Schema;
+use Throwable;
+use Winter\Storm\Database\Updates\Migration;
 
 class CreateTables extends Migration
 {
@@ -50,7 +50,7 @@ class CreateTables extends Migration
             }
         }
 
-        if (!Schema::hasTable('vdlp_redirect_categories')) {
+        if (! Schema::hasTable('vdlp_redirect_categories')) {
             Schema::create('vdlp_redirect_categories', static function (Blueprint $table) {
                 // Table configuration
                 $table->engine = 'InnoDB';
@@ -64,53 +64,53 @@ class CreateTables extends Migration
             Category::create(['name' => 'General']);
         }
 
-        if (!Schema::hasTable('vdlp_redirect_redirects')) {
+        if (! Schema::hasTable('vdlp_redirect_redirects')) {
             Schema::create('vdlp_redirect_redirects', static function (Blueprint $table) {
-                    // Table MySQL configuration
-                    $table->engine = 'InnoDB';
-                    // Columns
-                    $table->increments('id');
-                    $table->unsignedInteger('category_id')->nullable();
-                    // @see 20200408_0008_change_column_types_from_char_to_varchar.php
-                    $table->char('match_type', 12)->nullable();
-                    // @see 20200408_0008_change_column_types_from_char_to_varchar.php
-                    $table->char('target_type', 12)
+                // Table MySQL configuration
+                $table->engine = 'InnoDB';
+                // Columns
+                $table->increments('id');
+                $table->unsignedInteger('category_id')->nullable();
+                // @see 20200408_0008_change_column_types_from_char_to_varchar.php
+                $table->char('match_type', 12)->nullable();
+                // @see 20200408_0008_change_column_types_from_char_to_varchar.php
+                $table->char('target_type', 12)
                         ->default(Redirect::TARGET_TYPE_PATH_URL);
-                    // @see 20200408_0008_change_column_types_from_char_to_varchar.php
-                    $table->char('from_scheme', 5)
+                // @see 20200408_0008_change_column_types_from_char_to_varchar.php
+                $table->char('from_scheme', 5)
                         ->default(Redirect::SCHEME_AUTO);
-                    $table->mediumText('from_url')->nullable();
-                    $table->char('to_scheme', 5)
+                $table->mediumText('from_url')->nullable();
+                $table->char('to_scheme', 5)
                         ->default(Redirect::SCHEME_AUTO);
-                    $table->mediumText('to_url')->nullable();
-                    $table->mediumText('test_url')->nullable();
-                    $table->string('cms_page')->nullable();
-                    $table->string('static_page')->nullable();
-                    $table->text('requirements')->nullable();
-                    // @see 20200408_0008_change_column_types_from_char_to_varchar.php
-                    $table->char('status_code', 3);
-                    $table->unsignedInteger('hits')->default(0);
-                    $table->date('from_date')->nullable();
-                    $table->date('to_date')->nullable();
-                    $table->unsignedInteger('sort_order')->default(0);
-                    $table->boolean('is_enabled')->default(0);
-                    $table->boolean('test_lab')->default(0);
-                    $table->mediumText('test_lab_path')->nullable();
-                    $table->boolean('system')->default(0);
-                    $table->timestamp('last_used_at')->nullable();
-                    $table->timestamps();
-                    // Indexes
-                    $table->index('sort_order');
-                    $table->index('is_enabled');
-                    // Foreign keys
-                    $table->foreign('category_id')
+                $table->mediumText('to_url')->nullable();
+                $table->mediumText('test_url')->nullable();
+                $table->string('cms_page')->nullable();
+                $table->string('static_page')->nullable();
+                $table->text('requirements')->nullable();
+                // @see 20200408_0008_change_column_types_from_char_to_varchar.php
+                $table->char('status_code', 3);
+                $table->unsignedInteger('hits')->default(0);
+                $table->date('from_date')->nullable();
+                $table->date('to_date')->nullable();
+                $table->unsignedInteger('sort_order')->default(0);
+                $table->boolean('is_enabled')->default(0);
+                $table->boolean('test_lab')->default(0);
+                $table->mediumText('test_lab_path')->nullable();
+                $table->boolean('system')->default(0);
+                $table->timestamp('last_used_at')->nullable();
+                $table->timestamps();
+                // Indexes
+                $table->index('sort_order');
+                $table->index('is_enabled');
+                // Foreign keys
+                $table->foreign('category_id')
                         ->references('id')
                         ->on('vdlp_redirect_categories')
                         ->onDelete('set null');
             });
         }
 
-        if (!Schema::hasTable('vdlp_redirect_clients')) {
+        if (! Schema::hasTable('vdlp_redirect_clients')) {
             Schema::create('vdlp_redirect_clients', static function (Blueprint $table) {
                 // Table MySQL configuration
                 $table->engine = 'InnoDB';
@@ -136,7 +136,7 @@ class CreateTables extends Migration
             });
         }
 
-        if (!Schema::hasTable('vdlp_redirect_redirect_logs')) {
+        if (! Schema::hasTable('vdlp_redirect_redirect_logs')) {
             Schema::create('vdlp_redirect_redirect_logs', static function (Blueprint $table) {
                 // Table MySQL configuration
                 $table->engine = 'InnoDB';

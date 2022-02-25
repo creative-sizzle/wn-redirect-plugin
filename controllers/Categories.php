@@ -16,7 +16,7 @@ final class Categories extends Controller
 {
     public $implement = [
         Behaviors\FormController::class,
-        Behaviors\ListController::class
+        Behaviors\ListController::class,
     ];
 
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];

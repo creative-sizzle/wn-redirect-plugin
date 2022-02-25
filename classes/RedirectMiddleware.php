@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Classes;
 
 use Closure;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Winter\Storm\Events\Dispatcher;
-use Psr\Log\LoggerInterface;
-use Throwable;
 use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
 use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
 use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
 use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
 use CreativeSizzle\Redirect\Classes\Exceptions\UnableToLoadRules;
 use CreativeSizzle\Redirect\Models\Settings;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Psr\Log\LoggerInterface;
+use Throwable;
+use Winter\Storm\Events\Dispatcher;
 
 final class RedirectMiddleware
 {
@@ -51,7 +51,7 @@ final class RedirectMiddleware
         // Only handle specific request methods.
         if (
             $request->isXmlHttpRequest()
-            || !in_array($request->method(), self::$supportedMethods, true)
+            || ! in_array($request->method(), self::$supportedMethods, true)
             || Str::startsWith($request->getRequestUri(), '/creativesizzle/redirect/sparkline/')
         ) {
             return $next($request);
@@ -106,7 +106,7 @@ final class RedirectMiddleware
          * Developers can add their own conditions. If a condition does not pass the redirect will be ignored.
          */
         foreach ($this->redirectConditionManager->getEnabledConditions($rule) as $condition) {
-            if (!$condition->passes($rule, $requestUri)) {
+            if (! $condition->passes($rule, $requestUri)) {
                 return $next($request);
             }
         }

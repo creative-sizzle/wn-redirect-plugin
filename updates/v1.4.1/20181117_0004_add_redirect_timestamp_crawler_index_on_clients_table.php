@@ -7,32 +7,24 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Updates;
 
-use Winter\Storm\Database\Schema\Blueprint;
-use Winter\Storm\Database\Updates\Migration;
 use Psr\Log\LoggerInterface;
 use Schema;
 use Throwable;
+use Winter\Storm\Database\Schema\Blueprint;
+use Winter\Storm\Database\Updates\Migration;
 
-class AddMonthYearCrawlerIndexOnClientsTable extends Migration
+class AddRedirectTimestampCrawlerIndexOnClientsTable extends Migration
 {
     public function up(): void
     {
         Schema::table('vdlp_redirect_clients', static function (Blueprint $table) {
             $table->index(
                 [
-                    'month',
-                    'year',
-                    'crawler'
+                    'redirect_id',
+                    'timestamp',
+                    'crawler',
                 ],
-                'month_year_crawler'
-            );
-
-            $table->index(
-                [
-                    'month',
-                    'year',
-                ],
-                'month_year'
+                'redirect_timestamp_crawler'
             );
         });
     }
@@ -41,14 +33,12 @@ class AddMonthYearCrawlerIndexOnClientsTable extends Migration
     {
         try {
             Schema::table('vdlp_redirect_clients', static function (Blueprint $table) {
-                $table->dropIndex('month_year_crawler');
-                $table->dropIndex('month_year');
+                $table->dropIndex('redirect_timestamp_crawler');
             });
         } catch (Throwable $e) {
             resolve(LoggerInterface::class)->error(sprintf(
-                'Vdlp.Redirect: Unable to drop index `%s`, `%s` from table `%s`: %s',
-                'month_year_crawler',
-                'month_year',
+                'Vdlp.Redirect: Unable to drop index `%s` from table `%s`: %s',
+                'redirect_timestamp_crawler',
                 'vdlp_redirect_clients',
                 $e->getMessage()
             ));

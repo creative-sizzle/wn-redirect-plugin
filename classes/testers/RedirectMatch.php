@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Classes\Testers;
 
 use Backend;
-use Request;
 use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
 use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
 use CreativeSizzle\Redirect\Classes\TesterBase;
 use CreativeSizzle\Redirect\Classes\TesterResult;
+use Request;
 
 final class RedirectMatch extends TesterBase
 {

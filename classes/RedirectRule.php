@@ -6,8 +6,8 @@ namespace CreativeSizzle\Redirect\Classes;
 
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
-use JsonException;
 use CreativeSizzle\Redirect\Models\Redirect;
+use JsonException;
 
 final class RedirectRule
 {
@@ -46,7 +46,7 @@ final class RedirectRule
         try {
             $requirements = $attributes['requirements'] ?? null;
 
-            if (!is_string($requirements)) {
+            if (! is_string($requirements)) {
                 $requirements = '[]';
             }
 

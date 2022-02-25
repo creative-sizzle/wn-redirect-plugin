@@ -13,18 +13,17 @@ use Cms\Classes\Controller;
 use Cms\Classes\Router;
 use Cms\Classes\Theme;
 use Cms\Helpers\Cms;
+use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\RedirectConditionInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
+use CreativeSizzle\Redirect\Classes\Util\Str;
+use CreativeSizzle\Redirect\Models;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
 use RuntimeException;
 use Symfony\Component\Routing;
 use Throwable;
-use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
-use CreativeSizzle\Redirect\Classes\Contracts\RedirectConditionInterface;
-use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
-use CreativeSizzle\Redirect\Classes\Exceptions;
-use CreativeSizzle\Redirect\Classes\Util\Str;
-use CreativeSizzle\Redirect\Models;
 
 final class RedirectManager implements RedirectManagerInterface
 {
@@ -97,7 +96,7 @@ final class RedirectManager implements RedirectManagerInterface
      */
     public function match(string $requestPath, string $scheme): RedirectRule
     {
-        if (!in_array($scheme, self::$schemes, true)) {
+        if (! in_array($scheme, self::$schemes, true)) {
             throw Exceptions\InvalidScheme::withScheme($scheme);
         }
 
@@ -298,7 +297,7 @@ final class RedirectManager implements RedirectManagerInterface
 
         if ($rule->isRegexMatchType() && count($pregMatchMatches) > 0) {
             $search = array_map(
-                static fn($key): string => '{' . $key . '}',
+                static fn ($key): string => '{' . $key . '}',
                 array_keys($pregMatchMatches)
             );
 
@@ -351,7 +350,7 @@ final class RedirectManager implements RedirectManagerInterface
      */
     private function redirectToStaticPage(RedirectRule $rule): string
     {
-        if (!class_exists('\RainLab\Pages\Classes\Page')) {
+        if (! class_exists('\RainLab\Pages\Classes\Page')) {
             throw new RuntimeException('Cannot create URL to RainLab Page: Plugin not installed.');
         }
 
@@ -375,8 +374,8 @@ final class RedirectManager implements RedirectManagerInterface
      */
     private function matchesRule(RedirectRule $rule, string $requestPath, string $scheme): RedirectRule
     {
-        if (!$this->matchesScheme($rule, $scheme)
-            || !$this->matchesPeriod($rule)
+        if (! $this->matchesScheme($rule, $scheme)
+            || ! $this->matchesPeriod($rule)
         ) {
             throw Exceptions\NoMatchForRule::withRedirectRule($rule, $requestPath, $scheme);
         }
@@ -525,7 +524,7 @@ final class RedirectManager implements RedirectManagerInterface
     private function findReplacementForPlaceholder(RedirectRule $rule, string $placeholder): ?string
     {
         foreach ($rule->getRequirements() as $requirement) {
-            if ($requirement['placeholder'] === $placeholder && !empty($requirement['replacement'])) {
+            if ($requirement['placeholder'] === $placeholder && ! empty($requirement['replacement'])) {
                 return (string) $requirement['replacement'];
             }
         }
@@ -558,11 +557,11 @@ final class RedirectManager implements RedirectManagerInterface
     {
         $rulesPath = (string) config('creativesizzle.redirect::rules_path');
 
-        if (!file_exists($rulesPath) && touch($rulesPath) === false) {
+        if (! file_exists($rulesPath) && touch($rulesPath) === false) {
             throw Exceptions\RulesPathNotWritable::withPath($rulesPath);
         }
 
-        if (!is_readable($rulesPath)) {
+        if (! is_readable($rulesPath)) {
             throw Exceptions\RulesPathNotReadable::withPath($rulesPath);
         }
 
@@ -607,7 +606,7 @@ final class RedirectManager implements RedirectManagerInterface
 
     private function addLogEntry(RedirectRule $rule, string $requestUri, string $toUrl): void
     {
-        if (!$this->settings->isLoggingEnabled()) {
+        if (! $this->settings->isLoggingEnabled()) {
             return;
         }
 

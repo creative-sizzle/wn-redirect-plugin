@@ -9,12 +9,12 @@ namespace CreativeSizzle\Redirect\Controllers;
 use Backend\Behaviors\ListController;
 use Backend\Classes\Controller;
 use BackendMenu;
+use CreativeSizzle\Redirect\Models\RedirectLog;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\Request;
-use Winter\Storm\Flash\FlashBag;
 use Psr\Log\LoggerInterface;
 use Throwable;
-use CreativeSizzle\Redirect\Models\RedirectLog;
+use Winter\Storm\Flash\FlashBag;
 
 /**
  * @mixin ListController
@@ -22,7 +22,7 @@ use CreativeSizzle\Redirect\Models\RedirectLog;
 final class Logs extends Controller
 {
     public $implement = [
-        ListController::class
+        ListController::class,
     ];
 
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];

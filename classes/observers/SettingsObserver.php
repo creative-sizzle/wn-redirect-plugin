@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes\Observers;
 
-use Throwable;
 use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
+use Throwable;
 
 final class SettingsObserver
 {

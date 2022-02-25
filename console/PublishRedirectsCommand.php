@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Console;
 
-use Illuminate\Console\Command;
 use CreativeSizzle\Redirect\Classes\PublishManager;
+use Illuminate\Console\Command;
 
 final class PublishRedirectsCommand extends Command
 {

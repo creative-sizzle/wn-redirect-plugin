@@ -36,7 +36,7 @@ final class Extensions extends Controller
 
         foreach (self::$extensions as $extension) {
             $this->vars['extensions'][$extension] = PluginManager::instance()->hasPlugin($extension)
-                && !PluginManager::instance()->isDisabled($extension);
+                && ! PluginManager::instance()->isDisabled($extension);
         }
     }
 }

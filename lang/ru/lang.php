@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'plugin' => [
         'name' => 'Редиректы',
         'description' => 'Удобное управление редиректами',

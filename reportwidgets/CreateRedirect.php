@@ -8,9 +8,9 @@ use Backend\Classes\Controller;
 use Backend\Classes\ReportWidgetBase;
 use Backend\Helpers\Backend;
 use Backend\Widgets\Form;
+use CreativeSizzle\Redirect\Models\Redirect;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
-use CreativeSizzle\Redirect\Models\Redirect;
 
 /**
  * @property string $alias
@@ -37,7 +37,7 @@ final class CreateRedirect extends ReportWidgetBase
     public function render()
     {
         $widgetConfig = $this->makeConfig('~/plugins/creativesizzle/redirect/reportwidgets/createredirect/fields.yaml');
-        $widgetConfig->model = new Redirect;
+        $widgetConfig->model = new Redirect();
         $widgetConfig->alias = $this->alias . 'Redirect';
 
         $this->vars['formWidget'] = $this->makeWidget(Form::class, $widgetConfig);

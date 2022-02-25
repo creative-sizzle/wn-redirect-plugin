@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes;
 
+use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
+use CreativeSizzle\Redirect\Models\Redirect;
 use Illuminate\Database\Eloquent\Collection;
 use JsonException;
 use League\Csv\Writer;
 use Psr\Log\LoggerInterface;
 use Throwable;
-use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
-use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
-use CreativeSizzle\Redirect\Models\Redirect;
 
 final class PublishManager implements PublishManagerInterface
 {

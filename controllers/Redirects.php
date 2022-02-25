@@ -119,7 +119,7 @@ final class Redirects extends Controller
 
         /** @noinspection ClassConstantCanBeUsedInspection */
         if ($redirect->getAttribute('target_type') === Models\Redirect::TARGET_TYPE_STATIC_PAGE
-            && ! class_exists('\RainLab\Pages\Classes\Page')
+            && ! class_exists('\Winter\Pages\Classes\Page')
         ) {
             $this->flash->error(
                 $this->translator->trans('creativesizzle.redirect::lang.flash.static_page_redirect_not_supported')

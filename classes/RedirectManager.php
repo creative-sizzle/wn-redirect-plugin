@@ -350,23 +350,23 @@ final class RedirectManager implements RedirectManagerInterface
      */
     private function redirectToStaticPage(RedirectRule $rule): string
     {
-        if (! class_exists('\RainLab\Pages\Classes\Page')) {
-            throw new RuntimeException('Cannot create URL to RainLab Page: Plugin not installed.');
+        if (! class_exists('\Winter\Pages\Classes\Page')) {
+            throw new RuntimeException('Cannot create URL to Winter Page: Plugin not installed.');
         }
 
-        /** @var \RainLab\Pages\Classes\Page $page */
-        $page = \RainLab\Pages\Classes\Page::loadCached(
+        /** @var \Winter\Pages\Classes\Page $page */
+        $page = \Winter\Pages\Classes\Page::loadCached(
             Theme::getActiveTheme(),
             $rule->getStaticPage()
         );
 
         if ($page === null) {
-            throw new RuntimeException('Cannot create URL to RainLab Page: Page not found.');
+            throw new RuntimeException('Cannot create URL to Winter Page: Page not found.');
         }
 
         return $this->settings->isRelativePathsEnabled()
             ? (string) array_get($page->attributes, 'viewBag.url')
-            : (string) \RainLab\Pages\Classes\Page::url($rule->getStaticPage());
+            : (string) \Winter\Pages\Classes\Page::url($rule->getStaticPage());
     }
 
     /**

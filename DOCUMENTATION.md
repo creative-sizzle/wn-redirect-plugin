@@ -16,7 +16,7 @@ This plugin allows you to redirect to the following types:
 
 * An internal path
 * An internal CMS Page
-* An internal Static Page (`RainLab.Pages` plugin)
+* An internal Static Page (`Winter.Pages` plugin)
 * An external URL
 
 ## Relative vs. Absolute URLs

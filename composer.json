@@ -26,11 +26,12 @@
         "ext-json": "*",
         "composer/installers": "~1.0",
         "davaxi/sparkline": "^2.1",
-        "jaybizzle/crawler-detect": "^1.2"
+        "jaybizzle/crawler-detect": "^1.2",
+        "winter/storm": "^1.1"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.23",
-        "symfony/stopwatch": "^5.3 || ^6.0"
+        "symfony/stopwatch": "^5.4 || ^6.0"
     },
     "archive": {
         "exclude": [

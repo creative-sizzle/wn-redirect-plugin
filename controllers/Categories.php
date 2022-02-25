@@ -29,6 +29,6 @@ final class Categories extends Controller
 
         $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
 
-        BackendMenu::setContext('Vdlp.Redirect', 'redirect', 'categories');
+        BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', 'categories');
     }
 }

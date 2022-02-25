@@ -1,4 +1,4 @@
-# Vdlp.Redirect documentation
+# CreativeSizzle.Redirect documentation
 
 This plugin should be easy to understand if you are familiar with the basics of the web. If you have issues setting up some redirects, please do not hesitate to contact me.
 

@@ -32,7 +32,7 @@ class AddIgnoreQueryParametersToRedirectsTable extends Migration
             });
         } catch (Throwable $e) {
             resolve(LoggerInterface::class)->error(sprintf(
-                'Vdlp.Redirect: Unable to drop column `%s` from table `%s`: %s',
+                'CreativeSizzle.Redirect: Unable to drop column `%s` from table `%s`: %s',
                 'ignore_query_parameters',
                 'vdlp_redirect_redirects',
                 $e->getMessage()

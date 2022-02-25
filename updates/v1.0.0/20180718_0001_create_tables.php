@@ -43,7 +43,7 @@ class CreateTables extends Migration
                     $database->statement($statement);
                 } catch (Throwable $e) {
                     resolve(LoggerInterface::class)
-                        ->error(sprintf('Vdlp.Redirect: Unable to drop index: %s'. $e->getMessage()));
+                        ->error(sprintf('CreativeSizzle.Redirect: Unable to drop index: %s'. $e->getMessage()));
 
                     continue;
                 }
@@ -171,7 +171,7 @@ class CreateTables extends Migration
             $settings->save();
         } catch (Throwable $e) {
             resolve(LoggerInterface::class)->error(sprintf(
-                'Vdlp.Redirect: Unable to save default settings: %s',
+                'CreativeSizzle.Redirect: Unable to save default settings: %s',
                 $e->getMessage()
             ));
         }
@@ -188,7 +188,7 @@ class CreateTables extends Migration
             Schema::enableForeignKeyConstraints();
         } catch (Throwable $e) {
             resolve(LoggerInterface::class)->error(sprintf(
-                'Vdlp.Redirect: Unable to drop all tables: %s',
+                'CreativeSizzle.Redirect: Unable to drop all tables: %s',
                 $e->getMessage()
             ));
         }

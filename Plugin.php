@@ -106,15 +106,6 @@ final class Plugin extends PluginBase
                             'creativesizzle.redirect.access_redirects',
                         ],
                     ],
-                    'extensions' => [
-                        'label' => 'creativesizzle.redirect::lang.buttons.extensions',
-                        'url' => Backend::url('creativesizzle/redirect/extensions'),
-                        'icon' => 'icon-cubes',
-                        'order' => 100,
-                        'permissions' => [
-                            'creativesizzle.redirect.access_redirects',
-                        ],
-                    ],
                 ],
             ],
         ];

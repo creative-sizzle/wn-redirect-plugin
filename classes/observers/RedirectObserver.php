@@ -90,7 +90,7 @@ final class RedirectObserver
         }
 
         $this->log->info(sprintf(
-            'Vdlp.Redirect: Redirect %d has been %s.',
+            'CreativeSizzle.Redirect: Redirect %d has been %s.',
             $model->getKey(),
             $typeOfChange
         ), $model->getDirty());

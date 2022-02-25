@@ -30,7 +30,7 @@ class UpgradeFromAdrenthRedirect extends Migration
 
         if (! $schema->hasTable('adrenth_redirect_redirects')) {
             // Skip upgrade migration.
-            $log->info('No upgrade of Vdlp.Redirect needed. Fresh installation.');
+            $log->info('No upgrade of CreativeSizzle.Redirect needed. Fresh installation.');
 
             return;
         }
@@ -72,7 +72,7 @@ class UpgradeFromAdrenthRedirect extends Migration
             });
         } catch (Throwable $e) {
             $log->error(sprintf(
-                'Vdlp.Redirect: Could not upgrade plugin Vdlp.Redirect from Adrenth.Redirect: %s',
+                'CreativeSizzle.Redirect: Could not upgrade plugin CreativeSizzle.Redirect from Adrenth.Redirect: %s',
                 $e->getMessage()
             ));
         }

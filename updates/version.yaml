@@ -71,3 +71,5 @@
 3.0.1: 'Add support for regular expression matches in target path.'
 3.0.2:
     - 'Change version constraint for composer/installers.'
+4.0.0:
+    - 'Rebrand to CreativeSizzle.Redirect'

@@ -82,7 +82,7 @@ final class RedirectMiddleware
             $rule = false;
         } catch (Throwable $e) {
             $this->log->error(sprintf(
-                'Vdlp.Redirect: Could not perform redirect for %s (scheme: %s): %s',
+                'CreativeSizzle.Redirect: Could not perform redirect for %s (scheme: %s): %s',
                 $requestUri,
                 $request->getScheme(),
                 $e->getMessage()

@@ -176,7 +176,7 @@ final class RedirectManager implements RedirectManagerInterface
         $this->addLogEntry($rule, $requestUri, $toUrl);
 
         header(self::$headers[$statusCode], true, $statusCode);
-        header('X-Redirect-By: Vdlp.Redirect');
+        header('X-Redirect-By: CreativeSizzle.Redirect');
         header('X-Redirect-Id: ' . $rule->getId());
         header('Cache-Control: no-store');
         header('Location: ' . $toUrl, true, $statusCode);

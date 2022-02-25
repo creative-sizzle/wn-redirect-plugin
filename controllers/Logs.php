@@ -36,7 +36,7 @@ final class Logs extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Vdlp.Redirect', 'redirect', 'logs');
+        BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', 'logs');
 
         $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
 

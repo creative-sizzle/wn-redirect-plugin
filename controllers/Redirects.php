@@ -82,7 +82,7 @@ final class Redirects extends Controller
             ? $this->action
             : 'redirects';
 
-        BackendMenu::setContext('Vdlp.Redirect', 'redirect', $sideMenuItemCode);
+        BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', $sideMenuItemCode);
 
         $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
 

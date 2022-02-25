@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Models;
 
-use October\Rain\Database\Model;
+use Winter\Storm\Database\Model;
 use System\Behaviors\SettingsModel;
 use Throwable;
 

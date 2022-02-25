@@ -1,6 +1,5 @@
 <p align="center">
-	<img height="60px" width="60px" src="https://plugins.vdlp.nl/octobercms/icons/Vdlp.Redirect.svg" >
-	<h1 align="center">Vdlp.Redirect</h1>
+	<h1 align="center">CreativeSizzle.Redirect</h1>
 </p>
 
 <p align="center">
@@ -8,28 +7,28 @@
 </p>
 
 <p align="center">
-	<img src="https://badgen.net/packagist/php/vdlp/oc-redirect-plugin">
-	<img src="https://badgen.net/packagist/license/vdlp/oc-redirect-plugin">
-	<img src="https://badgen.net/packagist/v/vdlp/oc-redirect-plugin/latest">
-	<img src="https://badgen.net/badge/cms/October%20CMS">
+	<img src="https://badgen.net/packagist/php/creative-sizzle/wn-redirect-plugin">
+	<img src="https://badgen.net/packagist/license/creative-sizzle/wn-redirect-plugin">
+	<img src="https://badgen.net/packagist/v/creative-sizzle/wn-redirect-plugin/latest">
+	<img src="https://badgen.net/badge/cms/Winter%20CMS">
 	<img src="https://badgen.net/badge/type/plugin">
-	<img src="https://plugins.vdlp.nl/octobercms/badge/installations.php?plugin=vdlp-redirect">
 </p>
 
-## The #1 Redirect plugin for October CMS
+## The #1 Redirect plugin for Winter CMS
 
-This is the best Redirect-plugin for October CMS. With this plugin installed you can manage redirects directly from October CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
+This is the best Redirect-plugin for Winter CMS. With this plugin installed you can manage redirects directly from Winter CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
 
 ## History
 
 This plugin was originally build in 2016 by Alwin Drenth a Software Engineer at Van der Let & Partners.
 As of 2018 this plugin is re-distributed to the October CMS Marketplace with vendor name Vdlp.Redirect (formerly known as Adrenth.Redirect).
+As of 2022 this plugin is re-distributed to the Winter CMS Marketplace with vendor name CreativeSizzle.Redirect (formerly Vdlp.Redirect).
 
-The Redirect plugin will now be maintained by Van der Let & Partners and You (the open source community).
+The Redirect plugin will now be maintained by Creative Sizzle and You (the open source community).
 
 ## What does this plugin offer?
 
-This plugin adds a 'Redirects' section to the main menu of October CMS. This plugin has a unique and fast matching algorithm to match your redirects before your website is being rendered.
+This plugin adds a 'Redirects' section to the main menu of Winter CMS. This plugin has a unique and fast matching algorithm to match your redirects before your website is being rendered.
 
 ## Features
 
@@ -64,7 +63,7 @@ This plugin adds a 'Redirects' section to the main menu of October CMS. This plu
 
 ## Requirements
 
-* October CMS 2.1 or higher.
+* Winter CMS 1.1 or higher.
 * PHP version 7.4 or higher.
 * PHP extensions: `ext-curl` and `ext-json`.
 
@@ -102,7 +101,7 @@ Only cache drivers which support tagged cache are supported. So driver `file` an
 
 ### How caching works
 
-If caching is enabled (and supported) every request which is handled by this plugin will be cached. It will be stored with tag `Vdlp.Redirect`.
+If caching is enabled (and supported) every request which is handled by this plugin will be cached. It will be stored with tag `CreativeSizzle.Redirect`.
 
 When you modify a redirect all redirect cache will be invalidated automatically. It is also possible to manually clear the cache using the 'Clear cache' button in the Backend.
 
@@ -112,14 +111,4 @@ This plugin makes advantage of the `symfony/routing` package. So if you need mor
 
 ## Contribution
 
-Please feel free to [contribute](https://github.com/vdlp/oc-redirect-plugin) to this awesome plugin.
-
-## Questions? Need help?
-
-If you have any question about how to use this plugin, please don't hesitate to contact us at octobercms@vdlp.nl. We're happy to help you. You can also visit the support forum and drop your questions/issues there.
-
----
-
-> If you love this quality plugin as much as we do, please [**rate our plugin**](http://octobercms.com/plugin/vdlp-redirect).
-
----
+Please feel free to [contribute](https://github.com/creative-sizzle/wn-redirect-plugin) to this awesome plugin.

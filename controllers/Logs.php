@@ -11,7 +11,7 @@ use Backend\Classes\Controller;
 use BackendMenu;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\Request;
-use October\Rain\Flash\FlashBag;
+use Winter\Storm\Flash\FlashBag;
 use Psr\Log\LoggerInterface;
 use Throwable;
 use CreativeSizzle\Redirect\Models\RedirectLog;

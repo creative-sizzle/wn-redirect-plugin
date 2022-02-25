@@ -7,7 +7,7 @@ namespace CreativeSizzle\Redirect\Classes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
-use October\Rain\Database\Collection;
+use Winter\Storm\Database\Collection;
 use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
 use CreativeSizzle\Redirect\Models;
 

@@ -9,7 +9,7 @@ namespace CreativeSizzle\Redirect\Updates;
 
 use Exception;
 use Illuminate\Database\DatabaseManager;
-use October\Rain\Database\Updates\Migration;
+use Winter\Storm\Database\Updates\Migration;
 use Psr\Log\LoggerInterface;
 use Throwable;
 

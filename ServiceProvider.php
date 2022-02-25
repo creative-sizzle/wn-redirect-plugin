@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect;
 
-use October\Rain\Support\ServiceProvider as ServiceProviderBase;
+use Winter\Storm\Support\ServiceProvider as ServiceProviderBase;
 use CreativeSizzle\Redirect\Classes\CacheManager;
 use CreativeSizzle\Redirect\Classes\Contracts;
 use CreativeSizzle\Redirect\Classes\PublishManager;

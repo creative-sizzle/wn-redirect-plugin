@@ -7,7 +7,7 @@ namespace CreativeSizzle\Redirect\Classes;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use October\Rain\Events\Dispatcher;
+use Winter\Storm\Events\Dispatcher;
 use Psr\Log\LoggerInterface;
 use Throwable;
 use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;

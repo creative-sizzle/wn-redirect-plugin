@@ -9,7 +9,7 @@ namespace CreativeSizzle\Redirect\Updates;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Schema\Blueprint;
-use October\Rain\Database\Updates\Migration;
+use Winter\Storm\Database\Updates\Migration;
 use Psr\Log\LoggerInterface;
 use Schema;
 use Throwable;

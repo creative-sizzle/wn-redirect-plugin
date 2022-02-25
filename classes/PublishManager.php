@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes;
+namespace CreativeSizzle\Redirect\Classes;
 
 use Illuminate\Database\Eloquent\Collection;
 use JsonException;
 use League\Csv\Writer;
 use Psr\Log\LoggerInterface;
 use Throwable;
-use Vdlp\Redirect\Classes\Contracts\CacheManagerInterface;
-use Vdlp\Redirect\Classes\Contracts\PublishManagerInterface;
-use Vdlp\Redirect\Models\Redirect;
+use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
+use CreativeSizzle\Redirect\Models\Redirect;
 
 final class PublishManager implements PublishManagerInterface
 {
@@ -59,7 +59,7 @@ final class PublishManager implements PublishManagerInterface
 
         $count = $redirects->count();
 
-        if ((bool) config('vdlp.redirect::log_redirect_changes', false) === true) {
+        if ((bool) config('creativesizzle.redirect::log_redirect_changes', false) === true) {
             $this->log->info(sprintf(
                 'Vdlp.Redirect: Redirect engine has been updated with %s redirects.',
                 $count
@@ -71,7 +71,7 @@ final class PublishManager implements PublishManagerInterface
 
     private function publishToFilesystem(array $columns, array $redirects): void
     {
-        $redirectsFile = config('vdlp.redirect::rules_path');
+        $redirectsFile = config('creativesizzle.redirect::rules_path');
 
         if (file_exists($redirectsFile)) {
             unlink($redirectsFile);

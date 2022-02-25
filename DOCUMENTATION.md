@@ -135,17 +135,17 @@ Result: /blog/news/general
 
 | Event | Payload | Description |
 | --- | --- | --- |
-| `vdlp.redirect.match` | none | When a request matched, right before the redirect response.
-| `vdlp.redirect.changed` | int[] $redirectId | When one or more redirects are changed.
+| `creativesizzle.redirect.match` | none | When a request matched, right before the redirect response.
+| `creativesizzle.redirect.changed` | int[] $redirectId | When one or more redirects are changed.
 
 ### Listens to events
 
 | Event | Payload | Description |
 | --- | --- | --- |
-| `vdlp.redirect.toUrlChanged` | `string $oldUrl, string $newUrl` | Can be fired from a third-party plugin.
+| `creativesizzle.redirect.toUrlChanged` | `string $oldUrl, string $newUrl` | Can be fired from a third-party plugin.
 
 ## Commands
 
 | Command | Description |
 | --- | --- |
-| `vdlp:redirect:publish-redirects` | Publish all redirects. |
+| `creativesizzle:redirect:publish-redirects` | Publish all redirects. |

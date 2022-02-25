@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes;
+namespace CreativeSizzle\Redirect\Classes;
 
 use InvalidArgumentException;
 use Symfony\Component\Stopwatch\Stopwatch;
-use Vdlp\Redirect\Classes\Contracts\RedirectManagerInterface;
-use Vdlp\Redirect\Classes\Contracts\TesterInterface;
-use Vdlp\Redirect\Models\Settings;
+use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\TesterInterface;
+use CreativeSizzle\Redirect\Models\Settings;
 
 abstract class TesterBase implements TesterInterface
 {

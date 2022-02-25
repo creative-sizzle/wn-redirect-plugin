@@ -4,5 +4,5 @@
 
 columns:
     name:
-        label: vdlp.redirect::lang.redirect.name
+        label: creativesizzle.redirect::lang.redirect.name
         searchable: true

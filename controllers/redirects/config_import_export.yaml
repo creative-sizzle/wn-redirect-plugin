@@ -3,13 +3,13 @@
 # ===================================
 
 import:
-    title: vdlp.redirect::lang.title.import
-    modelClass: Vdlp\Redirect\Models\RedirectImport
-    list: $/vdlp/redirect/models/redirectimport/columns.yaml
-    redirect: vdlp/redirect/redirects
+    title: creativesizzle.redirect::lang.title.import
+    modelClass: CreativeSizzle\Redirect\Models\RedirectImport
+    list: $/creativesizzle/redirect/models/redirectimport/columns.yaml
+    redirect: creativesizzle/redirect/redirects
 export:
-    title: vdlp.redirect::lang.title.export
-    modelClass: Vdlp\Redirect\Models\RedirectExport
-    list: $/vdlp/redirect/models/redirectexport/columns.yaml
-    redirect: vdlp/redirect/redirects
+    title: creativesizzle.redirect::lang.title.export
+    modelClass: CreativeSizzle\Redirect\Models\RedirectExport
+    list: $/creativesizzle/redirect/models/redirectexport/columns.yaml
+    redirect: creativesizzle/redirect/redirects
     filename: redirects.csv

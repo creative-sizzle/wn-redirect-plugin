@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Models;
+namespace CreativeSizzle\Redirect\Models;
 
 use October\Rain\Database\Model;
 use System\Behaviors\SettingsModel;

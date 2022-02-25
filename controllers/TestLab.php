@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Controllers;
+namespace CreativeSizzle\Redirect\Controllers;
 
 use Backend\Classes\Controller;
 use Backend\Facades\BackendMenu;
@@ -13,15 +13,15 @@ use Illuminate\Http\Request;
 use October\Rain\Database\Collection;
 use October\Rain\Flash\FlashBag;
 use Throwable;
-use Vdlp\Redirect\Classes\Testers;
-use Vdlp\Redirect\Models\Redirect;
+use CreativeSizzle\Redirect\Classes\Testers;
+use CreativeSizzle\Redirect\Models\Redirect;
 
 /**
  * @property string $bodyClass
  */
 final class TestLab extends Controller
 {
-    public $requiredPermissions = ['vdlp.redirect.access_redirects'];
+    public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
 
     private array $redirects = [];
     private Request $request;
@@ -45,11 +45,11 @@ final class TestLab extends Controller
 
     public function index(): void
     {
-        $this->pageTitle = 'vdlp.redirect::lang.title.test_lab';
+        $this->pageTitle = 'creativesizzle.redirect::lang.title.test_lab';
 
-        $this->addCss('/plugins/vdlp/redirect/assets/css/redirect.css');
-        $this->addCss('/plugins/vdlp/redirect/assets/css/test-lab.css');
-        $this->addJs('/plugins/vdlp/redirect/assets/javascript/test-lab.js');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/css/test-lab.css');
+        $this->addJs('/plugins/creativesizzle/redirect/assets/javascript/test-lab.js');
 
         $this->vars['redirectCount'] = $this->getRedirectCount();
     }
@@ -106,7 +106,7 @@ final class TestLab extends Controller
         /** @var Redirect $redirect */
         $redirect = Redirect::query()->findOrFail($this->request->get('id'));
 
-        $this->flash->success(trans('vdlp.redirect::lang.test_lab.flash_test_executed'));
+        $this->flash->success(trans('creativesizzle.redirect::lang.test_lab.flash_test_executed'));
 
         return [
             '#testerResult' . $redirect->getKey() => $this->makePartial(
@@ -125,7 +125,7 @@ final class TestLab extends Controller
         $redirect = Redirect::query()->findOrFail($this->request->get('id'));
         $redirect->update(['test_lab' => false]);
 
-        $this->flash->success(trans('vdlp.redirect::lang.test_lab.flash_redirect_excluded'));
+        $this->flash->success(trans('creativesizzle.redirect::lang.test_lab.flash_redirect_excluded'));
 
         return [
             '#testButtonWrapper' => $this->makePartial('test_button', [

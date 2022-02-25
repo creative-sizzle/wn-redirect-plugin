@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - TBD
+* Fork plugin to work with Winter CMS.
+
 ## [3.0.2] - 2022-02-20
 
 * Change version constraint for composer/installers.
@@ -139,7 +142,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.2]
 
-* Force type of vdlp.redirect::log_redirect_changes #53.
+* Force type of creativesizzle.redirect::log_redirect_changes #53.
 * Apply config check to prevent log redirect changes #53.
 * Convert database column types (char to varchar) #51.
 
@@ -153,10 +156,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Most of the classes are made final. For extending use October CMS proposed solutions.
 * Auto-redirect creation for CMS/Static pages has been removed from this plugin.
 * The following events have been removed:
-    * `vdlp.redirects.changed`
-    * `vdlp.redirect.beforeRedirectSave`
-    * `vdlp.redirect.beforeRedirectUpdate`
-    * `vdlp.redirect.afterRedirectUpdate`
+    * `creativesizzle.redirects.changed`
+    * `creativesizzle.redirect.beforeRedirectSave`
+    * `creativesizzle.redirect.beforeRedirectUpdate`
+    * `creativesizzle.redirect.afterRedirectUpdate`
 * New events:
-    * `vdlp.redirect.changed`
-    * `vdlp.redirect.changed`
+    * `creativesizzle.redirect.changed`
+    * `creativesizzle.redirect.changed`

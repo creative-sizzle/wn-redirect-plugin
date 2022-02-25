@@ -1,0 +1,12 @@
+plugin:
+    name: 'creativesizzle.redirect::lang.plugin.name'
+    description: 'creativesizzle.redirect::lang.plugin.description'
+    author: 'Creative Sizzle'
+    icon: wn-icon-link
+    homepage: 'https://github.com/creative-sizzle/wn-redirect-plugin'
+    replaces:
+        Vdlp.Redirect: '<4.0'
+permissions:
+    creativesizzle.redirect.access_redirects:
+        tab: 'creativesizzle.redirect::lang.permission.access_redirects.label'
+        label: 'creativesizzle.redirect::lang.permission.access_redirects.tab'

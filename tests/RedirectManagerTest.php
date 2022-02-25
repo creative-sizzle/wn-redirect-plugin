@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Tests;
+namespace CreativeSizzle\Redirect\Tests;
 
 use Carbon\Carbon;
 use Cms;
@@ -14,12 +14,12 @@ use Exception;
 use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_Exception;
 use PluginTestCase;
-use Vdlp\Redirect\Classes\Exceptions\InvalidScheme;
-use Vdlp\Redirect\Classes\Exceptions\NoMatchForRequest;
-use Vdlp\Redirect\Classes\RedirectManager;
-use Vdlp\Redirect\Classes\RedirectRule;
-use Vdlp\Redirect\Models\Redirect;
-use Vdlp\Redirect\ServiceProvider;
+use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
+use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
+use CreativeSizzle\Redirect\Classes\RedirectManager;
+use CreativeSizzle\Redirect\Classes\RedirectRule;
+use CreativeSizzle\Redirect\Models\Redirect;
+use CreativeSizzle\Redirect\ServiceProvider;
 
 class RedirectManagerTest extends PluginTestCase
 {
@@ -385,7 +385,7 @@ class RedirectManagerTest extends PluginTestCase
         if ($page === null) {
             $page = new Page();
             $page->title = 'Testpage';
-            $page->url = '/vdlp/redirect/testpage';
+            $page->url = '/creativesizzle/redirect/testpage';
             $page->setFileNameAttribute('vdlp-redirect-testpage');
             $page->save();
         }
@@ -411,7 +411,7 @@ class RedirectManagerTest extends PluginTestCase
         $result = $manager->match('/this-should-be-source', Redirect::SCHEME_HTTPS);
 
         self::assertInstanceOf(RedirectRule::class, $result);
-        self::assertEquals(Cms::url('/vdlp/redirect/testpage'), $manager->getLocation($result));
+        self::assertEquals(Cms::url('/creativesizzle/redirect/testpage'), $manager->getLocation($result));
 
         self::assertTrue($page->delete());
     }

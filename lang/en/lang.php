@@ -1,8 +1,4 @@
-<?php
-
-declare(strict_types=1);
-
-return [
+<?php return [
     'plugin' => [
         'name' => 'Redirect',
         'description' => 'Easily manage redirects',
@@ -27,9 +23,7 @@ return [
         'test_lab_enabled_label' => 'TestLab (beta)',
         'test_lab_enabled_comment' => 'TestLab allows you to mass test your redirects.',
         'caching_enabled_label' => 'Caching of redirects (advanced)',
-        'caching_enabled_comment' => 'Improves the redirect engine when having a lot of redirects. '
-            . 'CAUTION: Cache driver `file` and `database` are NOT supported. '
-            . 'Recommended driver is `memcached` or a similar "in-memory" caching driver.',
+        'caching_enabled_comment' => 'Improves the redirect engine when having a lot of redirects. CAUTION: Cache driver `file` and `database` are NOT supported. Recommended driver is `memcached` or a similar "in-memory" caching driver.',
         'relative_paths_enabled_label' => 'Use relative paths',
         'relative_paths_enabled_command' => 'The redirect engine will generate relative paths instead of absolute paths.',
     ],
@@ -39,15 +33,13 @@ return [
         'from_url_placeholder' => '/source/path',
         'from_url_comment' => 'The source path to match.',
         'from_scheme' => 'Source scheme',
-        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will '
-            . 'match and <u>https://domain.com/path</u> does not match.',
+        'from_scheme_comment' => 'Force match on scheme. If HTTP is selected <u>http://domain.com/path</u> will match and <u>https://domain.com/path</u> does not match.',
         'to_url' => 'Target Path or URL',
         'to_url_placeholder' => '/absolute/path, relative/path or http://target.url',
         'to_url_comment' => 'The target path or URL to redirect to.',
         'to_url_required_if' => 'The target path or URL is required',
         'to_scheme' => 'Target scheme',
-        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS '
-            . 'or choose AUTOMATIC to use the default scheme of the website.',
+        'to_scheme_comment' => 'Target scheme will be forced to HTTP or HTTPS or choose AUTOMATIC to use the default scheme of the website.',
         'scheme_auto' => 'Automatic',
         'cms_page_required_if' => 'Please provide a CMS Page to redirect to',
         'static_page_required_if' => 'Please provide a Static Page to redirect to',
@@ -65,14 +57,12 @@ return [
         'requirements' => 'Requirements',
         'requirements_comment' => 'Provide requirements for each placeholder.',
         'placeholder' => 'Placeholder',
-        'placeholder_comment' => 'The placeholder name (including curly braces) provided in the \'Source path\' field. '
-            . 'E.g. {category} or {id}',
+        'placeholder_comment' => 'The placeholder name (including curly braces) provided in the \'Source path\' field. E.g. {category} or {id}',
         'requirement' => 'Requirement',
         'requirement_comment' => 'Provide the requirement in regular expression syntax. E.g. [0-9]+ or [a-zA-Z]+.',
         'requirements_prompt' => 'Add new requirement',
         'replacement' => 'Replacement',
-        'replacement_comment' => 'Provide an optional replacement value for this placeholder. '
-            . 'The matched placeholder will be replaced with this value in the target URL.',
+        'replacement_comment' => 'Provide an optional replacement value for this placeholder. The matched placeholder will be replaced with this value in the target URL.',
         'permanent' => '301 - Permanent',
         'temporary' => '302 - Temporary',
         'see_other' => '303 - See Other',
@@ -100,8 +90,7 @@ return [
         'truncate_confirm' => 'Are you sure you want to delete ALL records?',
         'truncating' => 'Deleting...',
         'warning' => 'Warning',
-        'cache_warning' => 'You have enabled caching but your caching driver is not supported. '
-            . 'Redirects will not be cached.',
+        'cache_warning' => 'You have enabled caching but your caching driver is not supported. Redirects will not be cached.',
         'general_confirm' => 'Are you sure you want to do this?',
         'sparkline_30d' => 'Hits (30d)',
         'has_hits' => 'Has hits',
@@ -127,8 +116,7 @@ return [
         'from_date_comment' => 'The date on which this redirect will become active. Can be omitted.',
         'to_date' => 'Available Until',
         'to_date_comment' => 'The date until this redirect is active. Can be omitted.',
-        'scheduling_comment' => 'Here you can provide a period on which this redirect will be available. '
-            . 'All sorts of date combinations are possible.',
+        'scheduling_comment' => 'Here you can provide a period on which this redirect will be available. All sorts of date combinations are possible.',
         'not_active_warning' => 'Redirect is not available anymore, please check \'Scheduling\' tab.',
     ],
     'test' => [
@@ -150,8 +138,7 @@ return [
         'test_lab_label' => 'Include in TestLab',
         'test_lab_enable' => 'Flick this switch to allow testing this redirect in the TestLab.',
         'test_lab_path_label' => 'Test Path',
-        'test_lab_path_comment' => 'This path will be used when performing tests. '
-            . 'Replace placeholders with real values.',
+        'test_lab_path_comment' => 'This path will be used when performing tests. Replace placeholders with real values.',
         'start_tests' => 'Start Tests',
         'start_tests_description' => 'Press the \'Start tests\' button to begin.',
         'edit' => 'Edit',
@@ -166,8 +153,7 @@ return [
         'response_http_code_should_be' => 'Response HTTP code should be one of:',
         'redirect_count' => 'Redirect count',
         'final_destination' => 'Final Destination',
-        'no_redirects' => 'No redirects have been marked with TestLab enabled. '
-            . 'Please enable the option \'Include in TestLab\' when editing a redirect.',
+        'no_redirects' => 'No redirects have been marked with TestLab enabled. Please enable the option \'Include in TestLab\' when editing a redirect.',
         'test_error' => 'An error occurred when testing this redirect.',
         'flash_test_executed' => 'Test has been executed.',
         'flash_redirect_excluded' => 'Redirect has been excluded from TestLab and will not show up on next test run.',
@@ -181,8 +167,7 @@ return [
         'not_match_redirect' => 'Did not match any redirect.',
         'matched' => 'Matched',
         'redirect' => 'redirect',
-        'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! '
-            . 'Expected :expected but received :received.',
+        'matched_not_http_code' => 'Matched redirect, but response HTTP code did not match! Expected :expected but received :received.',
         'matched_http_code' => 'Matched redirect, response HTTP code :code.',
         'executing_tests' => 'Executing tests...',
     ],

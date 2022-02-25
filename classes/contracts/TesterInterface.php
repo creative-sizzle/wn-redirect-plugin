@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes\Contracts;
+namespace CreativeSizzle\Redirect\Classes\Contracts;
 
-use Vdlp\Redirect\Classes\TesterResult;
+use CreativeSizzle\Redirect\Classes\TesterResult;
 
 interface TesterInterface
 {

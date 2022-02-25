@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Controllers;
+namespace CreativeSizzle\Redirect\Controllers;
 
 use Backend\Behaviors\ListController;
 use Backend\Classes\Controller;
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use October\Rain\Flash\FlashBag;
 use Psr\Log\LoggerInterface;
 use Throwable;
-use Vdlp\Redirect\Models\RedirectLog;
+use CreativeSizzle\Redirect\Models\RedirectLog;
 
 /**
  * @mixin ListController
@@ -25,7 +25,7 @@ final class Logs extends Controller
         ListController::class
     ];
 
-    public $requiredPermissions = ['vdlp.redirect.access_redirects'];
+    public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
     public string $listConfig = 'config_list.yaml';
     private Request $request;
     private Translator $translator;
@@ -38,7 +38,7 @@ final class Logs extends Controller
 
         BackendMenu::setContext('Vdlp.Redirect', 'redirect', 'logs');
 
-        $this->addCss('/plugins/vdlp/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
 
         $this->request = $request;
         $this->translator = $translator;
@@ -55,7 +55,7 @@ final class Logs extends Controller
     {
         try {
             RedirectLog::query()->truncate();
-            $this->flash->success($this->translator->trans('vdlp.redirect::lang.flash.truncate_success'));
+            $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.truncate_success'));
         } catch (Throwable $e) {
             $this->log->warning($e);
         }
@@ -79,7 +79,7 @@ final class Logs extends Controller
                 }
             }
 
-            $this->flash->success($this->translator->trans('vdlp.redirect::lang.flash.delete_selected_success'));
+            $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.delete_selected_success'));
         } else {
             $this->flash->error($this->translator->trans('backend::lang.list.delete_selected_empty'));
         }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes\Contracts;
+namespace CreativeSizzle\Redirect\Classes\Contracts;
 
-use Vdlp\Redirect\Classes\Exceptions\InvalidScheme;
-use Vdlp\Redirect\Classes\Exceptions\NoMatchForRequest;
-use Vdlp\Redirect\Classes\Exceptions\UnableToLoadRules;
-use Vdlp\Redirect\Classes\RedirectManagerSettings;
-use Vdlp\Redirect\Classes\RedirectRule;
+use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
+use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
+use CreativeSizzle\Redirect\Classes\Exceptions\UnableToLoadRules;
+use CreativeSizzle\Redirect\Classes\RedirectManagerSettings;
+use CreativeSizzle\Redirect\Classes\RedirectRule;
 
 interface RedirectManagerInterface
 {

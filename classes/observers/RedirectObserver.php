@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes\Observers;
+namespace CreativeSizzle\Redirect\Classes\Observers;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
-use Vdlp\Redirect\Classes\Observers\Traits\CanBeDisabled;
-use Vdlp\Redirect\Models;
+use CreativeSizzle\Redirect\Classes\Observers\Traits\CanBeDisabled;
+use CreativeSizzle\Redirect\Models;
 
 final class RedirectObserver
 {
@@ -44,7 +44,7 @@ final class RedirectObserver
 
         $this->logChange($model, 'created');
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($model->getKey())
         ]);
     }
@@ -61,7 +61,7 @@ final class RedirectObserver
 
         $this->logChange($model, 'updated');
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($model->getKey())
         ]);
     }
@@ -78,14 +78,14 @@ final class RedirectObserver
 
         $this->logChange($model, 'deleted');
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($model->getKey())
         ]);
     }
 
     private function logChange(Models\Redirect $model, string $typeOfChange): void
     {
-        if ((bool) config('vdlp.redirect::log_redirect_changes', false) === false) {
+        if ((bool) config('creativesizzle.redirect::log_redirect_changes', false) === false) {
             return;
         }
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes\Contracts;
+namespace CreativeSizzle\Redirect\Classes\Contracts;
 
-use Vdlp\Redirect\Classes\RedirectRule;
+use CreativeSizzle\Redirect\Classes\RedirectRule;
 
 interface RedirectConditionInterface
 {

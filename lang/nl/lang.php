@@ -1,8 +1,4 @@
-<?php
-
-declare(strict_types=1);
-
-return [
+<?php return [
     'plugin' => [
         'name' => 'Redirects',
         'description' => 'Eenvoudig beheren van redirects',
@@ -27,9 +23,7 @@ return [
         'test_lab_enabled_label' => 'TestLab (beta)',
         'test_lab_enabled_comment' => 'TestLab maakt het mogelijk om op grote schaal redirects te testen.',
         'caching_enabled_label' => 'Caching van redirects (geavanceerd)',
-        'caching_enabled_comment' => 'Verbetert het redirect mechanisme als er veel redirects zijn. '
-            . 'LET OP: Cache driver `file` en `database` zijn NIET ondersteund. '
-            . 'Aanbevolen driver is `memcached` of een vergelijkbare "in-memory" caching driver.',
+        'caching_enabled_comment' => 'Verbetert het redirect mechanisme als er veel redirects zijn. LET OP: Cache driver `file` en `database` zijn NIET ondersteund. Aanbevolen driver is `memcached` of een vergelijkbare "in-memory" caching driver.',
         'relative_paths_enabled_label' => 'Relatieve paden gebruiken',
         'relative_paths_enabled_command' => 'Het redirect mechanisme zal relatieve paden gebruiken i.p.v. absolute paden.',
     ],
@@ -39,15 +33,13 @@ return [
         'from_url_placeholder' => '/bron/pad',
         'from_url_comment' => 'Het bronpad welke overeenkomt.',
         'from_scheme' => 'Bron protocol',
-        'from_scheme_comment' => 'Forceer overeenkomst met protocol. Als HTTP geselecteerd is zal <u>http://domeinnaam.com/pad</u> '
-            . 'overeenkomen en <u>https://domeinnaam.com/pad</u> zal niet overeenkomen.',
+        'from_scheme_comment' => 'Forceer overeenkomst met protocol. Als HTTP geselecteerd is zal <u>http://domeinnaam.com/pad</u> overeenkomen en <u>https://domeinnaam.com/pad</u> zal niet overeenkomen.',
         'to_url' => 'Doelpad of URL',
-        'to_url_placeholder' => '/absoluut/pad, relatief/pad of http://doel.url', // changed since 2.0.6
+        'to_url_placeholder' => '/absoluut/pad, relatief/pad of http://doel.url',
         'to_url_comment' => 'Het doelpad of de URL om naar te verwijzen.',
         'to_url_required_if' => 'Het doelpad of de URL is verplicht',
         'to_scheme' => 'Doel protocol',
-        'to_scheme_comment' => 'Doel protocol zal geforceerd worden naar HTTP of HTTPS '
-            . 'of kies Automatisch om het standaard protocol van de website te gebruiken.',
+        'to_scheme_comment' => 'Doel protocol zal geforceerd worden naar HTTP of HTTPS of kies Automatisch om het standaard protocol van de website te gebruiken.',
         'scheme_auto' => 'Automatisch',
         'cms_page_required_if' => 'Voer een CMS Pagina om naar te verwijzen in',
         'static_page_required_if' => 'Voer een Statische Pagina om naar te verwijzen in',
@@ -65,14 +57,12 @@ return [
         'requirements' => 'Vereisten',
         'requirements_comment' => 'Geef de vereisten op voor elke placeholder.',
         'placeholder' => 'Placeholder',
-        'placeholder_comment' => 'De naam van de Placeholder (inclusief accolades) ingegeven in het  \'Doelpad\' veld. '
-            . 'Bijvoorbeeld {category} of {id}',
+        'placeholder_comment' => 'De naam van de Placeholder (inclusief accolades) ingegeven in het  \'Doelpad\' veld. Bijvoorbeeld {category} of {id}',
         'requirement' => 'Vereiste',
         'requirement_comment' => 'Voer de vereisten \'Regular Expression\' in bijvoorbeeld [0-9]+ of [a-zA-Z]+.',
         'requirements_prompt' => 'Voeg nieuwe vereisten toe',
         'replacement' => 'Vervanging',
-        'replacement_comment' => 'Voer een optionele vervangingswaard voor deze Placeholder in. '
-            . 'De overeenkomstige placeholder zal vervangen worden met deze waarde in de doel URL.',
+        'replacement_comment' => 'Voer een optionele vervangingswaard voor deze Placeholder in. De overeenkomstige placeholder zal vervangen worden met deze waarde in de doel URL.',
         'permanent' => '301 - Permanent (Permanent)',
         'temporary' => '302 - Temporary (Tijdelijk)',
         'see_other' => '303 - See Other (Zie andere)',
@@ -100,8 +90,7 @@ return [
         'truncate_confirm' => 'Weet je het zeker dat je ALLE items wilt verwijderen?',
         'truncating' => 'Aan het verwijderen...',
         'warning' => 'Waarschuwing',
-        'cache_warning' => 'Je hebt caching ingeschakeld maar de cache driver wordt niet ondersteund. '
-            . 'Redirects zullen niet worden gecached.',
+        'cache_warning' => 'Je hebt caching ingeschakeld maar de cache driver wordt niet ondersteund. Redirects zullen niet worden gecached.',
         'general_confirm' => 'Weet je het zeker?',
         'sparkline_30d' => 'Treffers (30d)',
         'has_hits' => 'Heeft treffers',
@@ -127,8 +116,7 @@ return [
         'from_date_comment' => '',
         'to_date' => 'Beschikbaar tot',
         'to_date_comment' => '',
-        'scheduling_comment' => 'Hier kan een periode ingegeven worden wanneer de redirect beschikbaar is. '
-            . 'Alle combinatie data zijn mogelijk.',
+        'scheduling_comment' => 'Hier kan een periode ingegeven worden wanneer de redirect beschikbaar is. Alle combinatie data zijn mogelijk.',
         'not_active_warning' => 'Deze redirect valt buiten het gestelde tijdschema. Controleer instellingen onder tabblad \'Tijdschema\'.',
     ],
     'test' => [
@@ -150,8 +138,7 @@ return [
         'test_lab_label' => 'In het TestLab insluiten',
         'test_lab_enable' => 'Schuif deze schakelaar om deze redirect in het TestLab te testen.',
         'test_lab_path_label' => 'Test pad',
-        'test_lab_path_comment' => 'Dit pad zal gebruikt worden wanneer test worden uitgevoerd. '
-            . 'Vervang placeholders met echt waardes.',
+        'test_lab_path_comment' => 'Dit pad zal gebruikt worden wanneer test worden uitgevoerd. Vervang placeholders met echt waardes.',
         'start_tests' => 'Start tests',
         'start_tests_description' => 'Klik de \'Start Tests\' button om te beginnen.',
         'edit' => 'Bewerk',
@@ -166,8 +153,7 @@ return [
         'response_http_code_should_be' => 'Response HTTP code zou een van de volgende moeten zijn:',
         'redirect_count' => 'Redirect aantal',
         'final_destination' => 'Uiteindelijke bestemming',
-        'no_redirects' => 'Er zijn geen redirects gemarkeerd met met TestLab aan.'
-            . 'Zet de optie \'Voeg aan TestLab toe\' aan wanneer een redirect bewerkt wordt.',
+        'no_redirects' => 'Er zijn geen redirects gemarkeerd met met TestLab aan.Zet de optie \'Voeg aan TestLab toe\' aan wanneer een redirect bewerkt wordt.',
         'test_error' => 'Er ontstond een probleem bij het testen van deze redirect.',
         'flash_test_executed' => 'De test is uitgevoerd.',
         'flash_redirect_excluded' => 'De redirect is van het TestLab uitgesloten en zal niet verschijnen wanneer de volgende test uitgevoerd wordt.',
@@ -181,8 +167,7 @@ return [
         'not_match_redirect' => 'Komt niet overeen met een redirect.',
         'matched' => 'Overeenkomstig',
         'redirect' => 'redirect',
-        'matched_not_http_code' => 'Redirect komt overeen, maar de HTTP antwoord code komt niet overeen! '
-            . 'Verwachte :expected maar ontving :received.',
+        'matched_not_http_code' => 'Redirect komt overeen, maar de HTTP antwoord code komt niet overeen! Verwachte :expected maar ontving :received.',
         'matched_http_code' => 'Overeenkomstig redirect, antwoord HTTP code :code.',
         'executing_tests' => 'Uitvoeren tests...',
     ],
@@ -252,7 +237,7 @@ return [
         'tab_logs' => 'Logboek',
     ],
     'flash' => [
-        'success_created_redirects' => 'Er zijn :count redirect(s) gecreëerd', // since 2.0.3
+        'success_created_redirects' => 'Er zijn :count redirect(s) gecreëerd',
         'static_page_redirect_not_supported' => 'Deze redirect kan niet bewerkt worden. RainLab.Pages Plugin is vereist.',
         'truncate_success' => 'Alle items zijn succesvol verwijderd.',
         'delete_selected_success' => 'De geselecteerde items zijn succesvol verwijderd.',

@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/vdlp/redirect/models/category/columns.yaml
+list: $/creativesizzle/redirect/models/category/columns.yaml
 
 # Model Class name
-modelClass: Vdlp\Redirect\Models\Category
+modelClass: CreativeSizzle\Redirect\Models\Category
 
 # List Title
-title: vdlp.redirect::lang.title.categories
+title: creativesizzle.redirect::lang.title.categories
 
 # Link URL for each record
-recordUrl: vdlp/redirect/categories/update/:id
+recordUrl: creativesizzle/redirect/categories/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

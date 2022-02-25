@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Updates;
+namespace CreativeSizzle\Redirect\Updates;
 
 use Illuminate\Database\DatabaseManager;
 use October\Rain\Database\Updates\Migration;

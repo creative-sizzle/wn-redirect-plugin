@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes;
+namespace CreativeSizzle\Redirect\Classes;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use October\Rain\Database\Collection;
-use Vdlp\Redirect\Classes\Observers\RedirectObserver;
-use Vdlp\Redirect\Models;
+use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
+use CreativeSizzle\Redirect\Models;
 
 final class StatisticsHelper
 {

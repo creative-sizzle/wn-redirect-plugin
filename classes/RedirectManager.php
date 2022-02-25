@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes;
+namespace CreativeSizzle\Redirect\Classes;
 
 use ApplicationException;
 use Carbon\Carbon;
@@ -19,12 +19,12 @@ use League\Csv\Reader;
 use RuntimeException;
 use Symfony\Component\Routing;
 use Throwable;
-use Vdlp\Redirect\Classes\Contracts\CacheManagerInterface;
-use Vdlp\Redirect\Classes\Contracts\RedirectConditionInterface;
-use Vdlp\Redirect\Classes\Contracts\RedirectManagerInterface;
-use Vdlp\Redirect\Classes\Exceptions;
-use Vdlp\Redirect\Classes\Util\Str;
-use Vdlp\Redirect\Models;
+use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\RedirectConditionInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
+use CreativeSizzle\Redirect\Classes\Exceptions;
+use CreativeSizzle\Redirect\Classes\Util\Str;
+use CreativeSizzle\Redirect\Models;
 
 final class RedirectManager implements RedirectManagerInterface
 {
@@ -556,7 +556,7 @@ final class RedirectManager implements RedirectManagerInterface
      */
     private function loadRulesFromFilesystem(): array
     {
-        $rulesPath = (string) config('vdlp.redirect::rules_path');
+        $rulesPath = (string) config('creativesizzle.redirect::rules_path');
 
         if (!file_exists($rulesPath) && touch($rulesPath) === false) {
             throw Exceptions\RulesPathNotWritable::withPath($rulesPath);

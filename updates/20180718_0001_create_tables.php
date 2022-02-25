@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Updates;
+namespace CreativeSizzle\Redirect\Updates;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,9 +13,9 @@ use October\Rain\Database\Updates\Migration;
 use Psr\Log\LoggerInterface;
 use Schema;
 use Throwable;
-use Vdlp\Redirect\Models\Category;
-use Vdlp\Redirect\Models\Redirect;
-use Vdlp\Redirect\Models\Settings;
+use CreativeSizzle\Redirect\Models\Category;
+use CreativeSizzle\Redirect\Models\Redirect;
+use CreativeSizzle\Redirect\Models\Settings;
 
 class CreateTables extends Migration
 {

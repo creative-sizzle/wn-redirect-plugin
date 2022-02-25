@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Controllers;
+namespace CreativeSizzle\Redirect\Controllers;
 
 use Backend\Classes\Controller;
 use Backend\Facades\BackendMenu;
@@ -25,7 +25,7 @@ final class Extensions extends Controller
 
         BackendMenu::setContext('Vdlp.Redirect', 'redirect', 'extensions');
 
-        $this->addCss('/plugins/vdlp/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
 
         $this->pageTitle = 'Redirect Extensions (new)';
     }

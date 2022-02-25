@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes\Exceptions;
+namespace CreativeSizzle\Redirect\Classes\Exceptions;
 
 use RuntimeException;
 

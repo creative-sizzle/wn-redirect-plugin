@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Classes;
+namespace CreativeSizzle\Redirect\Classes;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -10,12 +10,12 @@ use Illuminate\Support\Str;
 use October\Rain\Events\Dispatcher;
 use Psr\Log\LoggerInterface;
 use Throwable;
-use Vdlp\Redirect\Classes\Contracts\CacheManagerInterface;
-use Vdlp\Redirect\Classes\Contracts\RedirectManagerInterface;
-use Vdlp\Redirect\Classes\Exceptions\InvalidScheme;
-use Vdlp\Redirect\Classes\Exceptions\NoMatchForRequest;
-use Vdlp\Redirect\Classes\Exceptions\UnableToLoadRules;
-use Vdlp\Redirect\Models\Settings;
+use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
+use CreativeSizzle\Redirect\Classes\Contracts\RedirectManagerInterface;
+use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
+use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
+use CreativeSizzle\Redirect\Classes\Exceptions\UnableToLoadRules;
+use CreativeSizzle\Redirect\Models\Settings;
 
 final class RedirectMiddleware
 {
@@ -52,7 +52,7 @@ final class RedirectMiddleware
         if (
             $request->isXmlHttpRequest()
             || !in_array($request->method(), self::$supportedMethods, true)
-            || Str::startsWith($request->getRequestUri(), '/vdlp/redirect/sparkline/')
+            || Str::startsWith($request->getRequestUri(), '/creativesizzle/redirect/sparkline/')
         ) {
             return $next($request);
         }
@@ -98,7 +98,7 @@ final class RedirectMiddleware
          *
          * At this point a positive match was made based on the request URI.
          */
-        $this->dispatcher->fire('vdlp.redirect.match', [$rule, $requestUri]);
+        $this->dispatcher->fire('creativesizzle.redirect.match', [$rule, $requestUri]);
 
         /*
          * Extensibility:

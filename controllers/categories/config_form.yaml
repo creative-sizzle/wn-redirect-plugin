@@ -3,25 +3,25 @@
 # ===================================
 
 # Record name
-name: vdlp.redirect::lang.redirect.category
+name: creativesizzle.redirect::lang.redirect.category
 
 # Model Form Field configuration
-form: $/vdlp/redirect/models/category/fields.yaml
+form: $/creativesizzle/redirect/models/category/fields.yaml
 
 # Model Class name
-modelClass: Vdlp\Redirect\Models\Category
+modelClass: CreativeSizzle\Redirect\Models\Category
 
 # Default redirect location
-defaultRedirect: vdlp/redirect/categories
+defaultRedirect: creativesizzle/redirect/categories
 
 # Create page
 create:
-    title: vdlp.redirect::lang.title.create_category
-    redirect: vdlp/redirect/categories/update/:id
-    redirectClose: vdlp/redirect/categories
+    title: creativesizzle.redirect::lang.title.create_category
+    redirect: creativesizzle/redirect/categories/update/:id
+    redirectClose: creativesizzle/redirect/categories
 
 # Update page
 update:
-    title: vdlp.redirect::lang.title.edit_category
-    redirect: vdlp/redirect/categories
-    redirectClose: vdlp/redirect/categories
+    title: creativesizzle.redirect::lang.title.edit_category
+    redirect: creativesizzle/redirect/categories
+    redirectClose: creativesizzle/redirect/categories

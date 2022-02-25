@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Models;
+namespace CreativeSizzle\Redirect\Models;
 
 use Carbon\Carbon;
 use Exception;
@@ -16,7 +16,7 @@ use October\Rain\Database\Relations\HasMany;
 use October\Rain\Database\Traits\Sortable;
 use October\Rain\Database\Traits\Validation;
 use System\Models\RequestLog;
-use Vdlp\Redirect\Classes\OptionHelper;
+use CreativeSizzle\Redirect\Classes\OptionHelper;
 
 /**
  * @method static Redirect|Builder enabled()
@@ -92,30 +92,30 @@ final class Redirect extends Model
      * Custom validation messages.
      */
     public array $customMessages = [
-        'to_url.required_if' => 'vdlp.redirect::lang.redirect.to_url_required_if',
-        'cms_page.required_if' => 'vdlp.redirect::lang.redirect.cms_page_required_if',
-        'static_page.required_if' => 'vdlp.redirect::lang.redirect.static_page_required_if',
-        'is_regex' => 'vdlp.redirect::lang.redirect.invalid_regex',
+        'to_url.required_if' => 'creativesizzle.redirect::lang.redirect.to_url_required_if',
+        'cms_page.required_if' => 'creativesizzle.redirect::lang.redirect.cms_page_required_if',
+        'static_page.required_if' => 'creativesizzle.redirect::lang.redirect.static_page_required_if',
+        'is_regex' => 'creativesizzle.redirect::lang.redirect.invalid_regex',
     ];
 
     /**
      * Custom attribute names.
      */
     public array $attributeNames = [
-        'to_url' => 'vdlp.redirect::lang.redirect.to_url',
-        'to_scheme' => 'vdlp.redirect::lang.redirect.to_scheme',
-        'from_url' => 'vdlp.redirect::lang.redirect.from_url',
-        'from_scheme' => 'vdlp.redirect::lang.redirect.to_scheme',
-        'match_type' => 'vdlp.redirect::lang.redirect.match_type',
-        'target_type' => 'vdlp.redirect::lang.redirect.target_type',
-        'cms_page' => 'vdlp.redirect::lang.redirect.target_type_cms_page',
-        'static_page' => 'vdlp.redirect::lang.redirect.target_type_static_page',
-        'status_code' => 'vdlp.redirect::lang.redirect.status_code',
-        'from_date' => 'vdlp.redirect::lang.scheduling.from_date',
-        'to_date' => 'vdlp.redirect::lang.scheduling.to_date',
-        'sort_order' => 'vdlp.redirect::lang.redirect.sort_order',
-        'requirements' => 'vdlp.redirect::lang.redirect.requirements',
-        'last_used_at' => 'vdlp.redirect::lang.redirect.last_used_at',
+        'to_url' => 'creativesizzle.redirect::lang.redirect.to_url',
+        'to_scheme' => 'creativesizzle.redirect::lang.redirect.to_scheme',
+        'from_url' => 'creativesizzle.redirect::lang.redirect.from_url',
+        'from_scheme' => 'creativesizzle.redirect::lang.redirect.to_scheme',
+        'match_type' => 'creativesizzle.redirect::lang.redirect.match_type',
+        'target_type' => 'creativesizzle.redirect::lang.redirect.target_type',
+        'cms_page' => 'creativesizzle.redirect::lang.redirect.target_type_cms_page',
+        'static_page' => 'creativesizzle.redirect::lang.redirect.target_type_static_page',
+        'status_code' => 'creativesizzle.redirect::lang.redirect.status_code',
+        'from_date' => 'creativesizzle.redirect::lang.scheduling.from_date',
+        'to_date' => 'creativesizzle.redirect::lang.scheduling.to_date',
+        'sort_order' => 'creativesizzle.redirect::lang.redirect.sort_order',
+        'requirements' => 'creativesizzle.redirect::lang.redirect.requirements',
+        'last_used_at' => 'creativesizzle.redirect::lang.redirect.last_used_at',
     ];
 
     public $jsonable = [
@@ -221,7 +221,7 @@ final class Redirect extends Model
 
         /** @var Dispatcher $dispatcher */
         $dispatcher = resolve(Dispatcher::class);
-        $dispatcher->dispatch('vdlp.redirect.changed', ['redirectIds' => $itemIds]);
+        $dispatcher->dispatch('creativesizzle.redirect.changed', ['redirectIds' => $itemIds]);
 
         $this->traitSetSortableOrder($itemIds, $itemOrders);
     }
@@ -259,7 +259,7 @@ final class Redirect extends Model
         $options = [];
 
         foreach (self::$types as $value) {
-            $options[$value] = e(trans("vdlp.redirect::lang.redirect.$value"));
+            $options[$value] = e(trans("creativesizzle.redirect::lang.redirect.$value"));
         }
 
         return $options;
@@ -290,7 +290,7 @@ final class Redirect extends Model
         $options = [];
 
         foreach (self::$types as $value) {
-            $options[$value] = e(trans(sprintf('vdlp.redirect::lang.redirect.%s', $value)));
+            $options[$value] = e(trans(sprintf('creativesizzle.redirect::lang.redirect.%s', $value)));
         }
 
         return $options;
@@ -301,7 +301,7 @@ final class Redirect extends Model
         $options = [];
 
         foreach (self::$targetTypes as $value) {
-            $options[$value] = e(trans(sprintf('vdlp.redirect::lang.redirect.target_type_%s', $value)));
+            $options[$value] = e(trans(sprintf('creativesizzle.redirect::lang.redirect.target_type_%s', $value)));
         }
 
         return $options;
@@ -312,7 +312,7 @@ final class Redirect extends Model
         $options = [];
 
         foreach (self::$statusCodes as $value => $message) {
-            $options[$value] = e(trans(sprintf('vdlp.redirect::lang.redirect.%s', $message)));
+            $options[$value] = e(trans(sprintf('creativesizzle.redirect::lang.redirect.%s', $message)));
         }
 
         return $options;

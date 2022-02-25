@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Updates;
+namespace CreativeSizzle\Redirect\Updates;
 
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;

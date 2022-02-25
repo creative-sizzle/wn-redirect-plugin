@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Controllers;
+namespace CreativeSizzle\Redirect\Controllers;
 
 use Backend\Behaviors;
 use Backend\Classes\Controller;
@@ -24,15 +24,15 @@ use October\Rain\Exception\SystemException;
 use October\Rain\Flash\FlashBag;
 use System\Models\RequestLog;
 use Throwable;
-use Vdlp\Redirect\Classes\Contracts\CacheManagerInterface;
-use Vdlp\Redirect\Classes\Exceptions\InvalidScheme;
-use Vdlp\Redirect\Classes\Exceptions\NoMatchForRequest;
-use Vdlp\Redirect\Classes\Exceptions\UnableToLoadRules;
-use Vdlp\Redirect\Classes\Observers\RedirectObserver;
-use Vdlp\Redirect\Classes\RedirectManager;
-use Vdlp\Redirect\Classes\RedirectRule;
-use Vdlp\Redirect\Classes\StatisticsHelper;
-use Vdlp\Redirect\Models;
+use CreativeSizzle\Redirect\Classes\Contracts\CacheManagerInterface;
+use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
+use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
+use CreativeSizzle\Redirect\Classes\Exceptions\UnableToLoadRules;
+use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
+use CreativeSizzle\Redirect\Classes\RedirectManager;
+use CreativeSizzle\Redirect\Classes\RedirectRule;
+use CreativeSizzle\Redirect\Classes\StatisticsHelper;
+use CreativeSizzle\Redirect\Models;
 
 /**
  * @mixin Behaviors\FormController
@@ -62,7 +62,7 @@ final class Redirects extends Controller
     public string $importExportConfig = 'config_import_export.yaml';
     public string $relationConfig = 'config_relation.yaml';
 
-    public $requiredPermissions = ['vdlp.redirect.access_redirects'];
+    public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
 
     private Request $request;
     private Translator $translator;
@@ -84,7 +84,7 @@ final class Redirects extends Controller
 
         BackendMenu::setContext('Vdlp.Redirect', 'redirect', $sideMenuItemCode);
 
-        $this->addCss('/plugins/vdlp/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
 
         $this->vars['match'] = null;
         $this->vars['statisticsHelper'] = new StatisticsHelper();
@@ -102,7 +102,7 @@ final class Redirects extends Controller
         parent::index();
 
         if ($this->cacheManager->cachingEnabledButNotSupported()) {
-            $this->vars['warningMessage'] = $this->translator->trans('vdlp.redirect::lang.redirect.cache_warning');
+            $this->vars['warningMessage'] = $this->translator->trans('creativesizzle.redirect::lang.redirect.cache_warning');
         }
     }
 
@@ -122,7 +122,7 @@ final class Redirects extends Controller
             && !class_exists('\RainLab\Pages\Classes\Page')
         ) {
             $this->flash->error(
-                $this->translator->trans('vdlp.redirect::lang.flash.static_page_redirect_not_supported')
+                $this->translator->trans('creativesizzle.redirect::lang.flash.static_page_redirect_not_supported')
             );
 
             return redirect()->back();
@@ -130,7 +130,7 @@ final class Redirects extends Controller
 
         if (!$redirect->isActiveOnDate(Carbon::now())) {
             $this->vars['warningMessage'] = $this->translator->trans(
-                'vdlp.redirect::lang.scheduling.not_active_warning'
+                'creativesizzle.redirect::lang.scheduling.not_active_warning'
             );
         }
 
@@ -151,7 +151,7 @@ final class Redirects extends Controller
         $redirect = parent::create_onSave($context);
 
         if ($this->request->has('new')) {
-            return Backend::redirect('vdlp/redirect/redirects/create');
+            return Backend::redirect('creativesizzle/redirect/redirects/create');
         }
 
         return $redirect;
@@ -163,7 +163,7 @@ final class Redirects extends Controller
 
         Models\Redirect::destroy($redirectIds);
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -178,7 +178,7 @@ final class Redirects extends Controller
             ->whereIn('id', $redirectIds)
             ->update(['is_enabled' => 1]);
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -193,7 +193,7 @@ final class Redirects extends Controller
             ->whereIn('id', $redirectIds)
             ->update(['is_enabled' => 0]);
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -213,7 +213,7 @@ final class Redirects extends Controller
             ->whereIn('redirect_id', $redirectIds)
             ->delete();
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -226,7 +226,7 @@ final class Redirects extends Controller
         $cacheManager = resolve(CacheManagerInterface::class);
         $cacheManager->flush();
 
-        $this->flash->success($this->translator->trans('vdlp.redirect::lang.flash.cache_cleared_success'));
+        $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.cache_cleared_success'));
     }
 
     /**
@@ -246,9 +246,9 @@ final class Redirects extends Controller
         Models\Redirect::query()->update(['hits' => 0]);
         Models\Client::query()->delete();
 
-        $this->flash->success($this->translator->trans('vdlp.redirect::lang.flash.statistics_reset_success'));
+        $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.statistics_reset_success'));
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -272,9 +272,9 @@ final class Redirects extends Controller
         Models\Redirect::query()
             ->update(['is_enabled' => $enabled]);
 
-        $this->flash->success($this->translator->trans('vdlp.redirect::lang.flash.disabled_all_redirects_success'));
+        $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.disabled_all_redirects_success'));
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -288,9 +288,9 @@ final class Redirects extends Controller
         Models\Redirect::query()
             ->delete();
 
-        $this->flash->success($this->translator->trans('vdlp.redirect::lang.flash.deleted_all_redirects_success'));
+        $this->flash->success($this->translator->trans('creativesizzle.redirect::lang.flash.deleted_all_redirects_success'));
 
-        $this->dispatcher->dispatch('vdlp.redirect.changed', [
+        $this->dispatcher->dispatch('creativesizzle.redirect.changed', [
             'redirectIds' => Arr::wrap($redirectIds)
         ]);
 
@@ -331,7 +331,7 @@ final class Redirects extends Controller
         }
 
         if (!Models\Settings::isTestLabEnabled()) {
-            $host->removeTab('vdlp.redirect::lang.tab.tab_test_lab');
+            $host->removeTab('creativesizzle.redirect::lang.tab.tab_test_lab');
         }
 
         if ($this->request->isMethod(Request::METHOD_GET)) {
@@ -457,7 +457,7 @@ final class Redirects extends Controller
 
         if ($redirectsCreated > 0) {
             $this->flash->success($this->translator->trans(
-                'vdlp.redirect::lang.flash.success_created_redirects',
+                'creativesizzle.redirect::lang.flash.success_created_redirects',
                 [
                     'count' => $redirectsCreated,
                 ]

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Console;
+namespace CreativeSizzle\Redirect\Console;
 
 use Illuminate\Console\Command;
-use Vdlp\Redirect\Classes\PublishManager;
+use CreativeSizzle\Redirect\Classes\PublishManager;
 
 final class PublishRedirectsCommand extends Command
 {
     public function __construct()
     {
-        $this->name = 'vdlp:redirect:publish-redirects';
+        $this->name = 'creativesizzle:redirect:publish-redirects';
         $this->description = 'Publish all redirects.';
 
         parent::__construct();

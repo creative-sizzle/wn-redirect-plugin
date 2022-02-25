@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect\Updates;
+namespace CreativeSizzle\Redirect\Updates;
 
 use Exception;
 use Illuminate\Database\DatabaseManager;

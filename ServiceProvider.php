@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vdlp\Redirect;
+namespace CreativeSizzle\Redirect;
 
 use October\Rain\Support\ServiceProvider as ServiceProviderBase;
-use Vdlp\Redirect\Classes\CacheManager;
-use Vdlp\Redirect\Classes\Contracts;
-use Vdlp\Redirect\Classes\PublishManager;
-use Vdlp\Redirect\Classes\RedirectManager;
+use CreativeSizzle\Redirect\Classes\CacheManager;
+use CreativeSizzle\Redirect\Classes\Contracts;
+use CreativeSizzle\Redirect\Classes\PublishManager;
+use CreativeSizzle\Redirect\Classes\RedirectManager;
 
 final class ServiceProvider extends ServiceProviderBase
 {

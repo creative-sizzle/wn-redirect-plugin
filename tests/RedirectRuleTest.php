@@ -8,9 +8,8 @@ use Carbon\Carbon;
 use CreativeSizzle\Redirect\Classes\RedirectRule;
 use CreativeSizzle\Redirect\Models\Redirect;
 use PHPUnit_Framework_Exception;
-use PluginTestCase;
 
-class RedirectRuleTest extends PluginTestCase
+class RedirectRuleTest extends TestCase
 {
     public function testInstance(): void
     {

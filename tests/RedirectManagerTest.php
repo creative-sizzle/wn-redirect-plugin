@@ -19,9 +19,8 @@ use CreativeSizzle\Redirect\ServiceProvider;
 use Exception;
 use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_Exception;
-use PluginTestCase;
 
-class RedirectManagerTest extends PluginTestCase
+class RedirectManagerTest extends TestCase
 {
     public function setUp(): void
     {

@@ -61,10 +61,7 @@ jobs:
           rmdir winter-${{ env.winterCmsRelease }}
           shopt -u dotglob
           mkdir -p plugins/creativesizzle
-          mv mediablocks-plugin plugins/creativesizzle/redirect
-
-      - name: Fix Imagick Policy
-        run: sudo sed -i 's/none/read|write/g' /etc/ImageMagick-6/policy.xml
+          mv redirect-plugin plugins/creativesizzle/redirect
 
       - name: Install Composer dependencies
         run: |

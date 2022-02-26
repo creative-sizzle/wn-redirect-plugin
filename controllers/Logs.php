@@ -26,10 +26,15 @@ final class Logs extends Controller
     ];
 
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
+
     public string $listConfig = 'config_list.yaml';
+
     private Request $request;
+
     private Translator $translator;
+
     private FlashBag $flash;
+
     private LoggerInterface $log;
 
     public function __construct(Request $request, Translator $translator, LoggerInterface $log)

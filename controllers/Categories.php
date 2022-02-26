@@ -20,7 +20,9 @@ final class Categories extends Controller
     ];
 
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
+
     public string $formConfig = 'config_form.yaml';
+
     public string $listConfig = 'config_list.yaml';
 
     public function __construct()

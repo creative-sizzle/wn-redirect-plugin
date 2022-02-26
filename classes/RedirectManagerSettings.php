@@ -9,7 +9,9 @@ use CreativeSizzle\Redirect\Models\Settings;
 final class RedirectManagerSettings
 {
     private bool $loggingEnabled;
+
     private bool $statisticsEnabled;
+
     private bool $relativePathsEnabled;
 
     public function __construct(bool $loggingEnabled, bool $statisticsEnabled, bool $relativePathsEnabled)

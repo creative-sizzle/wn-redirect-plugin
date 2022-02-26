@@ -22,9 +22,13 @@ final class RedirectMiddleware
     private static array $supportedMethods = ['GET', 'POST', 'HEAD'];
 
     private RedirectManagerInterface $redirectManager;
+
     private RedirectConditionManager $redirectConditionManager;
+
     private CacheManagerInterface $cacheManager;
+
     private Dispatcher $dispatcher;
+
     private LoggerInterface $log;
 
     public function __construct(

@@ -18,9 +18,9 @@ final class Sparkline extends \Davaxi\Sparkline
 
         $baseRed = $baseGreen = $baseBlue = 255;
 
-        $red = floor(($baseRed + $red) / 2);
-        $green = floor(($baseGreen + $green) / 2);
-        $blue = floor(($baseBlue + $blue) / 2);
+        $red = (int) floor(($baseRed + $red) / 2);
+        $green = (int) floor(($baseGreen + $green) / 2);
+        $blue = (int) floor(($baseBlue + $blue) / 2);
 
         $this->setFillColorRGB($red, $green, $blue);
     }

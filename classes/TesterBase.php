@@ -23,6 +23,7 @@ abstract class TesterBase implements TesterInterface
     public const CONNECTION_TIMEOUT = 10;
 
     protected string $testUrl;
+
     protected string $testPath;
 
     public function __construct(string $testPath)

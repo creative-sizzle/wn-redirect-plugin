@@ -16,6 +16,7 @@ use Throwable;
 final class PublishManager implements PublishManagerInterface
 {
     private LoggerInterface $log;
+
     private CacheManagerInterface $cacheManager;
 
     public function __construct(LoggerInterface $log, CacheManagerInterface $cacheManager)

@@ -19,6 +19,7 @@ final class CacheManager implements CacheManagerInterface
     private const CACHE_TAG_MATCHES = 'creativesizzle_redirect_matches';
 
     private Repository $cache;
+
     private LoggerInterface $log;
 
     public function __construct(Repository $cache, LoggerInterface $log)

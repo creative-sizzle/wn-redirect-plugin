@@ -50,6 +50,7 @@ final class RedirectManager implements RedirectManagerInterface
     private string $basePath;
 
     private RedirectManagerSettings $settings;
+
     private CacheManagerInterface $cacheManager;
 
     /**

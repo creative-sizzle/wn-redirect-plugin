@@ -19,6 +19,7 @@ use SystemException;
 final class Statistics extends Controller
 {
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
+
     private StatisticsHelper $helper;
 
     public function __construct()

@@ -10,7 +10,7 @@ use Throwable;
 
 final class RedirectImport extends ImportModel
 {
-    public $table = 'vdlp_redirect_redirects';
+    public $table = 'creativesizzle_redirect_redirects';
 
     /**
      * Basic validation rules.

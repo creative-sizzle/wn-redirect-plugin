@@ -26,11 +26,11 @@ use Winter\Storm\Database\Traits\Validation;
 final class Redirect extends Model
 {
     use Sortable {
-        setSortableOrder as traitSetSortableOrder;
+        Sortable::setSortableOrder as traitSetSortableOrder;
     }
 
     use Validation {
-        makeValidator as traitMakeValidator;
+        Validation::makeValidator as traitMakeValidator;
     }
 
     // Types
@@ -70,7 +70,7 @@ final class Redirect extends Model
         410 => 'gone',
     ];
 
-    public $table = 'vdlp_redirect_redirects';
+    public $table = 'creativesizzle_redirect_redirects';
 
     /**
      * Validation rules.

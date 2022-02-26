@@ -12,22 +12,39 @@ use JsonException;
 final class RedirectRule
 {
     private int $id;
+
     private string $matchType;
+
     private string $targetType;
+
     private string $fromUrl;
+
     private string $fromScheme;
+
     private string $toUrl;
+
     private string $toScheme;
+
     private string $cmsPage;
+
     private string $staticPage;
+
     private int $statusCode;
+
     private array $requirements = [];
+
     private ?Carbon $fromDate = null;
+
     private ?Carbon $toDate = null;
+
     private array $placeholderMatches = [];
+
     private array $pregMatchMatches = [];
+
     private bool $ignoreQueryParameters;
+
     private bool $ignoreCase;
+
     private bool $ignoreTrailingSlash;
 
     public function __construct(array $attributes)

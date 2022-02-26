@@ -59,15 +59,21 @@ final class Redirects extends Controller
     ];
 
     public string $reorderConfig = 'config_reorder.yaml';
+
     public string $importExportConfig = 'config_import_export.yaml';
+
     public string $relationConfig = 'config_relation.yaml';
 
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
 
     private Request $request;
+
     private Translator $translator;
+
     private Dispatcher $dispatcher;
+
     private CacheManagerInterface $cacheManager;
+
     private FlashBag $flash;
 
     public function __construct(

@@ -24,8 +24,11 @@ final class TestLab extends Controller
     public $requiredPermissions = ['creativesizzle.redirect.access_redirects'];
 
     private array $redirects = [];
+
     private Request $request;
+
     private Translator $translator;
+
     private FlashBag $flash;
 
     public function __construct(Request $request, Translator $translator)

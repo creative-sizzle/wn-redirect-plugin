@@ -1,0 +1,92 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  phpUnitTests:
+    runs-on: ubuntu-latest
+
+    name: Unit Tests / PHP ${{ matrix.phpVersions }}
+
+    strategy:
+      max-parallel: 6
+      matrix:
+        phpVersions: ['7.4', '8.0']
+      fail-fast: false
+
+    env:
+      phpExtensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, mysql, mysqli, pdo_mysql, bcmath, soap, intl, gd, exif, iconv, imagick
+      winterCmsRelease: develop
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    services:
+      mysql:
+        image: mariadb:10.5
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: db_test
+        ports:
+          - 33306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout Changes
+        uses: actions/checkout@v2
+        with:
+          path: redirect-plugin
+
+      - name: Install PHP and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.phpVersions }}
+          extensions: ${{ env.phpExtensions }}
+          tools: composer:v2
+          coverage: pcov
+
+      - name: Install Winter CMS
+        run: |
+          curl -L https://github.com/wintercms/winter/archive/${{ env.winterCmsRelease }}.zip -o ${{ env.winterCmsRelease }}.zip -s
+          unzip ${{ env.winterCmsRelease }}.zip
+          rm ${{ env.winterCmsRelease }}.zip
+          shopt -s dotglob
+          mv winter-${{ env.winterCmsRelease }}/* ./
+          rmdir winter-${{ env.winterCmsRelease }}
+          shopt -u dotglob
+          mkdir -p plugins/creativesizzle
+          mv mediablocks-plugin plugins/creativesizzle/redirect
+
+      - name: Fix Imagick Policy
+        run: sudo sed -i 's/none/read|write/g' /etc/ImageMagick-6/policy.xml
+
+      - name: Install Composer dependencies
+        run: |
+          composer install --prefer-dist --no-interaction
+
+      - name: Generate env file
+        run: |
+          php artisan key:generate
+          php artisan winter:env
+
+      - name: Run linting
+        run: ./vendor/bin/parallel-lint plugins/creativesizzle/redirect
+
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_USE_CONFIG_FOR_TESTING: true
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_DATABASE: db_test
+          DB_PORT: 33306
+          DB_USERNAME: root
+          DB_PASSWORD: secret
+        run: |
+          cd plugins/creativesizzle/redirect
+          ../../../vendor/bin/phpunit --coverage-clover coverage.xml

@@ -43,7 +43,7 @@ final class Logs extends Controller
 
         BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', 'logs');
 
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/redirect.css', 'CreativeSizzle.Redirect');
 
         $this->request = $request;
         $this->translator = $translator;

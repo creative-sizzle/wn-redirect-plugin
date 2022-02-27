@@ -50,9 +50,9 @@ final class TestLab extends Controller
     {
         $this->pageTitle = 'creativesizzle.redirect::lang.title.test_lab';
 
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/test-lab.css');
-        $this->addJs('/plugins/creativesizzle/redirect/assets/javascript/test-lab.js');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/redirect.css', 'CreativeSizzle.Redirect');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/test-lab.css', 'CreativeSizzle.Redirect');
+        $this->addJs('/plugins/creativesizzle/redirect/assets/dist/js/test-lab.js', 'CreativeSizzle.Redirect');
 
         $this->vars['redirectCount'] = $this->getRedirectCount();
     }

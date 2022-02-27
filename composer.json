@@ -24,15 +24,14 @@
         "php": "^7.4 || ^8.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "composer/installers": "~2.0",
+        "composer/installers": "~1.0 || ~2.0",
         "davaxi/sparkline": "^2.1",
         "jaybizzle/crawler-detect": "^1.2",
-        "winter/storm": "^1.1"
+        "symfony/stopwatch": "^5.4 || ^6.0"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.23",
-        "friendsofphp/php-cs-fixer": "^3.4",
-        "symfony/stopwatch": "^5.4 || ^6.0"
+        "friendsofphp/php-cs-fixer": "^3.4"
     },
     "replace": {
         "vdlp/oc-redirect-plugin": "<4.0.0"

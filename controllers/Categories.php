@@ -29,7 +29,7 @@ final class Categories extends Controller
     {
         parent::__construct();
 
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/redirect.css', 'CreativeSizzle.Redirect');
 
         BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', 'categories');
     }

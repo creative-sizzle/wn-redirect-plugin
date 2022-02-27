@@ -30,8 +30,8 @@ final class Statistics extends Controller
 
         $this->pageTitle = 'creativesizzle.redirect::lang.title.statistics';
 
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/statistics.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/redirect.css', 'CreativeSizzle.Redirect');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/statistics.css', 'CreativeSizzle.Redirect');
 
         $this->helper = new StatisticsHelper();
     }

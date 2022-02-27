@@ -90,7 +90,7 @@ final class Redirects extends Controller
 
         BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', $sideMenuItemCode);
 
-        $this->addCss('/plugins/creativesizzle/redirect/assets/css/redirect.css');
+        $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/redirect.css', 'CreativeSizzle.Redirect');
 
         $this->vars['match'] = null;
         $this->vars['statisticsHelper'] = new StatisticsHelper();

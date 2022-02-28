@@ -25,14 +25,6 @@ div.actions .btn {
 .sparkline {
     width: 100px;
     height: 30px;
-    background-size: 100px 30px;
-    background-repeat: no-repeat;
-}
-
-.sparkline img {
-    width: 100px;
-    height: 30px;
-    opacity: .8;
 }
 
 .form-sidebar .sparkline {

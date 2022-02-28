@@ -22,6 +22,6 @@ final class Sparkline extends \Davaxi\Sparkline
         $green = (int) floor(($baseGreen + $green) / 2);
         $blue = (int) floor(($baseBlue + $blue) / 2);
 
-        $this->setFillColorRGB($red, $green, $blue);
+        $this->setFillColorRGB($red, $green, $blue, $seriesIndex);
     }
 }

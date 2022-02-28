@@ -50,7 +50,7 @@ Route::group([
         });
 
         // TODO: Generate fallback image data if generating image fails.
-        $imageData = Cache::remember($cacheKey . '_image', 0, static function () use ($data, $crawlerData, $properties) {
+        $imageData = Cache::remember($cacheKey . '_image', 5 * 60, static function () use ($data, $crawlerData, $properties) {
             $primaryColor = BrandSetting::get('primary_color', BrandSetting::PRIMARY_COLOR);
             $secondaryColor = BrandSetting::get('secondary_color', BrandSetting::SECONDARY_COLOR);
 

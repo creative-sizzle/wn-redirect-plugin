@@ -2,6 +2,8 @@
 
 namespace CreativeSizzle\Redirect\Updates;
 
+use Backend\Models\User;
+use Backend\Models\UserRole;
 use Illuminate\Support\Facades\DB;
 use Winter\Storm\Database\Updates\Migration;
 use Winter\Storm\Support\Facades\Schema;
@@ -28,11 +30,18 @@ class RenameTables extends Migration
             $this->updateIndexNames($from, $to, $to);
         }
 
+        // Migrate settings
         DB::table('system_settings')
             ->where('item', 'vdlp_redirect_settings')
             ->update([
                 'item' => 'creativesizzle_redirect_settings',
             ]);
+
+        // Migrate backend user permissions
+        $this->migrateUserPermissions();
+
+        // Migrate backend user role permissions
+        $this->migrateRolePermissions();
     }
 
     public function down()
@@ -70,6 +79,46 @@ class RenameTables extends Migration
             $new = str_replace($from, $to, $old);
 
             $table->renameIndex($old, $new);
+        }
+    }
+
+    private function migrateUserPermissions()
+    {
+        $users = User::query()
+            ->where('permissions', '<>', '')
+            ->get();
+
+        foreach ($users as $user) {
+            $permissions = $user->permissions ?: [];
+            if (! isset($permissions['vdlp.redirect.access_redirects'])) {
+                continue;
+            }
+
+            $user->setPermissionsAttribute(json_encode($permissions + [
+                    'creativesizzle.redirect.access_redirects' => $permissions['vdlp.redirect.access_redirects'],
+                ]));
+
+            $user->save();
+        }
+    }
+
+    private function migrateRolePermissions()
+    {
+        $roles = UserRole::query()
+            ->where('permissions', '<>', '')
+            ->get();
+
+        foreach ($roles as $role) {
+            $permissions = $role->permissions ?: [];
+            if (! isset($permissions['vdlp.redirect.access_redirects'])) {
+                continue;
+            }
+
+            $role->setPermissionsAttribute(json_encode($permissions + [
+                    'creativesizzle.redirect.access_redirects' => $permissions['vdlp.redirect.access_redirects'],
+                ]));
+
+            $role->save();
         }
     }
 }

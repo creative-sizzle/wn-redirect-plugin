@@ -20,7 +20,7 @@ use Exception;
 use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_Exception;
 
-class RedirectManagerTest extends TestCase
+class RedirectManagerTest extends \PluginTestCase
 {
     public function setUp(): void
     {
@@ -56,7 +56,7 @@ class RedirectManagerTest extends TestCase
         $test = '/this-should-be-source';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
 
         $test = '/this-is-something-totally-different';
 
@@ -93,12 +93,12 @@ class RedirectManagerTest extends TestCase
         $test = '/this-should-be-source?foo=bar';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
 
         $test = '/this-should-be-source';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
     }
 
     /**
@@ -128,12 +128,12 @@ class RedirectManagerTest extends TestCase
         $test = '/ThIs-sHoUlD-bE-sOuRce';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
 
         $test = '/this-SHOULD-be-source';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
     }
 
     /**
@@ -165,12 +165,12 @@ class RedirectManagerTest extends TestCase
         $test = '/ThIs-sHoUlD-bE-sOuRce?param1=LOWER&param2=HIGHER';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
 
         $test = '/this-should-be-SOURCE?param1=lower&param2=higher';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
     }
 
     /**
@@ -200,7 +200,7 @@ class RedirectManagerTest extends TestCase
         $test = '/this-should-be-source//';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
     }
 
     /**
@@ -231,17 +231,17 @@ class RedirectManagerTest extends TestCase
         $test = '/this-should-be-source/?param1=value&param2=value';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
 
         $test = '/this-should-be-source//?param1=value&param2=value';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
 
         $test = '/this-should-be-source//////////////?param1=value&param2=value';
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
     }
 
     /**
@@ -283,7 +283,7 @@ class RedirectManagerTest extends TestCase
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
         self::assertInstanceOf(RedirectRule::class, $result);
-        self::assertEquals(Cms::url('/this-should-be-target'), $manager->getLocation($result));
+        self::assertEquals('/this-should-be-target', $manager->getLocation($result));
     }
 
     /**
@@ -340,14 +340,14 @@ class RedirectManagerTest extends TestCase
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
         self::assertInstanceOf(RedirectRule::class, $result);
-        self::assertEquals(Cms::url('/blog/octobercms/test/13'), $manager->getLocation($result));
+        self::assertEquals('/blog/octobercms/test/13', $manager->getLocation($result));
 
         $test = '/blog.php?cat=wordpress&section=test&id=99';
 
         $result = $manager->match($test, Redirect::SCHEME_HTTPS);
 
         self::assertInstanceOf(RedirectRule::class, $result);
-        self::assertEquals(Cms::url('/blog/wordpress/test/99'), $manager->getLocation($result));
+        self::assertEquals('/blog/wordpress/test/99', $manager->getLocation($result));
 
         $test = '/blog.php?cat=joomla&section=test&id=99';
 
@@ -410,7 +410,7 @@ class RedirectManagerTest extends TestCase
         $result = $manager->match('/this-should-be-source', Redirect::SCHEME_HTTPS);
 
         self::assertInstanceOf(RedirectRule::class, $result);
-        self::assertEquals(Cms::url('/creativesizzle/redirect/testpage'), $manager->getLocation($result));
+        self::assertEquals('/creativesizzle/redirect/testpage', $manager->getLocation($result));
 
         self::assertTrue($page->delete());
     }
@@ -602,16 +602,16 @@ class RedirectManagerTest extends TestCase
         $rule = RedirectRule::createWithModel($redirect);
         $manager = RedirectManager::createWithRule($rule);
 
-        self::assertEquals(Cms::url('/relative/path/to'), $manager->getLocation($rule));
+        self::assertEquals('/relative/path/to', $manager->getLocation($rule));
 
         $manager->setBasePath('/subdirectory');
 
-        self::assertEquals(Cms::url('/subdirectory/relative/path/to'), $manager->getLocation($rule));
+        self::assertEquals('/subdirectory/relative/path/to', $manager->getLocation($rule));
 
         $manager->setBasePath('/subdirectory/sub/sub//');
 
         self::assertEquals('/subdirectory/sub/sub', $manager->getBasePath());
-        self::assertEquals(Cms::url('/subdirectory/sub/sub/relative/path/to'), $manager->getLocation($rule));
+        self::assertEquals('/subdirectory/sub/sub/relative/path/to', $manager->getLocation($rule));
     }
 
     /**
@@ -636,15 +636,15 @@ class RedirectManagerTest extends TestCase
         $rule = RedirectRule::createWithModel($redirect);
         $manager = RedirectManager::createWithRule($rule);
 
-        self::assertEquals(Cms::url('/absolute/path/to'), $manager->getLocation($rule));
+        self::assertEquals('/absolute/path/to', $manager->getLocation($rule));
 
         $manager->setBasePath('/subdirectory');
 
-        self::assertEquals(Cms::url('/absolute/path/to'), $manager->getLocation($rule));
+        self::assertEquals('/absolute/path/to', $manager->getLocation($rule));
 
         $manager->setBasePath('/subdirectory/sub/sub');
 
-        self::assertEquals(Cms::url('/absolute/path/to'), $manager->getLocation($rule));
+        self::assertEquals('/absolute/path/to', $manager->getLocation($rule));
     }
 
     /**
@@ -689,7 +689,7 @@ class RedirectManagerTest extends TestCase
         self::assertNotFalse($rule);
 
         // Cms::url() returns http://localhost by default.
-        $expectedTargetUrl = Cms::url('/this-should-be-https-target');
+        $expectedTargetUrl = '/this-should-be-https-target';
 
         // Now construct the expected target URL.
         $expectedTargetUrl = str_replace('http://', 'https://', $expectedTargetUrl);
@@ -741,7 +741,7 @@ class RedirectManagerTest extends TestCase
         self::assertInstanceOf(RedirectRule::class, $rule);
 
         // Cms::url() returns http://localhost by default.
-        $expectedTargetUrl = Cms::url('/this-should-be-http-target');
+        $expectedTargetUrl = '/this-should-be-http-target';
         $expectedTargetUrl = str_replace('https', 'http', $expectedTargetUrl);
 
         // Get the actual target URL
@@ -786,7 +786,7 @@ class RedirectManagerTest extends TestCase
         self::assertInstanceOf(RedirectRule::class, $rule);
 
         // Cms::url() returns http://localhost by default.
-        $expectedTargetUrl = Cms::url('/this-should-be-auto-target');
+        $expectedTargetUrl = '/this-should-be-auto-target';
 
         // Get the actual target URL
         $actualTargetUrl = $manager->getLocation($rule);

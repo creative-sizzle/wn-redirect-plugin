@@ -9,7 +9,7 @@ use CreativeSizzle\Redirect\Classes\RedirectRule;
 use CreativeSizzle\Redirect\Models\Redirect;
 use PHPUnit_Framework_Exception;
 
-class RedirectRuleTest extends TestCase
+class RedirectRuleTest extends \PluginTestCase
 {
     public function testInstance(): void
     {

@@ -50,7 +50,7 @@ This plugin adds a 'Redirects' section to the main menu of Winter CMS. This plug
     * Popular crawlers per month (top 10)
     * Number of redirects per month
     * And more...
-* Multilingual ***(Need help translating! Contact us at octobercms@vdlp.nl)***
+* Multilingual ***(Need help translating!***
 * Supports MySQL, SQLite and Postgres
 * HTTP status codes 301, 302, 303, 404, 410
 * Caching

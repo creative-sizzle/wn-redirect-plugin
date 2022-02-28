@@ -61,7 +61,13 @@ class CreateTables extends Migration
                 $table->timestamps();
             });
 
+            // Temporarily set category model to old table name.
+            Category::extend(fn ($model) => $model->setTable('vdlp_redirect_categories'));
+
             Category::create(['name' => 'General']);
+
+            // Reset category model's table name.
+            Category::extend(fn ($model) => $model->setTable('cretivesizzle_redirect_categories'));
         }
 
         if (! Schema::hasTable('vdlp_redirect_redirects')) {
@@ -164,11 +170,15 @@ class CreateTables extends Migration
 
         try {
             /** @noinspection PhpDynamicAsStaticMethodCallInspection */
+            Settings::extend(fn (\Model $model) => $model->setTable('vdlp_redirect_settings'));
+
             $settings = Settings::instance();
             $settings->logging_enabled = '1';
             $settings->statistics_enabled = '1';
             $settings->test_lab_enabled = '1';
             $settings->save();
+
+            Settings::extend(fn (\Model $model) => $model->setTable('creativesizzle_redirect_settings'));
         } catch (Throwable $e) {
             resolve(LoggerInterface::class)->error(sprintf(
                 'CreativeSizzle.Redirect: Unable to save default settings: %s',

@@ -8,6 +8,7 @@ mix.postCss('assets/css/redirect.css', 'assets/dist/css')
     .postCss('assets/css/test-lab.css', 'assets/dist/css')
 
 mix.js('assets/js/test-lab.js', 'assets/dist/js')
+    .js('assets/js/statistics.js', 'assets/dist/js/statistics.js')
 
 mix.babelConfig({
     presets: [

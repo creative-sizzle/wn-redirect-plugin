@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace CreativeSizzle\Redirect\Controllers;
 
 use Backend\Classes\Controller;
+use Backend\Facades\BackendMenu;
 use Backend\Models\BrandSetting;
-use BackendMenu;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use CreativeSizzle\Redirect\Classes\StatisticsHelper;
-use JsonException;
-use SystemException;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @property string $pageTitle
@@ -33,105 +32,56 @@ final class Statistics extends Controller
         $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/redirect.css', 'CreativeSizzle.Redirect');
         $this->addCss('/plugins/creativesizzle/redirect/assets/dist/css/statistics.css', 'CreativeSizzle.Redirect');
 
+        $this->addJs('/plugins/creativesizzle/redirect/assets/dist/js/statistics.js', 'CreativeSizzle.Redirect');
+
         $this->helper = new StatisticsHelper();
     }
 
     public function index(): void
     {
+        // Chart
+        $this->vars['monthYearOptions'] = $this->helper->getMonthYearOptions();
+        $this->vars['monthYearSelected'] = today()->month.'_'.today()->year;
+
+        // Cards
+        $this->vars['topTenRedirectsThisMonth'] = $this->helper->getTopRedirectsThisMonth();
+        $this->vars['topTenCrawlersThisMonth'] = $this->helper->getTopTenCrawlersThisMonth();
+
+        // Scoreboard
+        $this->vars['redirectHitsPerMonth'] = $this->helper->getRedirectHitsPerMonth();
+        $this->vars['totalActiveRedirects'] = $this->helper->getTotalActiveRedirects();
+        $this->vars['activeRedirects'] = $this->helper->getActiveRedirects();
+        $this->vars['totalRedirectsServed'] = $this->helper->getTotalRedirectsServed();
+        $this->vars['totalThisMonth'] = $this->helper->getTotalThisMonth();
+        $this->vars['totalLastMonth'] = $this->helper->getTotalLastMonth();
+        $this->vars['latestClient'] = $this->helper->getLatestClient();
     }
 
-    /**
-     * @throws SystemException|JsonException|InvalidFormatException
-     */
-    public function onLoadHitsPerDay(): array
+    public function onLoadHitsPerDay(): JsonResponse
     {
         $today = Carbon::today();
 
-        $postValue = post('period-month-year', $today->month . '_' . $today->year);
+        $postValue = post('period_month_year', $today->month . '_' . $today->year);
 
-        [$month, $year] = explode('_', $postValue);
+        [$month, $year] = array_map(fn ($value) => (int) $value, explode('_', $postValue));
 
-        return [
-            '#hitsPerDay' => $this->makePartial('hits-per-day', [
-                'dataSets' => json_encode([
-                    $this->getHitsPerDayAsDataSet((int) $month, (int) $year, true),
-                    $this->getHitsPerDayAsDataSet((int) $month, (int) $year, false),
-                ], JSON_THROW_ON_ERROR),
-                'labels' => json_encode($this->getLabels(), JSON_THROW_ON_ERROR),
-                'monthYearOptions' => $this->helper->getMonthYearOptions(),
-                'monthYearSelected' => $month . '_' . $year,
-            ]),
-        ];
+        return response()->json([
+            'datasets' => [
+                $this->getHitsPerDayAsDataSet($month, $year, true),
+                $this->getHitsPerDayAsDataSet($month, $year, false),
+            ],
+            'labels' => $this->getLabels($month, $year),
+        ]);
     }
 
-    /**
-     * @throws SystemException|JsonException
-     */
-    public function onSelectPeriodMonthYear(): array
-    {
-        return $this->onLoadHitsPerDay();
-    }
-
-    /**
-     * @throws SystemException
-     */
-    public function onLoadTopRedirectsThisMonth(): array
-    {
-        return [
-            '#topRedirectsThisMonth' => $this->makePartial('top-redirects-this-month', [
-                'topTenRedirectsThisMonth' => $this->helper->getTopRedirectsThisMonth(),
-            ]),
-        ];
-    }
-
-    /**
-     * @throws SystemException
-     */
-    public function onLoadTopCrawlersThisMonth(): array
-    {
-        return [
-            '#topCrawlersThisMonth' => $this->makePartial('top-crawlers-this-month', [
-                'topTenCrawlersThisMonth' => $this->helper->getTopTenCrawlersThisMonth(),
-            ]),
-        ];
-    }
-
-    /**
-     * @throws SystemException
-     */
-    public function onLoadRedirectHitsPerMonth(): array
-    {
-        return [
-            '#redirectHitsPerMonth' => $this->makePartial('redirect-hits-per-month', [
-                'redirectHitsPerMonth' => $this->helper->getRedirectHitsPerMonth(),
-            ]),
-        ];
-    }
-
-    /**
-     * @throws SystemException
-     */
-    public function onLoadScoreBoard(): array
-    {
-        return [
-            '#scoreBoard' => $this->makePartial('score-board', [
-                'redirectHitsPerMonth' => $this->helper->getRedirectHitsPerMonth(),
-                'totalActiveRedirects' => $this->helper->getTotalActiveRedirects(),
-                'activeRedirects' => $this->helper->getActiveRedirects(),
-                'totalRedirectsServed' => $this->helper->getTotalRedirectsServed(),
-                'totalThisMonth' => $this->helper->getTotalThisMonth(),
-                'totalLastMonth' => $this->helper->getTotalLastMonth(),
-                'latestClient' => $this->helper->getLatestClient(),
-            ]),
-        ];
-    }
-
-    private function getLabels(): array
+    private function getLabels(int $month, int $year): array
     {
         $labels = [];
 
-        foreach (Carbon::today()->firstOfMonth()->daysUntil(Carbon::today()->endOfMonth()) as $date) {
-            $labels[] = $date->isoFormat('LL');
+        $date = Carbon::createFromDate($year, $month)->toImmutable();
+
+        foreach ($date->firstOfMonth()->daysUntil($date->endOfMonth()) as $day) {
+            $labels[] = $day->isoFormat('LL');
         }
 
         return $labels;

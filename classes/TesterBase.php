@@ -60,11 +60,13 @@ abstract class TesterBase implements TesterInterface
     abstract protected function test(): TesterResult;
 
     /**
+     * @param resource|\CurlHandle
      * @throws InvalidArgumentException
      */
     protected function setDefaultCurlOptions($curlHandle): void
     {
-        if (! is_resource($curlHandle)) {
+        // TODO: Add test to make sure this works on PHP 7.4
+        if (!is_resource($curlHandle) && !$curlHandle instanceof \CurlHandle) {
             throw new InvalidArgumentException('Argument must be a valid resource type.');
         }
 
@@ -87,7 +89,7 @@ abstract class TesterBase implements TesterInterface
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlHandle, CURLOPT_VERBOSE, false);
         curl_setopt($curlHandle, CURLOPT_HTTPHEADER, [
-            'X-Vdlp-Redirect: Tester',
+            'X-CreativeSizzle-Redirect: Tester',
         ]);
     }
 

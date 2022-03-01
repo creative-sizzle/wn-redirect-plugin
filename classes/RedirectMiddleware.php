@@ -61,7 +61,8 @@ final class RedirectMiddleware
             return $next($request);
         }
 
-        if ($request->header('X-Vdlp-Redirect') === 'Tester') {
+        // TODO: Extract this header name/value into a constant.
+        if ($request->header('X-CreativeSizzle-Redirect') === 'Tester') {
             $this->redirectManager->setSettings(new RedirectManagerSettings(
                 false,
                 false,

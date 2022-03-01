@@ -66,7 +66,7 @@ abstract class TesterBase implements TesterInterface
     protected function setDefaultCurlOptions($curlHandle): void
     {
         // TODO: Add test to make sure this works on PHP 7.4
-        if (!is_resource($curlHandle) && !$curlHandle instanceof \CurlHandle) {
+        if (! is_resource($curlHandle) && ! $curlHandle instanceof \CurlHandle) {
             throw new InvalidArgumentException('Argument must be a valid resource type.');
         }
 

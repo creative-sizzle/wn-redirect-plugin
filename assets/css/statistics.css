@@ -3,11 +3,11 @@
 }
 
 .row .report-widget {
-    -webkit-box-shadow: 3px 3px 11px 0 rgba(217, 217, 217, 1);
-    -moz-box-shadow: 3px 3px 11px 0 rgba(217, 217, 217, 1);
     box-shadow: 3px 3px 11px 0 rgba(217, 217, 217, 1);
     position: relative;
     min-height: 155px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .row .report-widget h3 {
@@ -42,4 +42,37 @@
 
 .report-widget .loading-indicator {
     background: transparent;
+}
+
+.report-widget {
+    ul > li {
+        display: flex;
+        align-items: center;
+        padding-left: 0;
+        padding-right: 0;
+
+        .status-icon,
+        .status-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 26px;
+            min-height: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .status-icon {
+            border-radius: 50%;
+        }
+
+        .status-text {
+            flex-grow: 1;
+            margin: 0 1rem;
+        }
+    }
+}
+
+.control-status-list > ul li {
+
 }

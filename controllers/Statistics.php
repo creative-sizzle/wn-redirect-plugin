@@ -43,10 +43,6 @@ final class Statistics extends Controller
         $this->vars['monthYearOptions'] = $this->helper->getMonthYearOptions();
         $this->vars['monthYearSelected'] = today()->month.'_'.today()->year;
 
-        // Cards
-        $this->vars['topTenRedirectsThisMonth'] = $this->helper->getTopRedirectsThisMonth();
-        $this->vars['topTenCrawlersThisMonth'] = $this->helper->getTopTenCrawlersThisMonth();
-
         // Scoreboard
         $this->vars['redirectHitsPerMonth'] = $this->helper->getRedirectHitsPerMonth();
         $this->vars['totalActiveRedirects'] = $this->helper->getTotalActiveRedirects();
@@ -55,6 +51,11 @@ final class Statistics extends Controller
         $this->vars['totalThisMonth'] = $this->helper->getTotalThisMonth();
         $this->vars['totalLastMonth'] = $this->helper->getTotalLastMonth();
         $this->vars['latestClient'] = $this->helper->getLatestClient();
+
+        // Cards
+        $this->vars['redirectHitsPerMonth'] = $this->helper->getRedirectHitsPerMonth();
+        $this->vars['topTenRedirectsThisMonth'] = $this->helper->getTopRedirectsThisMonth();
+        $this->vars['topTenCrawlersThisMonth'] = $this->helper->getTopTenCrawlersThisMonth();
     }
 
     public function onLoadHitsPerDay(): JsonResponse

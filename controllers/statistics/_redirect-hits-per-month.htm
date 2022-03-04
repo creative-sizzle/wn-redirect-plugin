@@ -1,3 +1,7 @@
+<?php
+    use CreativeSizzle\Redirect\Classes\Util\Number;
+?>
+
 <h3><?= e(trans('creativesizzle.redirect::lang.statistics.redirects_per_month')); ?></h3>
 <?php if ($redirectHitsPerMonth): ?>
     <div class="control-status-list">
@@ -6,7 +10,7 @@
             <li>
                 <span class="status-icon info"><?= $key + 1 ?></span>
                 <span class="status-text"><?= date('F', mktime(0, 0, 0, (int) $record['month'])); ?> <?= e($record['year']) ?></span>
-                <span class="status-label"><?= number_format($record['hits'], 0, null, '.'); ?></span>
+                <span class="status-label"><?= Number::format($record['hits']); ?></span>
             </li>
             <?php endforeach; ?>
         </ul>

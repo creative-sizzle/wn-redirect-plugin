@@ -23,6 +23,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-curl": "*",
+        "ext-intl": "*",
         "ext-json": "*",
         "composer/installers": "~1.0 || ~2.0",
         "davaxi/sparkline": "^2.1",

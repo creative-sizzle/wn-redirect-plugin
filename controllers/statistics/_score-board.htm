@@ -1,8 +1,12 @@
+<?php
+    use CreativeSizzle\Redirect\Classes\Util\Number;
+?>
+
 <div class="scoreboard">
     <div data-control="toolbar">
         <div class="scoreboard-item control-chart"
              data-control="chart-pie"
-             data-center-text="<?= number_format($totalActiveRedirects, 0, '', '.'); ?>"
+             data-center-text="<?= Number::format($totalActiveRedirects); ?>"
              data-size="120">
             <ul>
                 <?php foreach ($activeRedirects as $group => $activeRedirect): ?>
@@ -13,23 +17,23 @@
         </div>
         <div class="scoreboard-item title-value">
             <h4><?= e(trans('creativesizzle.redirect::lang.statistics.requests_redirected')); ?></h4>
-            <p><?= number_format($totalRedirectsServed, 0, '', '.'); ?></p>
+            <p><?= Number::format($totalRedirectsServed); ?></p>
             <p class="description"><?= e(trans('creativesizzle.redirect::lang.statistics.all_time')); ?></p>
         </div>
         <div class="scoreboard-item title-value">
             <h4><?= e(trans('creativesizzle.redirect::lang.statistics.active_redirects')); ?></h4>
-            <p><?= number_format($totalActiveRedirects, 0, '', '.'); ?></p>
+            <p><?= Number::format($totalActiveRedirects); ?></p>
         </div>
         <div class="scoreboard-item title-value">
             <h4><?= e(trans('creativesizzle.redirect::lang.statistics.redirects_this_month')); ?></h4>
-            <p><?= number_format($totalThisMonth, 0, '', '.'); ?></p>
-            <p class="description "><?= e(trans('creativesizzle.redirect::lang.statistics.previous_month')); ?>: <?= number_format($totalLastMonth, 0, '', '.'); ?></p>
+            <p><?= Number::format($totalThisMonth); ?></p>
+            <p class="description "><?= e(trans('creativesizzle.redirect::lang.statistics.previous_month')); ?>: <?= Number::format($totalLastMonth); ?></p>
         </div>
         <?php if ($latestClient): ?>
         <div class="scoreboard-item title-value">
             <h4><?= e(trans('creativesizzle.redirect::lang.statistics.latest_redirected_requests')); ?></h4>
-            <p class="<?= $latestClient->crawler ? 'oc-icon-google' : 'oc-icon-user' ?>"><?= e($latestClient->redirect->from_url) ?></p>
-            <p class="description"><?= e($latestClient->timestamp) ?></p>
+            <p class="<?= $latestClient->crawler ? 'wn-icon-google' : 'wn-icon-user' ?>"><?= e($latestClient->redirect->from_url) ?></p>
+            <p class="description"><?= \Backend::dateTime($latestClient->timestamp, ['formatAlias' => 'dateTimeMin']) ?></p>
         </div>
         <?php endif; ?>
     </div>

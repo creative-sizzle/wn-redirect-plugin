@@ -17,4 +17,8 @@ final class Client extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'timestamp' => 'datetime',
+    ];
 }

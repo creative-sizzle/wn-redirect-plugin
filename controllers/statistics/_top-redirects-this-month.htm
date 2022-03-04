@@ -1,3 +1,7 @@
+<?php
+    use CreativeSizzle\Redirect\Classes\Util\Number;
+?>
+
 <h3><?= e(trans('creativesizzle.redirect::lang.statistics.top_redirects_this_month', ['top' => 10])); ?></h3>
 <?php if ($topTenRedirectsThisMonth): ?>
     <div class="control-status-list">
@@ -10,7 +14,7 @@
                         <?= e($record['from_url']) ?>
                     </a>
                 </span>
-                <span class="status-label"><?= number_format($record['hits'], 0, null, '.'); ?></span>
+                <span class="status-label"><?= Number::format($record['hits']); ?></span>
             </li>
             <?php endforeach; ?>
         </ul>

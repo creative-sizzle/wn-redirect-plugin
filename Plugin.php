@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect;
 
-use Backend\Facades\Backend;
+use Backend\Classes\MainMenuItem;
+use Backend\Classes\NavigationManager;
 use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
 use CreativeSizzle\Redirect\Classes\Observers;
 use CreativeSizzle\Redirect\Classes\RedirectMiddleware;
 use CreativeSizzle\Redirect\Console\PublishRedirectsCommand;
-use Event;
 use Exception;
 use Illuminate\Contracts\Translation\Translator;
 use System\Classes\PluginBase;
 use Throwable;
 use Validator;
+use Winter\Storm\Support\Facades\Event;
 
 final class Plugin extends PluginBase
 {
@@ -27,6 +28,7 @@ final class Plugin extends PluginBase
             return;
         }
 
+        $this->extendBackendMenuNavigation();
         $this->registerCustomValidators();
         $this->registerObservers();
 
@@ -42,112 +44,6 @@ final class Plugin extends PluginBase
 
         $this->registerConsoleCommands();
         $this->registerEventListeners();
-    }
-
-    public function registerNavigation(): array
-    {
-        $defaultBackendUrl = Backend::url(
-            'creativesizzle/redirect/' . (Models\Settings::isStatisticsEnabled() ? 'statistics' : 'redirects')
-        );
-
-        $navigation = [
-            'redirect' => [
-                'label' => 'creativesizzle.redirect::lang.navigation.menu_label',
-                'iconSvg' => '/plugins/creativesizzle/redirect/assets/images/icon.svg',
-                'icon' => 'icon-link',
-                'url' => $defaultBackendUrl,
-                'order' => 201,
-                'permissions' => [
-                    'creativesizzle.redirect.access_redirects',
-                ],
-                'sideMenu' => [
-                    'redirects' => [
-                        'icon' => 'icon-list',
-                        'label' => 'creativesizzle.redirect::lang.navigation.menu_label',
-                        'url' => Backend::url('creativesizzle/redirect/redirects'),
-                        'order' => 20,
-                        'permissions' => [
-                            'creativesizzle.redirect.access_redirects',
-                        ],
-                    ],
-                    'categories' => [
-                        'label' => 'creativesizzle.redirect::lang.buttons.categories',
-                        'url' => Backend::url('creativesizzle/redirect/categories'),
-                        'icon' => 'icon-tag',
-                        'order' => 60,
-                        'permissions' => [
-                            'creativesizzle.redirect.access_redirects',
-                        ],
-                    ],
-                    'import' => [
-                        'label' => 'creativesizzle.redirect::lang.buttons.import',
-                        'url' => Backend::url('creativesizzle/redirect/redirects/import'),
-                        'icon' => 'icon-download',
-                        'order' => 70,
-                        'permissions' => [
-                            'creativesizzle.redirect.access_redirects',
-                        ],
-                    ],
-                    'export' => [
-                        'label' => 'creativesizzle.redirect::lang.buttons.export',
-                        'url' => Backend::url('creativesizzle/redirect/redirects/export'),
-                        'icon' => 'icon-upload',
-                        'order' => 80,
-                        'permissions' => [
-                            'creativesizzle.redirect.access_redirects',
-                        ],
-                    ],
-                    'settings' => [
-                        'label' => 'creativesizzle.redirect::lang.buttons.settings',
-                        'url' => Backend::url('system/settings/update/creativesizzle/redirect/config'),
-                        'icon' => 'icon-cogs',
-                        'order' => 90,
-                        'permissions' => [
-                            'creativesizzle.redirect.access_redirects',
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
-        if (Models\Settings::isStatisticsEnabled()) {
-            $navigation['redirect']['sideMenu']['statistics'] = [
-                'icon' => 'icon-bar-chart',
-                'label' => 'creativesizzle.redirect::lang.title.statistics',
-                'url' => Backend::url('creativesizzle/redirect/statistics'),
-                'order' => 10,
-                'permissions' => [
-                    'creativesizzle.redirect.access_redirects',
-                ],
-            ];
-        }
-
-        if (Models\Settings::isTestLabEnabled()) {
-            $navigation['redirect']['sideMenu']['test_lab'] = [
-                'icon' => 'icon-flask',
-                'label' => 'creativesizzle.redirect::lang.title.test_lab',
-                'url' => Backend::url('creativesizzle/redirect/testlab'),
-                'order' => 30,
-                'permissions' => [
-                    'creativesizzle.redirect.access_redirects',
-                ],
-            ];
-        }
-
-        if (Models\Settings::isLoggingEnabled()) {
-            $navigation['redirect']['sideMenu']['logs'] = [
-                'label' => 'creativesizzle.redirect::lang.buttons.logs',
-                'url' => Backend::url('creativesizzle/redirect/logs'),
-                'icon' => 'icon-file-text-o',
-                'visible' => false,
-                'order' => 50,
-                'permissions' => [
-                    'creativesizzle.redirect.access_redirects',
-                ],
-            ];
-        }
-
-        return $navigation;
     }
 
     public function registerSettings(): array
@@ -346,6 +242,30 @@ final class Plugin extends PluginBase
                 $publishManager->publish();
             } catch (Throwable $throwable) {
                 // @ignoreException
+            }
+        });
+    }
+
+    private function extendBackendMenuNavigation()
+    {
+        Event::listen('backend.menu.extendItems', function (NavigationManager $navigationManager) {
+            if (! Models\Settings::isStatisticsEnabled()) {
+                /** @var MainMenuItem $mainMenu */
+                $mainMenu = $navigationManager->getMainMenuItem('CreativeSizzle.Redirect', 'redirect');
+                $mainMenu->url = str_replace_last('statistics', 'redirects', $mainMenu->url);
+
+                $navigationManager->removeMainMenuItem('CreativeSizzle.Redirect', 'redirect');
+                $navigationManager->addMainMenuItem('CreativeSizzle.Redirect', 'redirect', (array) $mainMenu);
+
+                $navigationManager->removeSideMenuItem('CreativeSizzle.Redirect', 'redirect', 'statistics');
+            }
+
+            if (! Models\Settings::isTestLabEnabled()) {
+                $navigationManager->removeSideMenuItem('CreativeSizzle.Redirect', 'redirect', 'test-lab');
+            }
+
+            if (! Models\Settings::isLoggingEnabled()) {
+                $navigationManager->removeSideMenuItem('CreativeSizzle.Redirect', 'redirect', 'logs');
             }
         });
     }

@@ -10,3 +10,60 @@ permissions:
     creativesizzle.redirect.access_redirects:
         tab: 'creativesizzle.redirect::lang.permission.access_redirects.label'
         label: 'creativesizzle.redirect::lang.permission.access_redirects.tab'
+navigation:
+    redirect:
+        label: 'creativesizzle.redirect::lang.plugin.name'
+        url: creativesizzle/redirect/statistics
+        icon: icon-link
+        permissions:
+            - creativesizzle.redirect.access_redirects
+        order: '201'
+        sideMenu:
+            statistics:
+                label: 'creativesizzle.redirect::lang.title.statistics'
+                url: creativesizzle/redirect/statistics
+                icon: icon-bar-chart
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            redirects:
+                label: 'creativesizzle.redirect::lang.navigation.menu_label'
+                url: creativesizzle/redirect/redirects
+                icon: icon-list
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            test-lab:
+                label: 'creativesizzle.redirect::lang.settings.test_lab_enabled_label'
+                url: creativesizzle/redirect/testlab
+                icon: icon-flask
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            logs:
+                label: 'creativesizzle.redirect::lang.buttons.logs'
+                url: creativesizzle/redirect/logs
+                icon: icon-file-text-o
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            categories:
+                label: 'creativesizzle.redirect::lang.buttons.categories'
+                url: creativesizzle/redirect/categories
+                icon: icon-tags
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            import:
+                label: 'creativesizzle.redirect::lang.buttons.import'
+                url: creativesizzle/redirect/redirects/import
+                icon: icon-upload
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            export:
+                label: 'creativesizzle.redirect::lang.buttons.export'
+                url: creativesizzle/redirect/redirects/export
+                icon: icon-download
+                permissions:
+                    - creativesizzle.redirect.access_redirects
+            settings:
+                label: 'creativesizzle.redirect::lang.buttons.settings'
+                url: system/settings/update/creativesizzle/redirect/config
+                icon: icon-cogs
+                permissions:
+                    - creativesizzle.redirect.access_redirects

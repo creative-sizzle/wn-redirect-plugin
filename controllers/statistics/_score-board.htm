@@ -24,10 +24,12 @@
             <h4><?= e(trans('creativesizzle.redirect::lang.statistics.active_redirects')); ?></h4>
             <p><?= Number::format($totalActiveRedirects); ?></p>
         </div>
-        <div class="scoreboard-item title-value">
+        <div class="scoreboard-item title-value total-redirects-this-month">
             <h4><?= e(trans('creativesizzle.redirect::lang.statistics.redirects_this_month')); ?></h4>
-            <p><?= Number::format($totalThisMonth); ?></p>
-            <p class="description "><?= e(trans('creativesizzle.redirect::lang.statistics.previous_month')); ?>: <?= Number::format($totalLastMonth); ?></p>
+            <p class="current-month">
+                <span class="skeleton-loader skeleton-loader-bg" style="width: 50px; height: 16px; border-radius: 8px; margin-top: 8px;"></span>
+            </p>
+            <p class="description"><?= e(trans('creativesizzle.redirect::lang.statistics.previous_month')); ?>: <span class="previous-month"><span class="skeleton-loader skeleton-loader-bg" style="display: inline-flex; width: 50px; height: 16px; border-radius: 8px; margin-top: 8px;"></span></span></p>
         </div>
         <?php if ($latestClient): ?>
         <div class="scoreboard-item title-value">

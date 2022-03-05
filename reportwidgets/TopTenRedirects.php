@@ -28,7 +28,7 @@ final class TopTenRedirects extends ReportWidgetBase
         $helper = new StatisticsHelper();
 
         return $this->makePartial('widget', [
-            'topTenRedirectsThisMonth' => $helper->getTopRedirectsThisMonth(),
+            'topTenRedirectsThisMonth' => $helper->getTopRedirectsForMonth(),
         ]);
     }
 }

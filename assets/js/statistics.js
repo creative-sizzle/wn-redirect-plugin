@@ -26,11 +26,13 @@ const updateChart = (chart) => {
             'period_month_year': $monthYearSelected.value,
         },
         loading: $.wn.stripeLoadIndicator,
-        success: (response) => {
-            chart.data.datasets = response.datasets;
-            chart.data.labels = response.labels;
+        success: function (response, textStatus, jqXhr) {
+            chart.data.datasets = response.data.datasets;
+            chart.data.labels = response.data.labels;
 
             chart.update();
+
+            this.success(response, textStatus, jqXhr);
         }
     })
 }

@@ -9,6 +9,7 @@ use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
 use CreativeSizzle\Redirect\Models;
 use Illuminate\Support\Facades\DB;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
+use Winter\Storm\Argon\Argon;
 use Winter\Storm\Database\Collection;
 
 final class StatisticsHelper
@@ -21,8 +22,7 @@ final class StatisticsHelper
     public function getLatestClient(?int $redirectId = null): ?Models\Client
     {
         $builder = Models\Client::query()
-            ->orderBy('timestamp', 'desc')
-            ->limit(1);
+            ->latest('timestamp');
 
         if ($redirectId !== null) {
             $builder->where('redirect_id', '=', $redirectId);
@@ -32,27 +32,23 @@ final class StatisticsHelper
         return $builder->first();
     }
 
-    public function getTotalThisMonth(?int $redirectId = null): int
+    /**
+     * Fetch the number of redirects for the month (defaults to current month).
+     *
+     * @param int|null $redirectId
+     * @param int|null $month
+     * @param int|null $year
+     * @return int
+     */
+    public function getTotalForMonth(int $month, int $year, ?int $redirectId = null): int
     {
-        $builder = Models\Client::query()
-            ->where('month', '=', date('m'))
-            ->where('year', '=', date('Y'));
-
-        if ($redirectId !== null) {
-            $builder->where('redirect_id', '=', $redirectId);
+        if (! checkdate($month, 1, $year)) {
+            throw new \InvalidArgumentException('The supplied month and/or year is not a valid date.');
         }
 
-        return $builder->count();
-    }
-
-    public function getTotalLastMonth(?int $redirectId = null): int
-    {
-        $lastMonth = Carbon::today();
-        $lastMonth->subMonthNoOverflow();
-
         $builder = Models\Client::query()
-            ->where('month', '=', $lastMonth->month)
-            ->where('year', '=', $lastMonth->year);
+            ->where('month', $month)
+            ->where('year', $year);
 
         if ($redirectId !== null) {
             $builder->where('redirect_id', '=', $redirectId);
@@ -85,7 +81,7 @@ final class StatisticsHelper
         return Models\Redirect::enabled()
             ->get()
             ->filter(static function (Models\Redirect $redirect): bool {
-                return $redirect->isActiveOnDate(Carbon::today());
+                return $redirect->isActiveOnDate(today());
             })
             ->count();
     }
@@ -133,7 +129,7 @@ final class StatisticsHelper
 
     public function getRedirectHitsSparkline(int $redirectId, bool $crawler, int $days = 30): array
     {
-        $startDate = Carbon::now()->subDays($days);
+        $startDate = now()->subDays($days);
 
         // DB index: redirect_timestamp_crawler
         $builder = Models\Client::query()
@@ -181,14 +177,18 @@ final class StatisticsHelper
             ->toArray();
     }
 
-    public function getTopTenCrawlersThisMonth(): array
+    public function getTopTenCrawlersForMonth(int $month, int $year): array
     {
+        if (! checkdate($month, 1, $year)) {
+            throw new \InvalidArgumentException();
+        }
+
         // DB index: month_year_crawler
         return Models\Client::query()
             ->selectRaw('COUNT(id) AS hits')
             ->addSelect('crawler')
-            ->where('month', '=', (int) date('n'))
-            ->where('year', '=', (int) date('Y'))
+            ->where('month', '=', $month)
+            ->where('year', '=', $year)
             ->whereNotNull('crawler')
             ->groupBy('crawler')
             ->orderByRaw('hits DESC')
@@ -197,14 +197,18 @@ final class StatisticsHelper
             ->toArray();
     }
 
-    public function getTopRedirectsThisMonth(int $limit = 10): array
+    public function getTopRedirectsForMonth(int $month, int $year, int $limit = 10): array
     {
+        if (! checkdate($month, 1, $year)) {
+            throw new \InvalidArgumentException();
+        }
+
         return Models\Client::query()
             ->selectRaw('COUNT(redirect_id) AS hits')
             ->addSelect('redirect_id', 'r.from_url')
             ->join('creativesizzle_redirect_redirects AS r', 'r.id', '=', 'redirect_id')
-            ->where('month', '=', (int) date('n'))
-            ->where('year', '=', (int) date('Y'))
+            ->where('month', '=', $month)
+            ->where('year', '=', $year)
             ->groupBy('redirect_id', 'r.from_url')
             ->orderByRaw('hits DESC')
             ->limit($limit)

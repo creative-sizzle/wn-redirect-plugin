@@ -10,6 +10,7 @@ use Backend\Models\BrandSetting;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use CreativeSizzle\Redirect\Classes\StatisticsHelper;
+use CreativeSizzle\Redirect\Classes\Util\Number;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -39,40 +40,26 @@ final class Statistics extends Controller
 
     public function index(): void
     {
+        $today = today();
+        $previousMonth = today()->subMonthNoOverflow();
+
         // Chart
         $this->vars['monthYearOptions'] = $this->helper->getMonthYearOptions();
-        $this->vars['monthYearSelected'] = today()->month.'_'.today()->year;
+        $this->vars['monthYearSelected'] = $today->month.'_'.$today->year;
 
         // Scoreboard
         $this->vars['redirectHitsPerMonth'] = $this->helper->getRedirectHitsPerMonth();
         $this->vars['totalActiveRedirects'] = $this->helper->getTotalActiveRedirects();
         $this->vars['activeRedirects'] = $this->helper->getActiveRedirects();
         $this->vars['totalRedirectsServed'] = $this->helper->getTotalRedirectsServed();
-        $this->vars['totalThisMonth'] = $this->helper->getTotalThisMonth();
-        $this->vars['totalLastMonth'] = $this->helper->getTotalLastMonth();
+//        $this->vars['totalThisMonth'] = $this->helper->getTotalForMonth($today->month, $today->year);
+//        $this->vars['totalLastMonth'] = $this->helper->getTotalForMonth($previousMonth->month, $previousMonth->year);
         $this->vars['latestClient'] = $this->helper->getLatestClient();
 
         // Cards
         $this->vars['redirectHitsPerMonth'] = $this->helper->getRedirectHitsPerMonth();
-        $this->vars['topTenRedirectsThisMonth'] = $this->helper->getTopRedirectsThisMonth();
-        $this->vars['topTenCrawlersThisMonth'] = $this->helper->getTopTenCrawlersThisMonth();
-    }
-
-    public function onLoadHitsPerDay(): JsonResponse
-    {
-        $today = Carbon::today();
-
-        $postValue = post('period_month_year', $today->month . '_' . $today->year);
-
-        [$month, $year] = array_map(fn ($value) => (int) $value, explode('_', $postValue));
-
-        return response()->json([
-            'datasets' => [
-                $this->getHitsPerDayAsDataSet($month, $year, true),
-                $this->getHitsPerDayAsDataSet($month, $year, false),
-            ],
-            'labels' => $this->getLabels($month, $year),
-        ]);
+//        $this->vars['topTenCrawlersThisMonth'] = $this->helper->getTopTenCrawlersForMonth($today->month, $today->year);
+//        $this->vars['topTenRedirectsThisMonth'] = $this->helper->getTopRedirectsForMonth($today->month, $today->year);
     }
 
     private function getLabels(int $month, int $year): array
@@ -121,6 +108,39 @@ final class Statistics extends Controller
             'borderColor' => sprintf('rgb(%d, %d, %d, 1)', $r, $g, $b),
             'borderWidth' => 1,
             'data' => data_get($data, '*.hits'),
+        ];
+    }
+
+    //
+    // AJAX
+    //
+
+    public function onLoadHitsPerDay(): array
+    {
+        $today = Carbon::today();
+
+        $postValue = post('period_month_year', $today->month . '_' . $today->year);
+        [$month, $year] = array_map('intval', explode('_', $postValue));
+
+        $date = Carbon::createFromDate($year, $month)->toImmutable();
+        $previousMonth = $date->subMonthNoOverflow();
+
+        return [
+            'data' => [
+                'datasets' => [
+                    $this->getHitsPerDayAsDataSet($month, $year, true),
+                    $this->getHitsPerDayAsDataSet($month, $year, false),
+                ],
+                'labels' => $this->getLabels($month, $year),
+            ],
+            '#top-crawlers-this-month' => $this->makePartial('top-crawlers-this-month', [
+                'topTenCrawlersThisMonth' => $this->helper->getTopTenCrawlersForMonth($month, $year),
+            ]),
+            '#top-redirects-this-month' => $this->makePartial('top-redirects-this-month', [
+                'topTenRedirectsThisMonth' => $this->helper->getTopRedirectsForMonth($month, $year),
+            ]),
+            '.scoreboard-item.total-redirects-this-month .current-month' => Number::format($this->helper->getTotalForMonth($month, $year)),
+            '.scoreboard-item.total-redirects-this-month .previous-month' => Number::format($this->helper->getTotalForMonth($previousMonth->month, $previousMonth->year)),
         ];
     }
 }

@@ -9,25 +9,41 @@
 <div class="row">
     <div class="col-md-12">
         <div class="report-widget" id="scoreBoard">
-            <?= $this->makePartial('score-board', compact('redirectHitsPerMonth', 'totalActiveRedirects', 'activeRedirects', 'totalRedirectsServed', 'totalThisMonth', 'totalLastMonth', 'latestClient')); ?>
+            <?= $this->makePartial('score-board', compact('redirectHitsPerMonth', 'totalActiveRedirects', 'activeRedirects', 'totalRedirectsServed', 'latestClient')); ?>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
+<div class="cards-container">
         <div class="report-widget general" id="redirectHitsPerMonth">
             <?= $this->makePartial('redirect-hits-per-month', compact('redirectHitsPerMonth')); ?>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="report-widget general" id="topCrawlersThisMonth">
-            <?= $this->makePartial('top-crawlers-this-month', compact('topTenCrawlersThisMonth')); ?>
+        <div class="report-widget general" id="top-crawlers-this-month">
+            <h3><?= e(trans('creativesizzle.redirect::lang.statistics.top_crawlers_this_month', ['top' => 10])); ?></h3>
+            <div class="control-status-list">
+                <ul>
+                    <?php foreach (range(1, 10) as $i): ?>
+                        <li class="skeleton-loader">
+                            <span class="status-icon info skeleton-loader-bg"></span>
+                            <div class="status-text skeleton-loader-bg" style="height: 12px; border-radius: 8px;"></div>
+                            <span class="status-label skeleton-loader-bg"></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="report-widget general" id="topRedirectsThisMonth">
-            <?= $this->makePartial('top-redirects-this-month', compact('topTenRedirectsThisMonth')); ?>
+    <div class="report-widget general" id="top-redirects-this-month">
+        <h3><?= e(trans('creativesizzle.redirect::lang.statistics.top_redirects_this_month', ['top' => 10])); ?></h3>
+        <div class="control-status-list">
+            <ul>
+                <?php foreach (range(1, 10) as $i): ?>
+                <li style="display: flex; animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite">
+                    <span class="status-icon info" style="background: rgb(226 232 240);"></span>
+                    <div class="status-text" style="height: 12px; background: rgb(226 232 240); border-radius: 8px;"></div>
+                    <span class="status-label" style="background: rgb(226 232 240);"></span>
+                </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     </div>
 </div>

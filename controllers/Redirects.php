@@ -333,7 +333,13 @@ final class Redirects extends Controller
         foreach ($disableFields as $disableField) {
             /** @var FormField $field */
             $field = $host->getField($disableField);
-            $field->disabled = $host->model->getAttribute('system');
+            $field->readOnly = $host->model->getAttribute('system');
+
+            /*
+             * TODO: TODO: Maybe instead of marking these as readOnly,
+             *  we have these disabled and when sending the data to testLab
+             *  our script automatically includes disabled input fields so we can keep them as disabled.
+             */
         }
 
         if (! Models\Settings::isTestLabEnabled()) {

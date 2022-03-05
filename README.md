@@ -14,6 +14,8 @@
 	<img src="https://badgen.net/badge/type/plugin">
 </p>
 
+> This is a fork of https://github.com/vdlp/oc-redirect-plugin plugin to make it work with Winter CMS and add additional functionality not present in the original plugin.
+
 ## The #1 Redirect plugin for Winter CMS
 
 This is the best Redirect-plugin for Winter CMS. With this plugin installed you can manage redirects directly from Winter CMS' beautiful interface. Many webmasters and SEO specialists use redirects to optimise their website for search engines. This plugin allows you to manage such redirects with a nice and user-friendly interface.
@@ -65,7 +67,7 @@ This plugin adds a 'Redirects' section to the main menu of Winter CMS. This plug
 
 * Winter CMS 1.1 or higher.
 * PHP version 7.4 or higher.
-* PHP extensions: `ext-curl` and `ext-json`.
+* PHP extensions: `ext-curl`, `ext-intl`, and `ext-json`.
 
 ## Supported HTTP status codes
 

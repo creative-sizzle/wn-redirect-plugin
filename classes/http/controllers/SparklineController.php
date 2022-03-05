@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller;
 
 class SparklineController extends Controller
 {
-    public function __invoke($redirectId)
+    public function __invoke(int $redirectId)
     {
         if (! BackendAuth::check() || ! BackendAuth::getUser()->hasAccess('creativesizzle.redirect.access_redirect')) {
             return response()->make(trans('backend::lang.page.access_denied.label'), 403);
@@ -67,7 +67,7 @@ class SparklineController extends Controller
         return response()
             ->make(base64_decode($imageData), 200, [
                 'Content-Type' => 'image/png',
-                'Expires' => now()->addDay()->toRfc7231String(),
+                'Expires' => now()->addHour()->toRfc7231String(),
                 'Content-Disposition' => 'inline; filename=' . $cacheKey . '.png',
                 'Accept-Ranges' => 'none',
             ]);

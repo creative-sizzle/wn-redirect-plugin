@@ -9,7 +9,6 @@ use CreativeSizzle\Redirect\Classes\Observers\RedirectObserver;
 use CreativeSizzle\Redirect\Models;
 use Illuminate\Support\Facades\DB;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
-use Winter\Storm\Argon\Argon;
 use Winter\Storm\Database\Collection;
 
 final class StatisticsHelper

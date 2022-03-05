@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use CreativeSizzle\Redirect\Classes\StatisticsHelper;
 use CreativeSizzle\Redirect\Classes\Util\Number;
-use Illuminate\Http\JsonResponse;
 
 /**
  * @property string $pageTitle

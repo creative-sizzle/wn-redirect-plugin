@@ -15,6 +15,7 @@ navigation:
         label: 'creativesizzle.redirect::lang.plugin.name'
         url: creativesizzle/redirect/statistics
         icon: icon-link
+        iconSvg: /plugins/creativesizzle/redirect/assets/images/icon.svg
         permissions:
             - creativesizzle.redirect.access_redirects
         order: '201'

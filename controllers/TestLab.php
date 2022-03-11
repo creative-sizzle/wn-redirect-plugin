@@ -37,7 +37,7 @@ final class TestLab extends Controller
 
         parent::__construct();
 
-        BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', 'test_lab');
+        BackendMenu::setContext('CreativeSizzle.Redirect', 'redirect', 'test-lab');
 
         $this->loadRedirects();
 

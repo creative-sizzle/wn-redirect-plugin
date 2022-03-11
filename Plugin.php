@@ -6,16 +6,19 @@ namespace CreativeSizzle\Redirect;
 
 use Backend\Classes\MainMenuItem;
 use Backend\Classes\NavigationManager;
+use CreativeSizzle\Redirect\Classes\CacheManager;
 use CreativeSizzle\Redirect\Classes\Contracts\PublishManagerInterface;
 use CreativeSizzle\Redirect\Classes\Observers;
+use CreativeSizzle\Redirect\Classes\PublishManager;
+use CreativeSizzle\Redirect\Classes\RedirectManager;
 use CreativeSizzle\Redirect\Classes\RedirectMiddleware;
 use CreativeSizzle\Redirect\Console\PublishRedirectsCommand;
 use Exception;
 use Illuminate\Contracts\Translation\Translator;
 use System\Classes\PluginBase;
 use Throwable;
-use Validator;
 use Winter\Storm\Support\Facades\Event;
+use Winter\Storm\Support\Facades\Validator;
 
 final class Plugin extends PluginBase
 {
@@ -40,7 +43,13 @@ final class Plugin extends PluginBase
 
     public function register(): void
     {
-        $this->app->register(ServiceProvider::class);
+        $this->app->bind(Classes\Contracts\RedirectManagerInterface::class, RedirectManager::class);
+        $this->app->bind(Classes\Contracts\PublishManagerInterface::class, PublishManager::class);
+        $this->app->bind(Classes\Contracts\CacheManagerInterface::class, CacheManager::class);
+
+        $this->app->singleton(RedirectManager::class);
+        $this->app->singleton(PublishManager::class);
+        $this->app->singleton(CacheManager::class);
 
         $this->registerConsoleCommands();
         $this->registerEventListeners();
@@ -91,7 +100,7 @@ final class Plugin extends PluginBase
     {
         return [
             'redirect_switch_color' => static function ($value): string {
-                $format = '<div class="oc-icon-circle" style="color: %s">%s</div>';
+                $format = '<div class="wn-icon-circle" style="color: %s">%s</div>';
 
                 if ((int) $value === 1) {
                     return sprintf($format, '#95b753', e(trans('backend::lang.list.column_switch_true')));
@@ -154,7 +163,7 @@ final class Plugin extends PluginBase
             'redirect_system' => static function ($value): string {
                 return sprintf(
                     '<span class="%s" title="%s"></span>',
-                    $value ? 'oc-icon-magic' : 'oc-icon-user',
+                    $value ? 'wn-icon-magic' : 'wn-icon-user',
                     e(trans('creativesizzle.redirect::lang.redirect.system_tip'))
                 );
             },

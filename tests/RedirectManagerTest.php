@@ -15,23 +15,13 @@ use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
 use CreativeSizzle\Redirect\Classes\RedirectManager;
 use CreativeSizzle\Redirect\Classes\RedirectRule;
 use CreativeSizzle\Redirect\Models\Redirect;
-use CreativeSizzle\Redirect\ServiceProvider;
 use Exception;
-use PHPUnit_Framework_AssertionFailedError;
-use PHPUnit_Framework_Exception;
+use PHPUnit\Framework\AssertionFailedError;
 
 class RedirectManagerTest extends \PluginTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app->register(ServiceProvider::class);
-    }
-
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
-     * @throws PHPUnit_Framework_Exception
+     * @throws AssertionFailedError
      * @throws InvalidScheme
      * @throws NoMatchForRequest
      */
@@ -66,7 +56,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      * @throws InvalidScheme
      * @throws NoMatchForRequest
@@ -104,7 +94,7 @@ class RedirectManagerTest extends \PluginTestCase
     /**
      * @throws InvalidScheme
      * @throws NoMatchForRequest
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      */
     public function testRedirectWithIgnoreCaseEnabled(): void
     {
@@ -139,7 +129,7 @@ class RedirectManagerTest extends \PluginTestCase
     /**
      * @throws InvalidScheme
      * @throws NoMatchForRequest
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      */
     public function testRedirectWithIgnoreCaseEnabledAndQueryParameters(): void
@@ -176,7 +166,7 @@ class RedirectManagerTest extends \PluginTestCase
     /**
      * @throws InvalidScheme
      * @throws NoMatchForRequest
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      */
     public function testRedirectWithIgnoreTrailingSlashEnabled(): void
     {
@@ -206,7 +196,7 @@ class RedirectManagerTest extends \PluginTestCase
     /**
      * @throws InvalidScheme
      * @throws NoMatchForRequest
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      */
     public function testRedirectWithIgnoreTrailingSlashEnabledAndQueryParameters(): void
     {
@@ -245,7 +235,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      * @throws InvalidScheme
      * @throws NoMatchForRequest
@@ -287,7 +277,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      * @throws InvalidScheme
      * @throws NoMatchForRequest
@@ -371,7 +361,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      * @throws InvalidScheme
      * @throws NoMatchForRequest
@@ -416,7 +406,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      */
     public function testScheduledRedirectPeriod(): void
@@ -482,7 +472,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      * @throws InvalidScheme
      */
@@ -533,7 +523,7 @@ class RedirectManagerTest extends \PluginTestCase
     }
 
     /**
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      * @throws InvalidScheme
      */
@@ -649,7 +639,7 @@ class RedirectManagerTest extends \PluginTestCase
 
     /**
      * @throws InvalidScheme
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      */
     public function testSchemeHttpToHttpsRedirect(): void
     {
@@ -704,7 +694,7 @@ class RedirectManagerTest extends \PluginTestCase
     /**
      * @throws InvalidScheme
      * @throws NoMatchForRequest
-     * @throws PHPUnit_Framework_AssertionFailedError
+     * @throws AssertionFailedError
      * @throws PHPUnit_Framework_Exception
      */
     public function testSchemeHttpsToHttpRedirect(): void

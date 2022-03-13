@@ -8,6 +8,7 @@ namespace CreativeSizzle\Redirect\Classes;
 
 use ApplicationException;
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Cms\Classes\CmsException;
 use Cms\Classes\Controller;
 use Cms\Classes\Router;
@@ -179,8 +180,21 @@ final class RedirectManager implements RedirectManagerInterface
         header(self::$headers[$statusCode], true, $statusCode);
         header('X-Redirect-By: CreativeSizzle.Redirect');
         header('X-Redirect-Id: ' . $rule->getId());
-        header('Cache-Control: no-store');
         header('Location: ' . $toUrl, true, $statusCode);
+
+        if ($statusCode === 301) {
+            if ($this->settings->httpRedirectCache() === -1) {
+                // Do not cache.
+                header('Expires: ' . gmdate(CarbonInterface::RFC7231_FORMAT, 0));
+                header('Cache-Control: no-cache, must-revalidate, max-age=0');
+            } elseif ($this->settings->httpRedirectCache()) {
+                // Set cache headers if the cache time is set to a value greater than 0.
+                $expires = now()->addHours($this->settings->httpRedirectCache());
+
+                header('Expires: ' . $expires->toRfc7231String());
+                header('Cache-Control: max-age=' . ($this->settings->httpRedirectCache() * 60 * 60));
+            }
+        }
 
         exit(0);
     }

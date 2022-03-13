@@ -75,4 +75,13 @@ final class Settings extends Model
             return true;
         }
     }
+
+    public static function httpRedirectCache(): int
+    {
+        try {
+            return (int) (new self())->get('http_redirect_cache', 1);
+        } catch (Throwable $exception) {
+            return 1;
+        }
+    }
 }

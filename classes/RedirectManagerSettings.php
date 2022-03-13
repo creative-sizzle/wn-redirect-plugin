@@ -14,11 +14,14 @@ final class RedirectManagerSettings
 
     private bool $relativePathsEnabled;
 
-    public function __construct(bool $loggingEnabled, bool $statisticsEnabled, bool $relativePathsEnabled)
+    private int $httpRedirectCache;
+
+    public function __construct(bool $loggingEnabled, bool $statisticsEnabled, bool $relativePathsEnabled, int $httpRedirectCache)
     {
         $this->loggingEnabled = $loggingEnabled;
         $this->statisticsEnabled = $statisticsEnabled;
         $this->relativePathsEnabled = $relativePathsEnabled;
+        $this->httpRedirectCache = $httpRedirectCache;
     }
 
     public static function createDefault(): RedirectManagerSettings
@@ -26,7 +29,8 @@ final class RedirectManagerSettings
         return new self(
             Settings::isLoggingEnabled(),
             Settings::isStatisticsEnabled(),
-            Settings::isRelativePathsEnabled()
+            Settings::isRelativePathsEnabled(),
+            Settings::httpRedirectCache()
         );
     }
 
@@ -43,5 +47,10 @@ final class RedirectManagerSettings
     public function isRelativePathsEnabled(): bool
     {
         return $this->relativePathsEnabled;
+    }
+
+    public function httpRedirectCache(): int
+    {
+        return $this->httpRedirectCache;
     }
 }

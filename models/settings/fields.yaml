@@ -38,4 +38,15 @@ fields:
         span: left
         type: switch
         default: false
-
+    http_redirect_cache:
+        label: creativesizzle.redirect::lang.settings.http_redirect_cache_label
+        comment: creativesizzle.redirect::lang.settings.http_redirect_cache_comment
+        span: left
+        type: dropdown
+        default: 1
+        options:
+            -1: Never cache
+            1: An hour
+            24: A day
+            168: A week
+            0: Forever

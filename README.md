@@ -1,5 +1,3 @@
-> Currently looking for tester to provide feedback/confirm everything is working as expected before tagging an official release.
-
 <p align="center">
 	<h1 align="center">CreativeSizzle.Redirect</h1>
 </p>

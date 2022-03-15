@@ -8,8 +8,10 @@ plugin:
         Vdlp.Redirect: '<4.0'
 permissions:
     creativesizzle.redirect.access_redirects:
-        tab: 'creativesizzle.redirect::lang.permission.access_redirects.label'
-        label: 'creativesizzle.redirect::lang.permission.access_redirects.tab'
+        label: 'creativesizzle.redirect::lang.permission.access_redirects.label'
+        tab: 'creativesizzle.redirect::lang.permission.access_redirects.tab'
+        roles:
+            - developer
 navigation:
     redirect:
         label: 'creativesizzle.redirect::lang.plugin.name'

@@ -7,8 +7,9 @@ namespace CreativeSizzle\Redirect\Tests;
 use CreativeSizzle\Redirect\Classes\OptionHelper;
 use CreativeSizzle\Redirect\Models\Redirect;
 use PHPUnit_Framework_Exception;
+use System\Tests\Bootstrap\PluginTestCase;
 
-class OptionHelperTest extends \PluginTestCase
+class OptionHelperTest extends PluginTestCase
 {
     /**
      * @throws PHPUnit_Framework_Exception

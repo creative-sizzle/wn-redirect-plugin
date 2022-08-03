@@ -17,8 +17,9 @@ use CreativeSizzle\Redirect\Classes\RedirectRule;
 use CreativeSizzle\Redirect\Models\Redirect;
 use Exception;
 use PHPUnit\Framework\AssertionFailedError;
+use System\Tests\Bootstrap\PluginTestCase;
 
-class RedirectManagerTest extends \PluginTestCase
+class RedirectManagerTest extends PluginTestCase
 {
     /**
      * @throws AssertionFailedError

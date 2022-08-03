@@ -15,7 +15,7 @@ jobs:
     strategy:
       max-parallel: 6
       matrix:
-        phpVersions: ['7.4', '8.0']
+        phpVersions: ['8.0', '8.1']
       fail-fast: false
 
     env:

@@ -4,8 +4,9 @@ namespace CreativeSizzle\Redirect\Tests;
 
 use CreativeSizzle\Redirect\Classes\TesterBase;
 use CreativeSizzle\Redirect\Classes\TesterResult;
+use System\Tests\Bootstrap\PluginTestCase;
 
-class RedirectTesterTest extends \PluginTestCase
+class RedirectTesterTest extends PluginTestCase
 {
     public function test_it_can_accept_curl_resource_or_handle()
     {

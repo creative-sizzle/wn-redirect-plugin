@@ -46,6 +46,7 @@ jobs:
           shopt -u dotglob
           mkdir -p plugins/creativesizzle
           mv redirect-plugin plugins/creativesizzle/redirect
+          composer config --json --merge extra.merge-plugin.include '["plugins/creativesizzle/redirect/composer.json"]'
 
       - name: Install Composer dependencies
         run: |

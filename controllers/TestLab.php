@@ -89,7 +89,7 @@ final class TestLab extends Controller
             $partial = (string) $this->makePartial('tester_result', [
                 'redirect' => $redirect,
                 'testPath' => $this->getTestPath($redirect),
-                'testResults' => $this->getTestResults($redirect),
+                'testResults' => $this->getTestResults($redirect, $this->request->secure()),
             ]);
         } catch (Throwable $e) {
             $partial = (string) $this->makePartial('tester_failed', [
@@ -114,7 +114,7 @@ final class TestLab extends Controller
         return [
             '#testerResult'.$redirect->getKey() => $this->makePartial(
                 'tester_result_items',
-                $this->getTestResults($redirect)
+                $this->getTestResults($redirect, $this->request->secure())
             ),
         ];
     }
@@ -150,16 +150,16 @@ final class TestLab extends Controller
         return $testPath;
     }
 
-    public function getTestResults(Redirect $redirect): array
+    public function getTestResults(Redirect $redirect, bool $secure = true): array
     {
         $testPath = $this->getTestPath($redirect);
 
         return [
-            'maxRedirectsResult' => (new Testers\RedirectLoop($testPath))->execute(),
-            'matchedRedirectResult' => (new Testers\RedirectMatch($testPath))->execute(),
-            'responseCodeResult' => (new Testers\ResponseCode($testPath))->execute(),
-            'redirectCountResult' => (new Testers\RedirectCount($testPath))->execute(),
-            'finalDestinationResult' => (new Testers\RedirectFinalDestination($testPath))->execute(),
+            'maxRedirectsResult' => (new Testers\RedirectLoop($testPath, $secure))->execute(),
+            'matchedRedirectResult' => (new Testers\RedirectMatch($testPath, $secure))->execute(),
+            'responseCodeResult' => (new Testers\ResponseCode($testPath, $secure))->execute(),
+            'redirectCountResult' => (new Testers\RedirectCount($testPath, $secure))->execute(),
+            'finalDestinationResult' => (new Testers\RedirectFinalDestination($testPath, $secure))->execute(),
         ];
     }
 

@@ -65,7 +65,7 @@ class SparklineController extends Controller
         });
 
         return response()
-            ->make(base64_decode($imageData), 200, [
+            ->make(base64_decode($imageData, true), 200, [
                 'Content-Type' => 'image/png',
                 'Expires' => now()->addHour()->toRfc7231String(),
                 'Content-Disposition' => 'inline; filename='.$cacheKey.'.png',

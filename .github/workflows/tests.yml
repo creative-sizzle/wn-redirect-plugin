@@ -56,5 +56,4 @@ jobs:
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: |
-          cd plugins/creativesizzle/redirect
-          ../../../vendor/bin/phpunit
+          php artisan winter:test

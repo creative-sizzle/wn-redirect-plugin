@@ -56,4 +56,4 @@ jobs:
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: |
-          php artisan winter:test
+          php artisan winter:test -p CreativeSizzle.Redirect

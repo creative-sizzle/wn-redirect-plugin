@@ -37,6 +37,14 @@ class RenameTables extends Migration
                 'item' => 'creativesizzle_redirect_settings',
             ]);
 
+        // Migrate system request logs columns
+        if (Schema::hasColumn('system_request_logs', 'vdlp_redirect_redirect_id')) {
+            Schema::table('system_request_logs', function ($table) {
+                $table->renameColumn('vdlp_redirect_redirect_id', 'creativesizzle_redirect_redirect_id');
+                $table->renameIndex('vdlp_redirect_request_log', 'creativesizzle_redirect_request_log');
+            });
+        }
+
         // Migrate backend user permissions
         $this->migrateUserPermissions();
 
@@ -62,6 +70,14 @@ class RenameTables extends Migration
             ->update([
                 'item' => 'vdlp_redirect_settings',
             ]);
+
+        // Migrate system request logs columns
+        if (Schema::hasColumn('system_request_logs', 'creativesizzle_redirect_redirect_id')) {
+            Schema::table('system_request_logs', function ($table) {
+                $table->renameColumn('creativesizzle_redirect_redirect_id', 'vdlp_redirect_redirect_id');
+                $table->renameIndex('creativesizzle_redirect_request_log', 'vdlp_redirect_request_log');
+            });
+        }
     }
 
     protected function updateIndexNames(string $from, string $to, string $tableName): void

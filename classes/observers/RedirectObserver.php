@@ -33,7 +33,7 @@ final class RedirectObserver
     }
 
     /**
-     * @param Models\Redirect $model
+     * @param  Models\Redirect  $model
      * @return void
      */
     public function created(Models\Redirect $model): void
@@ -50,7 +50,7 @@ final class RedirectObserver
     }
 
     /**
-     * @param Models\Redirect $model
+     * @param  Models\Redirect  $model
      * @return void
      */
     public function updated(Models\Redirect $model): void
@@ -67,7 +67,7 @@ final class RedirectObserver
     }
 
     /**
-     * @param Models\Redirect $model
+     * @param  Models\Redirect  $model
      * @return void
      */
     public function deleted(Models\Redirect $model): void

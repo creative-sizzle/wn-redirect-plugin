@@ -29,14 +29,14 @@ final class OptionHelper
 
     public static function getCmsPageOptions(): array
     {
-        return ['' => '-- ' . e(trans('creativesizzle.redirect::lang.redirect.none')) . ' --' ] + Page::getNameList();
+        return ['' => '-- '.e(trans('creativesizzle.redirect::lang.redirect.none')).' --'] + Page::getNameList();
     }
 
     public static function getStaticPageOptions(): array
     {
-        $options = ['' => '-- ' . e(trans('creativesizzle.redirect::lang.redirect.none')) . ' --' ];
+        $options = ['' => '-- '.e(trans('creativesizzle.redirect::lang.redirect.none')).' --'];
 
-        $hasPagesPlugin = PluginManager::instance()->hasPlugin('Winter.Pages');
+        $hasPagesPlugin = PluginManager::instance()->exists('Winter.Pages');
 
         if (! $hasPagesPlugin) {
             return $options;

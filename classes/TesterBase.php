@@ -61,6 +61,7 @@ abstract class TesterBase implements TesterInterface
 
     /**
      * @param resource|\CurlHandle
+     *
      * @throws InvalidArgumentException
      */
     protected function setDefaultCurlOptions($curlHandle): void
@@ -101,7 +102,8 @@ abstract class TesterBase implements TesterInterface
         return $manager->setSettings(new RedirectManagerSettings(
             false,
             false,
-            Settings::isRelativePathsEnabled()
+            Settings::isRelativePathsEnabled(),
+            Settings::httpRedirectCache()
         ));
     }
 }

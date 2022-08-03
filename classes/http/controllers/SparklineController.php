@@ -32,18 +32,18 @@ class SparklineController extends Controller
             ];
         }
 
-        $cacheKey = sprintf('creativesizzle_redirect_%s_%d', $preset, (int)$redirectId);
+        $cacheKey = sprintf('creativesizzle_redirect_%s_%d', $preset, $redirectId);
 
         $data = cache()->remember($cacheKey, 5 * 60, static function () use ($redirectId, $properties) {
             return (new StatisticsHelper())->getRedirectHitsSparkline($redirectId, false, $properties['days']);
         });
 
-        $crawlerData = cache()->remember($cacheKey . '_crawler', 5 * 60, static function () use ($redirectId, $properties) {
+        $crawlerData = cache()->remember($cacheKey.'_crawler', 5 * 60, static function () use ($redirectId, $properties) {
             return (new StatisticsHelper())->getRedirectHitsSparkline($redirectId, true, $properties['days']);
         });
 
         // TODO: Generate fallback image data if generating image fails.
-        $imageData = cache()->remember($cacheKey . '_image', 5 * 60, static function () use ($data, $crawlerData, $properties) {
+        $imageData = cache()->remember($cacheKey.'_image', 5 * 60, static function () use ($data, $crawlerData, $properties) {
             $primaryColor = BrandSetting::get('primary_color', BrandSetting::PRIMARY_COLOR);
             $secondaryColor = BrandSetting::get('secondary_color', BrandSetting::SECONDARY_COLOR);
 
@@ -68,7 +68,7 @@ class SparklineController extends Controller
             ->make(base64_decode($imageData), 200, [
                 'Content-Type' => 'image/png',
                 'Expires' => now()->addHour()->toRfc7231String(),
-                'Content-Disposition' => 'inline; filename=' . $cacheKey . '.png',
+                'Content-Disposition' => 'inline; filename='.$cacheKey.'.png',
                 'Accept-Ranges' => 'none',
             ]);
     }

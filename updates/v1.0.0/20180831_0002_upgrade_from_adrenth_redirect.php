@@ -63,9 +63,9 @@ class UpgradeFromAdrenthRedirect extends Migration
                 // language=ignore
                 $database->statement(
                     'INSERT INTO `system_settings` '
-                    . "SELECT NULL, 'vdlp_redirect_settings', `value` "
-                    . 'FROM `system_settings` '
-                    . "WHERE `item` = 'adrenth_redirect_settings';"
+                    ."SELECT NULL, 'vdlp_redirect_settings', `value` "
+                    .'FROM `system_settings` '
+                    ."WHERE `item` = 'adrenth_redirect_settings';"
                 );
 
                 $this->enableForeignKeyCheck($database);
@@ -84,7 +84,7 @@ class UpgradeFromAdrenthRedirect extends Migration
     }
 
     /**
-     * @param DatabaseManager $database
+     * @param  DatabaseManager  $database
      * @return void
      */
     private function disableForeignKeyCheck(DatabaseManager $database): void
@@ -103,7 +103,7 @@ class UpgradeFromAdrenthRedirect extends Migration
     }
 
     /**
-     * @param DatabaseManager $database
+     * @param  DatabaseManager  $database
      * @return void
      */
     private function enableForeignKeyCheck(DatabaseManager $database): void

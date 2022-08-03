@@ -20,8 +20,8 @@ class RenameTables extends Migration
     public function up()
     {
         foreach (self::TABLES as $tableName) {
-            $from = 'vdlp_redirect_' . $tableName;
-            $to = 'creativesizzle_redirect_' . $tableName;
+            $from = 'vdlp_redirect_'.$tableName;
+            $to = 'creativesizzle_redirect_'.$tableName;
 
             if (Schema::hasTable($from) && ! Schema::hasTable($to)) {
                 Schema::rename($from, $to);
@@ -47,8 +47,8 @@ class RenameTables extends Migration
     public function down()
     {
         foreach (self::TABLES as $tableName) {
-            $from = 'creativesizzle_redirect_' . $tableName;
-            $to = 'vdlp_redirect_' . $tableName;
+            $from = 'creativesizzle_redirect_'.$tableName;
+            $to = 'vdlp_redirect_'.$tableName;
 
             if (Schema::hasTable($from) && ! Schema::hasTable($to)) {
                 Schema::rename($from, $to);
@@ -95,8 +95,8 @@ class RenameTables extends Migration
             }
 
             $user->setPermissionsAttribute(json_encode($permissions + [
-                    'creativesizzle.redirect.access_redirects' => $permissions['vdlp.redirect.access_redirects'],
-                ]));
+                'creativesizzle.redirect.access_redirects' => $permissions['vdlp.redirect.access_redirects'],
+            ]));
 
             $user->save();
         }
@@ -115,8 +115,8 @@ class RenameTables extends Migration
             }
 
             $role->setPermissionsAttribute(json_encode($permissions + [
-                    'creativesizzle.redirect.access_redirects' => $permissions['vdlp.redirect.access_redirects'],
-                ]));
+                'creativesizzle.redirect.access_redirects' => $permissions['vdlp.redirect.access_redirects'],
+            ]));
 
             $role->save();
         }

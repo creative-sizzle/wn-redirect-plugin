@@ -9,7 +9,7 @@ use Throwable;
 
 final class SettingsObserver
 {
-    private $publishManager;
+    private PublishManagerInterface $publishManager;
 
     public function __construct(PublishManagerInterface $publishManager)
     {

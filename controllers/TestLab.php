@@ -112,7 +112,7 @@ final class TestLab extends Controller
         $this->flash->success(trans('creativesizzle.redirect::lang.test_lab.flash_test_executed'));
 
         return [
-            '#testerResult' . $redirect->getKey() => $this->makePartial(
+            '#testerResult'.$redirect->getKey() => $this->makePartial(
                 'tester_result_items',
                 $this->getTestResults($redirect)
             ),

@@ -43,7 +43,7 @@ class CreateTables extends Migration
                     $database->statement($statement);
                 } catch (Throwable $e) {
                     resolve(LoggerInterface::class)
-                        ->error(sprintf('CreativeSizzle.Redirect: Unable to drop index: %s'. $e->getMessage()));
+                        ->error(sprintf('CreativeSizzle.Redirect: Unable to drop index: %s'.$e->getMessage()));
 
                     continue;
                 }

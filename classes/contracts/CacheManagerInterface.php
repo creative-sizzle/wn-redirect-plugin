@@ -11,7 +11,7 @@ interface CacheManagerInterface
     /**
      * Get item from cache storage.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     public function get(string $key);
@@ -19,7 +19,7 @@ interface CacheManagerInterface
     /**
      * Forget item from cache storage.
      *
-     * @param string $key
+     * @param  string  $key
      * @return bool
      */
     public function forget(string $key): bool;
@@ -27,7 +27,7 @@ interface CacheManagerInterface
     /**
      * Checks if items exists in cache storage.
      *
-     * @param string $key
+     * @param  string  $key
      * @return bool
      */
     public function has(string $key): bool;
@@ -35,8 +35,8 @@ interface CacheManagerInterface
     /**
      * Generate proper cache key.
      *
-     * @param string $requestPath
-     * @param string $scheme
+     * @param  string  $requestPath
+     * @param  string  $scheme
      * @return string
      */
     public function cacheKey(string $requestPath, string $scheme): string;
@@ -51,7 +51,7 @@ interface CacheManagerInterface
     /**
      * Put Redirect Rules to cache storage.
      *
-     * @param array $redirectRules
+     * @param  array  $redirectRules
      * @return void
      */
     public function putRedirectRules(array $redirectRules): void;
@@ -66,8 +66,8 @@ interface CacheManagerInterface
     /**
      * Put the matched rule to cache (null or RedirectRule).
      *
-     * @param string $cacheKey
-     * @param RedirectRule|null $matchedRule
+     * @param  string  $cacheKey
+     * @param  RedirectRule|null  $matchedRule
      * @return RedirectRule|null
      */
     public function putMatch(string $cacheKey, ?RedirectRule $matchedRule = null): ?RedirectRule;

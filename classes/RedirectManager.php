@@ -92,6 +92,7 @@ final class RedirectManager implements RedirectManagerInterface
 
     /**
      * {@inheritDoc}
+     *
      * @throws Exceptions\InvalidScheme
      * @throws Exceptions\NoMatchForRequest
      * @throws Exceptions\UnableToLoadRules
@@ -179,20 +180,20 @@ final class RedirectManager implements RedirectManagerInterface
 
         header(self::$headers[$statusCode], true, $statusCode);
         header('X-Redirect-By: CreativeSizzle.Redirect');
-        header('X-Redirect-Id: ' . $rule->getId());
-        header('Location: ' . $toUrl, true, $statusCode);
+        header('X-Redirect-Id: '.$rule->getId());
+        header('Location: '.$toUrl, true, $statusCode);
 
         if ($statusCode === 301) {
             if ($this->settings->httpRedirectCache() === -1) {
                 // Do not cache.
-                header('Expires: ' . gmdate(CarbonInterface::RFC7231_FORMAT, 0));
+                header('Expires: '.gmdate(CarbonInterface::RFC7231_FORMAT, 0));
                 header('Cache-Control: no-cache, must-revalidate, max-age=0');
             } elseif ($this->settings->httpRedirectCache()) {
                 // Set cache headers if the cache time is set to a value greater than 0.
                 $expires = now()->addHours($this->settings->httpRedirectCache());
 
-                header('Expires: ' . $expires->toRfc7231String());
-                header('Cache-Control: max-age=' . ($this->settings->httpRedirectCache() * 60 * 60));
+                header('Expires: '.$expires->toRfc7231String());
+                header('Cache-Control: max-age='.($this->settings->httpRedirectCache() * 60 * 60));
             }
         }
 
@@ -217,7 +218,7 @@ final class RedirectManager implements RedirectManagerInterface
                     && strncmp($toUrl, 'http://', 7) !== 0
                     && strncmp($toUrl, 'https://', 8) !== 0
                 ) {
-                    $toUrl = $this->basePath . '/' . $toUrl;
+                    $toUrl = $this->basePath.'/'.$toUrl;
                 }
 
                 if (strncmp($toUrl, '/', 1) === 0) {
@@ -248,7 +249,7 @@ final class RedirectManager implements RedirectManagerInterface
             && $rule->getToScheme() !== Models\Redirect::SCHEME_AUTO
             && (strncmp($toUrl, 'http://', 7) === 0 || strncmp($toUrl, 'https://', 8) === 0)
         ) {
-            $toUrl = str_replace(['https://', 'http://'], $rule->getToScheme() . '://', $toUrl);
+            $toUrl = str_replace(['https://', 'http://'], $rule->getToScheme().'://', $toUrl);
         }
 
         return $toUrl;
@@ -312,7 +313,7 @@ final class RedirectManager implements RedirectManagerInterface
 
         if ($rule->isRegexMatchType() && count($pregMatchMatches) > 0) {
             $search = array_map(
-                static fn ($key): string => '{' . $key . '}',
+                static fn ($key): string => '{'.$key.'}',
                 array_keys($pregMatchMatches)
             );
 
@@ -478,7 +479,7 @@ final class RedirectManager implements RedirectManagerInterface
             $items = array_except($match, '_route');
 
             foreach ($items as $key => $value) {
-                $placeholder = '{' . $key . '}';
+                $placeholder = '{'.$key.'}';
                 $replacement = $this->findReplacementForPlaceholder($rule, $placeholder);
                 $items[$placeholder] = $replacement ?? $value;
                 unset($items[$key]);
@@ -626,7 +627,7 @@ final class RedirectManager implements RedirectManagerInterface
         }
 
         try {
-            $fromToHash = sha1($requestUri . $toUrl);
+            $fromToHash = sha1($requestUri.$toUrl);
 
             Models\RedirectLog::query()->updateOrCreate([
                 'redirect_id' => $rule->getId(),

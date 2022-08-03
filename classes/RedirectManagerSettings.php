@@ -16,8 +16,12 @@ final class RedirectManagerSettings
 
     private int $httpRedirectCache;
 
-    public function __construct(bool $loggingEnabled, bool $statisticsEnabled, bool $relativePathsEnabled, int $httpRedirectCache)
-    {
+    public function __construct(
+        bool $loggingEnabled,
+        bool $statisticsEnabled,
+        bool $relativePathsEnabled,
+        int $httpRedirectCache,
+    ) {
         $this->loggingEnabled = $loggingEnabled;
         $this->statisticsEnabled = $statisticsEnabled;
         $this->relativePathsEnabled = $relativePathsEnabled;

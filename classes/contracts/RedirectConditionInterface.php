@@ -41,8 +41,8 @@ interface RedirectConditionInterface
      * When a condition passes the redirect will take place, otherwise the
      * request will be handled as any other.
      *
-     * @param RedirectRule $rule
-     * @param string $requestUri
+     * @param  RedirectRule  $rule
+     * @param  string  $requestUri
      * @return bool
      */
     public function passes(RedirectRule $rule, string $requestUri): bool;

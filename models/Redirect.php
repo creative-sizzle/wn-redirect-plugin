@@ -4,23 +4,31 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Models;
 
-use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use CreativeSizzle\Redirect\Classes\OptionHelper;
 use Exception;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
 use Illuminate\Validation\Validator;
 use System\Models\RequestLog;
+use Winter\Storm\Argon\Argon;
 use Winter\Storm\Database\Builder;
 use Winter\Storm\Database\Model;
-use Winter\Storm\Database\Relations\HasMany;
 use Winter\Storm\Database\Traits\Sortable;
 use Winter\Storm\Database\Traits\Validation;
+use Winter\Storm\Support\Facades\Event;
 
 /**
+ * @property string $match_type
+ * @property int $status_code
+ * @property string $target_type
+ * @property Argon|null $from_date
+ * @property Argon|null $to_date
+ * @property Argon|null $last_used_at
+ *
  * @method static Redirect|Builder enabled()
  * @method static Redirect|Builder testLabEnabled()
+ *
  * @property RequestLog|null $systemRequestLog
  */
 final class Redirect extends Model
@@ -28,25 +36,31 @@ final class Redirect extends Model
     use Sortable {
         Sortable::setSortableOrder as traitSetSortableOrder;
     }
-
     use Validation {
         Validation::makeValidator as traitMakeValidator;
     }
 
     // Types
     public const TYPE_EXACT = 'exact';
+
     public const TYPE_PLACEHOLDERS = 'placeholders';
+
     public const TYPE_REGEX = 'regex';
 
     // Target Types
     public const TARGET_TYPE_PATH_URL = 'path_or_url';
+
     public const TARGET_TYPE_CMS_PAGE = 'cms_page';
+
     public const TARGET_TYPE_STATIC_PAGE = 'static_page';
+
     public const TARGET_TYPE_NONE = 'none';
 
     // Scheme options
     public const SCHEME_HTTP = 'http';
+
     public const SCHEME_HTTPS = 'https';
+
     public const SCHEME_AUTO = 'auto';
 
     public static array $types = [
@@ -132,7 +146,7 @@ final class Redirect extends Model
         'systemRequestLog' => [
             RequestLog::class,
             'key' => 'id',
-            'otherKey' => 'vdlp_redirect_redirect_id',
+            'otherKey' => 'creativesizzle_redirect_redirect_id',
         ],
     ];
 
@@ -151,7 +165,14 @@ final class Redirect extends Model
         'is_enabled' => 'boolean',
         'test_lab' => 'boolean',
         'system' => 'boolean',
+        'status_code' => 'integer',
+        'sort_order' => 'integer',
     ];
+
+    protected function afterSave()
+    {
+        Event::fire('creativesizzle.redirect.afterRedirectSave', ['redirect' => $this]);
+    }
 
     protected static function makeValidator(
         array $data,
@@ -195,22 +216,17 @@ final class Redirect extends Model
 
     public function isMatchTypeExact(): bool
     {
-        return $this->attributes['match_type'] === self::TYPE_EXACT;
+        return $this->match_type === self::TYPE_EXACT;
     }
 
     public function isMatchTypePlaceholders(): bool
     {
-        return $this->attributes['match_type'] === self::TYPE_PLACEHOLDERS;
+        return $this->match_type === self::TYPE_PLACEHOLDERS;
     }
 
     public function isMatchTypeRegex(): bool
     {
-        return $this->attributes['match_type'] === self::TYPE_REGEX;
-    }
-
-    public function clients(): HasMany
-    {
-        return $this->hasMany(Client::class);
+        return $this->match_type === self::TYPE_REGEX;
     }
 
     public function setSortableOrder($itemIds, array $itemOrders = null): void
@@ -219,9 +235,7 @@ final class Redirect extends Model
             return (int) $itemId;
         }, Arr::wrap($itemIds));
 
-        /** @var Dispatcher $dispatcher */
-        $dispatcher = resolve(Dispatcher::class);
-        $dispatcher->dispatch('creativesizzle.redirect.changed', ['redirectIds' => $itemIds]);
+        Event::fire('creativesizzle.redirect.changed', ['redirectIds' => $itemIds]);
 
         $this->traitSetSortableOrder($itemIds, $itemOrders);
     }
@@ -231,27 +245,22 @@ final class Redirect extends Model
         $this->attributes['from_url'] = urldecode((string) $value);
     }
 
-    public function setSortOrderAttribute($value): void
-    {
-        $this->attributes['sort_order'] = (int) $value;
-    }
-
-    public function getFromDateAttribute($value): ?Carbon
+    public function getFromDateAttribute($value): ?Argon
     {
         if ($value === '' || $value === null) {
             return null;
         }
 
-        return new Carbon($value);
+        return Argon::parse($value);
     }
 
-    public function getToDateAttribute($value): ?Carbon
+    public function getToDateAttribute($value): ?Argon
     {
         if ($value === '' || $value === null) {
             return null;
         }
 
-        return new Carbon($value);
+        return Argon::parse($value);
     }
 
     public function getMatchTypeOptions(): array
@@ -267,7 +276,7 @@ final class Redirect extends Model
 
     public function getTargetTypeOptions(): array
     {
-        return OptionHelper::getTargetTypeOptions((int) $this->getAttribute('status_code'));
+        return OptionHelper::getTargetTypeOptions($this->status_code);
     }
 
     public function getCmsPageOptions(): array
@@ -326,62 +335,40 @@ final class Redirect extends Model
      */
     public function beforeSave(): void
     {
-        parent::beforeSave();
-
-        switch ($this->getAttribute('target_type')) {
-            case self::TARGET_TYPE_NONE:
-                $this->setAttribute('to_url', null);
-                $this->setAttribute('cms_page', null);
-                $this->setAttribute('static_page', null);
-                $this->setAttribute('to_scheme', self::SCHEME_AUTO);
-
-                break;
-
-            case self::TARGET_TYPE_PATH_URL:
-                $this->setAttribute('cms_page', null);
-                $this->setAttribute('static_page', null);
-
-                break;
-
-            case self::TARGET_TYPE_CMS_PAGE:
-                $this->setAttribute('to_url', null);
-                $this->setAttribute('static_page', null);
-
-                break;
-
-            case self::TARGET_TYPE_STATIC_PAGE:
-                $this->setAttribute('to_url', null);
-                $this->setAttribute('cms_page', null);
-
-                break;
-
-        }
+        match ($this->target_type) {
+            self::TARGET_TYPE_NONE => $this->forceFill([
+                'to_url' => null,
+                'cms_page' => null,
+                'static_page' => null,
+                'to_scheme' => self::SCHEME_AUTO,
+            ]),
+            self::TARGET_TYPE_PATH_URL => $this->forceFill([
+                'cms_page' => null,
+                'static_page' => null,
+            ]),
+            self::TARGET_TYPE_CMS_PAGE => $this->forceFill([
+                'to_url' => null,
+                'static_page' => null,
+            ]),
+            self::TARGET_TYPE_STATIC_PAGE => $this->forceFill([
+                'to_url' => null,
+                'cms_page' => null,
+            ]),
+        };
     }
 
-    public function isActiveOnDate(Carbon $date): bool
+    public function isActiveOnDate(CarbonInterface $date): bool
     {
-        if (
-            $this->getAttribute('from_date') instanceof Carbon
-            && $this->getAttribute('to_date') instanceof Carbon
-        ) {
-            return $date->between(
-                $this->getAttribute('from_date'),
-                $this->getAttribute('to_date')
-            );
+        if ($this->from_date && $this->to_date) {
+            return $date->between($this->from_date, $this->to_date);
         }
 
-        if (
-            $this->getAttribute('from_date') instanceof Carbon
-            && $this->getAttribute('to_date') === null
-        ) {
-            return $date->gte($this->getAttribute('from_date'));
+        if ($this->from_date && $this->to_date === null) {
+            return $date->gte($this->from_date);
         }
 
-        if (
-            $this->getAttribute('to_date') instanceof Carbon
-            && $this->getAttribute('from_date') === null
-        ) {
-            return $date->lte($this->getAttribute('to_date'));
+        if ($this->to_date && $this->from_date === null) {
+            return $date->lte($this->to_date);
         }
 
         return true;

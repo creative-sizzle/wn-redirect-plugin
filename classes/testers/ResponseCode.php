@@ -78,14 +78,14 @@ final class ResponseCode extends TesterBase
             return new TesterResult(
                 false,
                 e(trans('creativesizzle.redirect::lang.test_lab.response_http_code_should_be'))
-                . ' '
-                . implode(', ', array_keys(Redirect::$statusCodes))
+                .' '
+                .implode(', ', array_keys(Redirect::$statusCodes))
             );
         }
 
         return new TesterResult(
             true,
-            e(trans('creativesizzle.redirect::lang.test_lab.response_http_code')) . ': ' . $statusCode
+            e(trans('creativesizzle.redirect::lang.test_lab.response_http_code')).': '.$statusCode
         );
     }
 }

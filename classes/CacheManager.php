@@ -15,7 +15,9 @@ use Throwable;
 final class CacheManager implements CacheManagerInterface
 {
     private const CACHE_TAG = 'creativesizzle_redirect';
+
     private const CACHE_TAG_RULES = 'creativesizzle_redirect_rules';
+
     private const CACHE_TAG_MATCHES = 'creativesizzle_redirect_matches';
 
     private Repository $cache;
@@ -50,7 +52,7 @@ final class CacheManager implements CacheManagerInterface
     {
         // Most caching backend have no limits on key lengths.
         // But to be sure I chose to MD5 hash the cache key.
-        return md5($requestPath . $scheme);
+        return md5($requestPath.$scheme);
     }
 
     public function flush(): void

@@ -7,8 +7,8 @@ namespace CreativeSizzle\Redirect\Classes\Util;
 class Number
 {
     /**
-     * @param float|int $value
-     * @param int $style Define the type of the formatter.
+     * @param  float|int  $value
+     * @param  int  $style Define the type of the formatter.
      * @return string
      */
     public static function format($value, int $style = \NumberFormatter::DEFAULT_STYLE): string
@@ -18,7 +18,7 @@ class Number
     }
 
     /**
-     * @param float|int $value
+     * @param  float|int  $value
      * @return string
      */
     public static function formatDecimal($value): string

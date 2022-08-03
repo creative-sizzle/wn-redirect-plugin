@@ -15,8 +15,8 @@ class RefactorRedirectsLogTable extends Migration
             Schema::dropIfExists('vdlp_redirect_redirect_logs');
             Schema::enableForeignKeyConstraints();
         } catch (Throwable $e) {
-            echo "Database table `vdlp_redirect_redirect_logs` could not be removed.", PHP_EOL;
-            echo "Please remove it manually and try running the database migrations again.", PHP_EOL;
+            echo 'Database table `vdlp_redirect_redirect_logs` could not be removed.', PHP_EOL;
+            echo 'Please remove it manually and try running the database migrations again.', PHP_EOL;
 
             return;
         }
@@ -58,8 +58,8 @@ class RefactorRedirectsLogTable extends Migration
             Schema::dropIfExists('vdlp_redirect_redirect_logs');
             Schema::enableForeignKeyConstraints();
         } catch (Throwable $e) {
-            echo "Database table `vdlp_redirect_redirect_logs` could not be removed.", PHP_EOL;
-            echo "Please remove it manually and try running the database migrations again.", PHP_EOL;
+            echo 'Database table `vdlp_redirect_redirect_logs` could not be removed.', PHP_EOL;
+            echo 'Please remove it manually and try running the database migrations again.', PHP_EOL;
 
             return;
         }

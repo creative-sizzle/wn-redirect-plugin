@@ -11,6 +11,6 @@ class UnableToLoadRules extends RuntimeException
 {
     public static function withMessage(string $message, ?Throwable $previous = null): self
     {
-        return new self('Error while reading rules (' . $message . ')', 0, $previous);
+        return new self('Error while reading rules ('.$message.')', 0, $previous);
     }
 }

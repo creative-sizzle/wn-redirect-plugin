@@ -38,7 +38,7 @@ final class CreateRedirect extends ReportWidgetBase
     {
         $widgetConfig = $this->makeConfig('~/plugins/creativesizzle/redirect/reportwidgets/createredirect/fields.yaml');
         $widgetConfig->model = new Redirect();
-        $widgetConfig->alias = $this->alias . 'Redirect';
+        $widgetConfig->alias = $this->alias.'Redirect';
 
         $this->vars['formWidget'] = $this->makeWidget(Form::class, $widgetConfig);
 
@@ -59,6 +59,6 @@ final class CreateRedirect extends ReportWidgetBase
             'status_code' => 302,
         ]);
 
-        return $this->redirect->to(Backend::url('creativesizzle/redirect/redirects/update/' . $redirect->getKey()));
+        return $this->redirect->to(Backend::url('creativesizzle/redirect/redirects/update/'.$redirect->getKey()));
     }
 }

@@ -31,7 +31,7 @@ final class RedirectMatch extends TesterBase
         $message = sprintf(
             '%s <a href="%s" target="_blank">%s</a>.',
             e(trans('creativesizzle.redirect::lang.test_lab.matched')),
-            Backend::url('creativesizzle/redirect/redirects/update/' . $match->getId()),
+            Backend::url('creativesizzle/redirect/redirects/update/'.$match->getId()),
             e(trans('creativesizzle.redirect::lang.test_lab.redirect'))
         );
 

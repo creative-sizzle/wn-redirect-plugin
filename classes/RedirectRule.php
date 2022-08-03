@@ -80,7 +80,7 @@ final class RedirectRule
             try {
                 $date = Carbon::createFromFormat(
                     'Y-m-d H:i:s',
-                    substr($attributes['from_date'], 0, 10) . ' 00:00:00'
+                    substr($attributes['from_date'], 0, 10).' 00:00:00'
                 );
 
                 $this->fromDate = $date === false ? null : $date;
@@ -98,7 +98,7 @@ final class RedirectRule
             try {
                 $date = Carbon::createFromFormat(
                     'Y-m-d H:i:s',
-                    substr($attributes['to_date'], 0, 10) . ' 00:00:00'
+                    substr($attributes['to_date'], 0, 10).' 00:00:00'
                 );
 
                 $this->toDate = $date === false ? null : $date;

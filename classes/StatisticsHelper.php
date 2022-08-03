@@ -34,9 +34,9 @@ final class StatisticsHelper
     /**
      * Fetch the number of redirects for the month (defaults to current month).
      *
-     * @param int|null $redirectId
-     * @param int|null $month
-     * @param int|null $year
+     * @param  int|null  $redirectId
+     * @param  int|null  $month
+     * @param  int|null  $year
      * @return int
      */
     public function getTotalForMonth(int $month, int $year, ?int $redirectId = null): int
@@ -98,7 +98,7 @@ final class StatisticsHelper
         $options = [];
 
         foreach ($data as $monthYear) {
-            $options[$monthYear['month'] . '_' . $monthYear['year']]
+            $options[$monthYear['month'].'_'.$monthYear['year']]
                 = Carbon::createFromDate($monthYear['year'], $monthYear['month'])->isoFormat('MMMM Y');
         }
 

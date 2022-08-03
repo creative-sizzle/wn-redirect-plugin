@@ -97,7 +97,7 @@ final class Statistics extends Controller
             ? $brandSettings->get('primary_color')
             : $brandSettings->get('secondary_color');
 
-        [$r, $g, $b] = sscanf($color, "#%02x%02x%02x");
+        [$r, $g, $b] = sscanf($color, '#%02x%02x%02x');
 
         return [
             'label' => $crawler
@@ -118,7 +118,7 @@ final class Statistics extends Controller
     {
         $today = Carbon::today();
 
-        $postValue = post('period_month_year', $today->month . '_' . $today->year);
+        $postValue = post('period_month_year', $today->month.'_'.$today->year);
         [$month, $year] = array_map('intval', explode('_', $postValue));
 
         $date = Carbon::createFromDate($year, $month)->toImmutable();

@@ -153,9 +153,9 @@ final class Plugin extends PluginBase
                 $textLength = strlen($value);
 
                 if ($textLength > $maxChars) {
-                    return '<span title="' . e($value) . '">'
-                        . e(substr_replace($value, '...', $maxChars / 2, $textLength - $maxChars))
-                        . '</span>';
+                    return '<span title="'.e($value).'">'
+                        .e(substr_replace($value, '...', $maxChars / 2, $textLength - $maxChars))
+                        .'</span>';
                 }
 
                 return e($value);

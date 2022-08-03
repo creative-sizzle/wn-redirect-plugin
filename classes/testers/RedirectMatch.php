@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace CreativeSizzle\Redirect\Classes\Testers;
 
-use Backend;
+use Backend\Facades\Backend;
 use CreativeSizzle\Redirect\Classes\Exceptions\InvalidScheme;
 use CreativeSizzle\Redirect\Classes\Exceptions\NoMatchForRequest;
 use CreativeSizzle\Redirect\Classes\TesterBase;
 use CreativeSizzle\Redirect\Classes\TesterResult;
-use Request;
+use CreativeSizzle\Redirect\Models\Redirect;
 
 final class RedirectMatch extends TesterBase
 {
@@ -17,9 +17,11 @@ final class RedirectMatch extends TesterBase
     {
         $manager = $this->getRedirectManager();
 
-        // TODO: Add scheme.
         try {
-            $match = $manager->match($this->testPath, Request::getScheme());
+            $match = $manager->match(
+                $this->testPath,
+                $this->secure ? Redirect::SCHEME_HTTPS : Redirect::SCHEME_HTTP
+            );
         } catch (NoMatchForRequest | InvalidScheme $e) {
             $match = false;
         }

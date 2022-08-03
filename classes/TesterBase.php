@@ -26,10 +26,14 @@ abstract class TesterBase implements TesterInterface
 
     protected string $testPath;
 
-    public function __construct(string $testPath)
+    protected bool $secure = true;
+
+    public function __construct(string $testPath, bool $secure = true)
     {
         $this->testPath = $testPath;
-        $this->testUrl = url($testPath);
+        $this->secure = $secure;
+
+        $this->testUrl = url($testPath, [], $this->secure);
     }
 
     final public function execute(): TesterResult
